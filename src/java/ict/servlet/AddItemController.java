@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 @WebServlet(name = "ItemController", urlPatterns = {"/additem"})
-public class ItemController extends HttpServlet {
+public class AddItemController extends HttpServlet {
     private ItemDb db;
     
     public void init (){
@@ -33,7 +33,7 @@ public class ItemController extends HttpServlet {
         String descriptions = request.getParameter("descriptions");
         String photo = request.getParameter("photo");
         if ("additem".equals(action)) {
-            db.addItem(ItemId, Item_name, price, category, descriptions, photo);
+            db.addItem(ItemId, Item_name, price, category, descriptions);
         } else {
             response.sendError(HttpServletResponse.SC_NOT_IMPLEMENTED);
         }

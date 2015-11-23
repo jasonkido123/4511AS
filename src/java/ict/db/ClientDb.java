@@ -3,25 +3,16 @@ package ict.db;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- *
- * @author chanyan
- */
 public class ClientDb {
     private String url ="";
     private String username ="";
     private String password ="";
-    //private dbGetConnection dbc = new dbGetConnection(url,username,password);
+    
     public ClientDb(String url,String username,String password) {
         this.url = url;
         this.username=username;
@@ -68,5 +59,71 @@ public class ClientDb {
         }catch(IOException e){
             e.printStackTrace();
         }
-    } 
+    }
+    
+    public boolean isValidUser(String login_ac, String login_pw){
+        Connection cnnct = null; 
+        PreparedStatement pStmnt = null;
+        boolean isValid = false;
+        try{
+            cnnct = getConnection();
+            //1. getb Connection
+            String preQueryStatement = "SELECT * FROM client WHERE login_ac =  ? and  login_pw =  ?";
+            //2. get the prepare Statement
+            pStmnt = cnnct.prepareStatement(preQueryStatement);
+            //3. update the placeholders with username and pwd
+            pStmnt.setString(1, login_ac);
+            pStmnt.setString(2, login_pw);
+            //4. execute the query and assign to the result
+            ResultSet rs = null;
+            rs = pStmnt.executeQuery();
+            if (rs.next()) {
+                isValid = true;
+            }
+            pStmnt.close();
+            cnnct.close();
+        }catch(SQLException ex){
+            while(ex !=null){
+                ex.printStackTrace();
+                ex = ex.getNextException();
+            }
+        }catch(IOException ex){
+            ex.printStackTrace();
+        }
+        return isValid; 
+    }
+    
+    public boolean addClientInfo(String clientId, String name, int tel, String d_address, String login_ac, String login_pw, int login_statues, double balance, int point){
+        Connection cnnct = null;
+        PreparedStatement pStmnt = null;
+        boolean isSuccess = false;
+        try{
+            cnnct = getConnection();
+            String preQueryStatement = "insert into client (clientId,name,tel,d_address,login_ac,login_pw,login_statues,balance,point) values (?,?,?,?,?,?,?,?,?)";
+            pStmnt = cnnct.prepareStatement(preQueryStatement);
+            pStmnt.setString(1, clientId);
+            pStmnt.setString(2, name);
+            pStmnt.setInt(3, tel);
+            pStmnt.setString(4, d_address);
+            pStmnt.setString(5, login_ac);
+            pStmnt.setString(6, login_pw);
+            pStmnt.setInt(7, login_statues);
+            pStmnt.setDouble(8, balance);
+            pStmnt.setInt(9, point);
+            int rowCount = pStmnt.executeUpdate();
+            if(rowCount >= 1){
+                isSuccess = true;
+            }
+            pStmnt.close();
+            cnnct.close();
+        }catch(SQLException ex){
+            while(ex !=null){
+                ex.printStackTrace();
+                ex = ex.getNextException();
+            }
+        }catch(IOException ex){
+            ex.printStackTrace();
+        }
+        return isSuccess;
+    }
 }

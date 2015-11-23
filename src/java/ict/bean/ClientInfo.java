@@ -2,10 +2,10 @@ package ict.bean;
 
 import java.io.Serializable;
 
-public class UserInfo implements Serializable{
+public class ClientInfo implements Serializable{
     private String username,password;
 
-    public UserInfo() {
+    public ClientInfo() {
     }
     
     public String getUsername() {
