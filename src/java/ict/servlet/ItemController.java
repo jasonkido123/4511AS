@@ -38,11 +38,4 @@ public class ItemController extends HttpServlet {
             response.sendError(HttpServletResponse.SC_NOT_IMPLEMENTED);
         }
     }
-<<<<<<< HEAD
-=======
-    
-    private void doAddItem(HttpServletRequest request,HttpServletResponse response) throws IOException, ServletException{
-        //addItem
-    } 
->>>>>>> origin/master
 }

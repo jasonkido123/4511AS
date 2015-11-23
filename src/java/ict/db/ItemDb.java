@@ -56,21 +56,14 @@ public class ItemDb {
         }
     }
     
-<<<<<<< HEAD
     public boolean addItem(String ItemId, String Item_name, double price, String category, String descriptions, String photo){
-=======
-    public boolean addItem(String ItemId, String Item_name, double price, String category, String descriptions,String photo){
->>>>>>> origin/master
+
         Connection cnnct = null;
         PreparedStatement pStmnt = null;
         boolean isSuccess = false;
         try{
             cnnct = getConnection();
-<<<<<<< HEAD
-            String preQueryStatement = "insert into Item (ItemId, Item_name, price, category, descriptions) values (?,?,?,?,?,?)";
-=======
             String preQueryStatement = "insert into Item (ItemId, Item_name, price, category, descriptions,photo) values (?,?,?,?,?,?)";
->>>>>>> origin/master
             pStmnt = cnnct.prepareStatement(preQueryStatement);
             pStmnt.setString(1, ItemId);
             pStmnt.setString(2, Item_name);
