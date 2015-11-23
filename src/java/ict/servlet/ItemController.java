@@ -1,13 +1,16 @@
 package ict.servlet;
 
+import ict.bean.Item;
 import ict.db.ItemDb;
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @WebServlet(name = "ItemController", urlPatterns = {"/additem"})
 public class ItemController extends HttpServlet {
@@ -23,17 +26,14 @@ public class ItemController extends HttpServlet {
     protected void doPost(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
-        if (!isAuthenticated(request)
-                && !("authenticate".equals(action))) {
-            doLogin(request, response);
-            return;
-        }
-        if ("authenticate".equals(action)) {
-            doAuthenticate(request, response);
-        } else if ("logout".equals(action)) {
-            doLogout(request, response);
+        if ("additem".equals(action)) {
+            doAddItem(request, response);
         } else {
             response.sendError(HttpServletResponse.SC_NOT_IMPLEMENTED);
         }
     }
+    
+    private void doAddItem(HttpServletRequest request,HttpServletResponse response) throws IOException, ServletException{
+        addItem
+    } 
 }

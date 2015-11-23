@@ -8,7 +8,6 @@
     <body>
         <h1>Please enter the following details:</h1>
         <form method="post" action="additem">
-            <input type="hidden" name="action" value="authenticate"/>
             <table border='1'>
                 <tr>
                     <td>Item id:</td>

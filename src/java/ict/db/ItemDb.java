@@ -62,7 +62,7 @@ public class ItemDb {
         boolean isSuccess = false;
         try{
             cnnct = getConnection();
-            String preQueryStatement = "insert into client (clientId,name,tel,d_address,login_ac,login_pw,login_statues,balance,point) values (?,?,?,?,?)";
+            String preQueryStatement = "insert into Item (ItemId, Item_name, price, category, descriptions) values (?,?,?,?,?)";
             pStmnt = cnnct.prepareStatement(preQueryStatement);
             pStmnt.setString(1, ItemId);
             pStmnt.setString(2, Item_name);
