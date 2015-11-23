@@ -34,6 +34,6 @@ public class ItemController extends HttpServlet {
     }
     
     private void doAddItem(HttpServletRequest request,HttpServletResponse response) throws IOException, ServletException{
-        addItem
+        //addItem
     } 
 }
