@@ -26,14 +26,16 @@ public class ItemController extends HttpServlet {
     protected void doPost(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
+        String ItemId = request.getParameter("ItemId");
+        String Item_name = request.getParameter("Item_name");
+        Double price = Double.parseDouble(request.getParameter("price"));
+        String category = request.getParameter("category");
+        String descriptions = request.getParameter("descriptions");
+        String photo = request.getParameter("photo");
         if ("additem".equals(action)) {
-            doAddItem(request, response);
+            db.addItem(ItemId, Item_name, price, category, descriptions, photo);
         } else {
             response.sendError(HttpServletResponse.SC_NOT_IMPLEMENTED);
         }
     }
-    
-    private void doAddItem(HttpServletRequest request,HttpServletResponse response) throws IOException, ServletException{
-        addItem
-    } 
 }
