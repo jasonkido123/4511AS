@@ -16,16 +16,10 @@ import java.sql.Statement;
  *
  * @author chanyan
  */
-public class ItemDb {
+public class CategoryDb {
     private String url ="";
     private String username ="";
     private String password ="";
-    
-    public ItemDb(String url,String username,String password) {
-        this.url = url;
-        this.username=username;
-        this.password=password;
-    }
     public java.sql.Connection getConnection() throws SQLException,IOException{
         //System.setProperty("jdbc.drivers","com.mysql.jdbc.Driver");
         //return DriverManager.getConnection(url,username,password);
@@ -38,20 +32,22 @@ public class ItemDb {
         java.sql.Connection cnnct = DriverManager.getConnection(url,username,password);
         return cnnct;
     }
-    public void createItemDb(){
+    public CategoryDb(String url,String username,String password) {
+        this.url = url;
+        this.username=username;
+        this.password=password;
+    }
+    
+    public void createCategoryDb(){
         Connection conn =null;
         Statement stmnt=null;
         try{
             conn = getConnection();
             stmnt = conn.createStatement();
-            String sql ="CREATE TABLE IF NOT EXISTS Item("+
-                    "ItemId varchar(5) NOT NULL,"+
-                    "Item_name varchar(25) NOT NULL,"+
-                    "price Numeric(20,2) NOT NULL,"+
-                    "category varchar(20) NOT NULL,"+
-                    "photo varchar(100) NOT NULL,"+
-                    "descriptions varchar(100) NOT NULL,"+
-                    "PRIMARY KEY(ItemId)"
+            String sql ="CREATE TABLE IF NOT EXISTS Category("+
+                    "CategoryId varchar(5) NOT NULL,"+
+                    "CategoryType varchar(30) NOT NULL,"+
+                    "PRIMARY KEY(CategoryId)"
                     +")";
             stmnt.execute(sql);
             stmnt.close();
@@ -63,20 +59,17 @@ public class ItemDb {
             e.printStackTrace();
         }
     } 
-    public boolean addItem(String ItemId, String Item_name, double price, String category, String descriptions, String photo){
+    
+    public boolean addCategory(String categoryId,String CategoryType){
         Connection cnnct = null;
         PreparedStatement pStmnt = null;
         boolean isSuccess = false;
         try{
             cnnct = getConnection();
-            String preQueryStatement = "insert into item (ItemId,Item_name,price,category,photo,descriptions) values (?,?,?,?,?,?)";
+            String preQueryStatement = "insert into category (CategoryId,CategoryType) values (?,?)";
             pStmnt = cnnct.prepareStatement(preQueryStatement);
-            pStmnt.setString(1, ItemId);
-            pStmnt.setString(2, Item_name);
-            pStmnt.setDouble(3, price);
-            pStmnt.setString(4, category);
-            pStmnt.setString(5, photo);
-            pStmnt.setString(6, descriptions);
+            pStmnt.setString(1, categoryId);
+            pStmnt.setString(2, CategoryType);
             int rowCount = pStmnt.executeUpdate();
             if(rowCount >= 1){
                 isSuccess = true;
