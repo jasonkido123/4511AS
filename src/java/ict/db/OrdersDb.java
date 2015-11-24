@@ -40,6 +40,7 @@ public class OrdersDb {
                     "clientId varchar(5) NOT NULL,"+
                     "totalPrice Numeric(20,2) NOT NULL,"+
                     "giftPoint Integer(20) NOT NULL,"+
+                    "Payment boolean NOT NULL,"+
                     "PRIMARY KEY(OrderId)"
                     +")";
             stmnt.execute(sql);
