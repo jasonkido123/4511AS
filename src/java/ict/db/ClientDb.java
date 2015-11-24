@@ -94,13 +94,13 @@ public class ClientDb {
         return isValid; 
     }
     
-    public boolean addClientInfo(String clientId, String name, int tel, String d_address, String login_ac, String login_pw, int login_statues, double balance, int point){
+    public boolean addClientInfo(String clientId, String name, int tel, String d_address, String login_ac, String login_pw, boolean login_statues, double balance, int point,boolean admin){
         Connection cnnct = null;
         PreparedStatement pStmnt = null;
         boolean isSuccess = false;
         try{
             cnnct = getConnection();
-            String preQueryStatement = "insert into client (clientId,name,tel,d_address,login_ac,login_pw,login_statues,balance,point) values (?,?,?,?,?,?,?,?,?)";
+            String preQueryStatement = "insert into client (clientId,name,tel,d_address,login_ac,login_pw,login_statues,balance,point,admin) values (?,?,?,?,?,?,?,?,?,?)";
             pStmnt = cnnct.prepareStatement(preQueryStatement);
             pStmnt.setString(1, clientId);
             pStmnt.setString(2, name);
@@ -108,9 +108,10 @@ public class ClientDb {
             pStmnt.setString(4, d_address);
             pStmnt.setString(5, login_ac);
             pStmnt.setString(6, login_pw);
-            pStmnt.setInt(7, login_statues);
+            pStmnt.setBoolean(7, login_statues);
             pStmnt.setDouble(8, balance);
             pStmnt.setInt(9, point);
+            pStmnt.setBoolean(10, admin);
             int rowCount = pStmnt.executeUpdate();
             if(rowCount >= 1){
                 isSuccess = true;

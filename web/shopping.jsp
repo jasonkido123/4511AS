@@ -4,6 +4,8 @@
     Author     : chanyan
 --%>
 
+<%@page import="java.util.ArrayList"%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -14,11 +16,12 @@
     <body>
         <form action="shopping">
             <table border="1">
-                <tr><td colspan="2">Search</td></tr>
+                <tr><td colspan="5">Search</td></tr>
                 <tr><td>Product Name:<input type="Textbox" name="SearchName"></td>
                     <td>Money range:</br>
                         Min:
                     <select>
+                        <option value="" name="min"></option>
                         <option value="1" name="min">1$</option>
                         <%
                             for(int i=5;i<=15;i+=5){
@@ -33,6 +36,7 @@
                         %>
                         </select>~
                         Max:<select>
+                        <option value="" name="max"></option>
                         <option value="1" name="max">1$</option>
                         <%
                             for(int i=5;i<=15;i+=5){
@@ -46,6 +50,24 @@
                             }
                         %>
                         </select>
+                    </td>
+                    <td>
+                        Brand:
+                        <input type="Textbox" name="SearchBrand">
+                    </td>    
+                    <td>
+                        <% ArrayList<String> al = (ArrayList<String>)request.getAttribute("categoryType");%>
+                        <select>
+                            <option value="" name="category"></option>
+                            <%
+                                for(int i=0;i<al.size();i++){
+                                    out.print("<option value=\""+al.get(i)+"\" name=\"category\">"+al.get(i)+"</option>");
+                                }
+                            %>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="submit" name="sumbit" />
                     </td>
                 </tr>
             </table>

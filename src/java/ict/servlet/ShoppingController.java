@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -22,32 +23,54 @@ import javax.servlet.http.HttpServletResponse;
  * @author chanyan
  */
 @WebServlet(name = "ShoppingController", urlPatterns = {"/shopping"})
-public class ShoppingController extends HttpServlet{
+public class ShoppingController extends HttpServlet {
+
     private ItemDb db;
-    public void init (){
+
+    public void init() {
         String dbUser = this.getServletContext().getInitParameter("dbUser");
         String dbPassword = this.getServletContext().getInitParameter("dbPassword");
         String dbUrl = this.getServletContext().getInitParameter("dbUrl");
         db = new ItemDb(dbUrl, dbUser, dbPassword);
     }
+
+    protected void categoryList(String dbUrl, String dbUser, String dbPassword, HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        CategoryDb cdb = new CategoryDb(dbUrl, dbUser, dbPassword);
+        ArrayList<String> al = cdb.AllCategory();
+        request.setAttribute("categoryType", al);
+        RequestDispatcher rd;
+        rd = getServletContext().getRequestDispatcher("/shopping.jsp");
+        rd.forward(request, response);
+    }
+
     @Override
     protected void doPost(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
-        
+
         ArrayList<Shopping> al = new ArrayList();
-        try{
+        try {
             ResultSet rs = db.AllItem();
-            while(rs.next()){
-                 Shopping sp = new Shopping();
-                 sp.setItemId(rs.getString("ItemId"));
-                 sp.setCategory(rs.getNString("category"));
-                 sp.setItemName(rs.getNString("Item_name"));
-                 sp.setPrice(rs.getDouble("price"));
-                 sp.setDescriptions(rs.getNString("descriptions"));
+            while (rs.next()) {
+                Shopping sp = new Shopping();
+                sp.setItemId(rs.getString("ItemId"));
+                sp.setCategory(rs.getNString("category"));
+                sp.setItemName(rs.getNString("Item_name"));
+                sp.setPrice(rs.getDouble("price"));
+                sp.setDescriptions(rs.getNString("descriptions"));
             }
-        }catch(SQLException ex){
+        } catch (SQLException ex) {
             ex.printStackTrace();
             ex = ex.getNextException();
         }
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest request,
+        HttpServletResponse response) throws ServletException, IOException {
+        String dbUser = this.getServletContext().getInitParameter("dbUser");
+        String dbPassword = this.getServletContext().getInitParameter("dbPassword");
+        String dbUrl = this.getServletContext().getInitParameter("dbUrl");
+        categoryList(dbUrl, dbUser, dbPassword, request, response);
     }
 }
