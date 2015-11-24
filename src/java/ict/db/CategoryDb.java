@@ -4,8 +4,10 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 public class CategoryDb {
     private String url ="";
@@ -76,5 +78,33 @@ public class CategoryDb {
             ex.printStackTrace();
         }
         return isSuccess;
+    }
+    
+    public ArrayList AllCategory(){
+        ArrayList<String> al = new ArrayList();
+        ResultSet rs =null;
+        Connection cnnct = null;
+        PreparedStatement pStmnt = null;
+        boolean isSuccess = false;
+        try{
+            cnnct = getConnection();
+            String preQueryStatement = "SELECT * FROM category";
+            pStmnt = cnnct.prepareStatement(preQueryStatement);
+             rs = pStmnt.executeQuery();
+             while(rs.next()){
+                String type = rs.getString("CategoryType");
+                al.add(type);
+             }
+            pStmnt.close();
+            cnnct.close();
+        }catch(SQLException ex){
+            while(ex !=null){
+                ex.printStackTrace();
+                ex = ex.getNextException();
+            }
+        }catch(IOException ex){
+            ex.printStackTrace();
+        }
+        return al;
     }
 }
