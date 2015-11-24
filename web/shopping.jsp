@@ -82,6 +82,22 @@
                 </tr>
             </table>
             </br>
+            <%if(al1!=null){
+                String s = "<table border=\"1\" ><tr><td>ItemName</td><td>descriptions</td><td>category</td><td>brand</td><td>quantity</td><td>Price</td><td>Point</td><td>Add To Cart</td></tr>";
+                for(int i=0;i<al1.size();i++){
+                    Shopping item = (Shopping)al1.get(i);
+                    s+="<tr><td>"+item.getItemName()+"</td>";
+                    s+="<td>"+item.getDescriptions()+"</td>";
+                    s+="<td>"+item.getCategory()+"</td>";
+                    s+="<td>"+item.getBrand()+"</td>";
+                    s+="<td>"+item.getQuantity()+"</td>";
+                    s+="<td>"+item.getPrice()+"</td>";
+                    s+="<td>"+item.getPoint()+"</td>";
+                    s+="</tr>";
+                }
+                s+="</table>";
+                out.print(s);
+            }%>
             
         </form>
     </body>

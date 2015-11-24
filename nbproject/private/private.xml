@@ -3,13 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/Z:/4511AS/src/java/ict/test/testget.java</file>
             <file>file:/Z:/4511AS/src/java/ict/db/ItemDb.java</file>
-            <file>file:/Z:/4511AS/src/java/ict/bean/Shopping.java</file>
-            <file>file:/Z:/4511AS/src/java/ict/test/Test.java</file>
             <file>file:/Z:/4511AS/web/shopping.jsp</file>
-            <file>file:/Z:/4511AS/src/java/ict/servlet/AddItemController.java</file>
             <file>file:/Z:/4511AS/src/java/ict/servlet/LoginController.java</file>
+            <file>file:/Z:/4511AS/src/java/ict/test/totalTest.java</file>
             <file>file:/Z:/4511AS/src/java/ict/servlet/ShoppingController.java</file>
+            <file>file:/Z:/4511AS/web/WEB-INF/web.xml</file>
             <file>file:/Z:/4511AS/src/java/ict/db/CategoryDb.java</file>
         </group>
     </open-files>

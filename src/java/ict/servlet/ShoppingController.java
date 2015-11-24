@@ -62,23 +62,9 @@ public class ShoppingController extends HttpServlet {
         String action = request.getParameter("action");
         if("search".equals(action)){
             PrintWriter out = response.getWriter();
-            ArrayList<Shopping> al = new ArrayList();
-            try {
-                ResultSet rs = db.AllItem();
-                while (rs.next()) {
-                    Shopping sp = new Shopping();
-                    sp.setItemId(rs.getString("ItemId"));
-                    sp.setCategory(rs.getNString("category"));
-                    sp.setItemName(rs.getNString("Item_name"));
-                    sp.setPrice(rs.getDouble("price"));
-                    sp.setDescriptions(rs.getNString("descriptions"));
-                    al.add(sp);
-                }
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-                ex = ex.getNextException();
-            }
+            ArrayList<Shopping> al =  db.AllItem();
             request.setAttribute("product", al);
+            System.out.println("hi");
             RequestDispatcher rd;
             rd = getServletContext().getRequestDispatcher("/shopping.jsp");
             rd.forward(request, response);

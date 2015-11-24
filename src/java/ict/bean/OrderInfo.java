@@ -5,6 +5,15 @@ import java.io.Serializable;
 public class OrderInfo implements Serializable{
     private String orderId,itemId;
     private double price;
+    private int point;
+
+    public void setPoint(int point) {
+        this.point = point;
+    }
+
+    public int getPoint() {
+        return point;
+    }
 
     public OrderInfo() {
     }

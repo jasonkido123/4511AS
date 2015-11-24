@@ -37,7 +37,8 @@ public class OrderInfoDb {
             String sql ="CREATE TABLE IF NOT EXISTS orderInfo("+
                     "OrderId varchar(5) NOT NULL,"+
                     "ItemId varchar(5) NOT NULL,"+
-                    "price Numeric(20,2) NOT NULL"+
+                    "price Numeric(20,2) NOT NULL,"+
+                    "point INTEGER(20) NOT NULL"+
                     ")";
             stmnt.execute(sql);
             stmnt.close();

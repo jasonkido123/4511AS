@@ -6,6 +6,7 @@
 package ict.test;
 
 
+import ict.bean.Shopping;
 import ict.db.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -19,8 +20,16 @@ public class testget {
     public static void main(String[]args){
         String url = "jdbc:mysql://localhost:3306/jsp_ass";
         String username = "root";
-        CategoryDb cdb = new CategoryDb(url,username,"");
-        ArrayList<String> al = cdb.AllCategory();
-            System.out.println(al.get(0));
+        ItemDb cdb = new ItemDb(url,username,"");
+        ArrayList<Shopping> al = cdb.AllItem();
+        Shopping s = al.get(0);
+        System.out.println(s.getItemId());
+        System.out.println(s.getPrice());
+        System.out.println(s.getPoint());
+        System.out.println(s.getQuantity());
+        System.out.println(s.getBrand());
+        System.out.println(s.getCategory());
+        System.out.println(s.getDescriptions());
+        System.out.println(s.getItemName());
     }
 }

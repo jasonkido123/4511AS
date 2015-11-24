@@ -11,6 +11,23 @@ package ict.bean;
  */
 public class Shopping {
     private String ItemId,ItemName,category,descriptions,brand;
+    private int quantity,point;
+
+    public void setPoint(int point) {
+        this.point = point;
+    }
+
+    public int getPoint() {
+        return point;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
 
     public void setBrand(String brand) {
         this.brand = brand;
