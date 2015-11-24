@@ -3,6 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/C:/Users/user/Desktop/ITP4511%20Enterprise%20Systems%20Development/Assignment/4511AS/4511AS/src/java/ict/db/ItemDb.java</file>
             <file>file:/C:/Users/user/Desktop/ITP4511%20Enterprise%20Systems%20Development/Assignment/4511AS/4511AS/src/java/ict/servlet/ItemController.java</file>
             <file>file:/C:/Users/user/Desktop/ITP4511%20Enterprise%20Systems%20Development/Assignment/4511AS/4511AS/web/login.jsp</file>
@@ -19,6 +20,15 @@
             <file>file:/C:/Users/user/Desktop/ITP4511%20Enterprise%20Systems%20Development/Assignment/4511AS/4511AS/web/addSuccess.jsp</file>
             <file>file:/C:/Users/user/Desktop/ITP4511%20Enterprise%20Systems%20Development/Assignment/4511AS/4511AS/src/java/ict/servlet/LoginController.java</file>
             <file>file:/C:/Users/user/Desktop/ITP4511%20Enterprise%20Systems%20Development/Assignment/4511AS/4511AS/src/java/ict/servlet/AddClientController.java</file>
+=======
+            <file>file:/Z:/4511AS/src/java/ict/db/ItemDb.java</file>
+            <file>file:/Z:/4511AS/src/java/ict/bean/Shopping.java</file>
+            <file>file:/Z:/4511AS/web/shopping.jsp</file>
+            <file>file:/Z:/4511AS/src/java/ict/servlet/AddItemController.java</file>
+            <file>file:/Z:/4511AS/src/java/ict/db/ClientDb.java</file>
+            <file>file:/Z:/4511AS/src/java/ict/servlet/ShoppingController.java</file>
+            <file>file:/Z:/4511AS/src/java/ict/servlet/AddClientController.java</file>
+>>>>>>> origin/master
         </group>
     </open-files>
 </project-private>
