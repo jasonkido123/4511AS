@@ -45,7 +45,7 @@ public class AddItemController extends HttpServlet {
         String brand = request.getParameter("brand");
 
         try {
-            db.addItem(ItemId, Item_name, price, category, descriptions, brand);
+            //db.addItem(ItemId, Item_name, price, category, descriptions, brand);
         } catch (Exception ex) {
             PrintWriter out = new PrintWriter(System.out);
             out.println("<h1><font color='red'>Please input correct data!</font></h1>");

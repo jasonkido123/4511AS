@@ -13,17 +13,18 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class ItemDb {
-    private String url ="";
-    private String username ="";
-    private String password ="";
-    
-    public ItemDb(String url,String username,String password) {
+
+    private String url = "";
+    private String username = "";
+    private String password = "";
+
+    public ItemDb(String url, String username, String password) {
         this.url = url;
-        this.username=username;
-        this.password=password;
+        this.username = username;
+        this.password = password;
     }
-    
-    public Connection getConnection() throws SQLException, IOException{
+
+    public Connection getConnection() throws SQLException, IOException {
         try {
             //System.setProperty("jdbc.drivers","com.mysql.jdbc.Driver");
             Class.forName("com.mysql.jdbc.Driver");
@@ -31,110 +32,108 @@ public class ItemDb {
             Logger.getLogger(ItemDb.class.getName()).log(Level.SEVERE, null, ex);
         }
         Connection cnnct;
-        return cnnct = DriverManager.getConnection(url,username,password);
+        return cnnct = DriverManager.getConnection(url, username, password);
     }
-    
-    public void createItemDb(){
-        Connection conn =null;
-        Statement stmnt=null;
-        try{
+
+    public void createItemDb() {
+        Connection conn = null;
+        Statement stmnt = null;
+        try {
             conn = getConnection();
             stmnt = conn.createStatement();
-            String sql ="CREATE TABLE IF NOT EXISTS Item("+
-                    "ItemId varchar(5) NOT NULL,"+
-                    "Item_name varchar(25) NOT NULL,"+
-                    "price int(5) NOT NULL,"+
-                    "category varchar(20) NOT NULL,"+
-                    "descriptions varchar(100) NOT NULL,"+
-                    "brand varchar(20) NOT NULL,"+
-                    "quantity Integer(20) NOT NULL,"+
-                    "point Integer(20) NOT NULL,"+
-                    "PRIMARY KEY(ItemId)"
-                    +")";
+            String sql = "CREATE TABLE IF NOT EXISTS Item("
+                    + "ItemId varchar(5) NOT NULL,"
+                    + "Item_name varchar(25) NOT NULL,"
+                    + "price int(5) NOT NULL,"
+                    + "category varchar(20) NOT NULL,"
+                    + "descriptions varchar(100) NOT NULL,"
+                    + "brand varchar(20) NOT NULL,"
+                    + "quantity Integer(20) NOT NULL,"
+                    + "point Integer(20) NOT NULL,"
+                    + "PRIMARY KEY(ItemId)"
+                    + ")";
             stmnt.execute(sql);
             stmnt.close();
             conn.close();
-        }catch(SQLException ex){
+        } catch (SQLException ex) {
             ex.printStackTrace();
             ex = ex.getNextException();
-        }catch(IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
-    
-<<<<<<< HEAD
-    public boolean addItem(String ItemId, String Item_name, double price, String category, String descriptions,String brand,int quantity,int point){
-=======
-    public boolean addItem(String ItemId, String Item_name, int price, String category, String descriptions,String brand){
->>>>>>> origin/master
+
+    public boolean addItem(String ItemId, String Item_name, double price, String category, String descriptions, String brand, int quantity, int point) {
 
         Connection cnnct = null;
         PreparedStatement pStmnt = null;
         boolean isSuccess = false;
-        try{
+        try {
             cnnct = getConnection();
-<<<<<<< HEAD
             String preQueryStatement = "insert into Item (ItemId, Item_name, price, category, descriptions,brand,quantity,point) values (?,?,?,?,?,?,?,?)";
-=======
-            String preQueryStatement = "insert into item (ItemId, Item_name, price, category, descriptions,brand) values (?,?,?,?,?,?)";
->>>>>>> origin/master
+
             pStmnt = cnnct.prepareStatement(preQueryStatement);
             pStmnt.setString(1, ItemId);
             pStmnt.setString(2, Item_name);
-            pStmnt.setInt(3, price);
+            pStmnt.setDouble(3, price);
             pStmnt.setString(4, category);
             pStmnt.setString(5, descriptions);
             pStmnt.setString(6, brand);
-            pStmnt.setInt(7,quantity);
-            pStmnt.setInt(8,point);
+            pStmnt.setInt(7, quantity);
+            pStmnt.setInt(8, point);
             int rowCount = pStmnt.executeUpdate();
-            if(rowCount >= 1){
+            if (rowCount >= 1) {
                 isSuccess = true;
             }
             pStmnt.close();
             cnnct.close();
-        }catch(SQLException ex){
-            while(ex !=null){
+        } catch (SQLException ex) {
+            while (ex != null) {
                 ex.printStackTrace();
                 ex = ex.getNextException();
             }
-        }catch(IOException ex){
+        } catch (IOException ex) {
             ex.printStackTrace();
         }
         return isSuccess;
     }
-    public ArrayList AllItem(){
-        ResultSet rs =null;
+
+    public ArrayList AllItem() {
+        return SearchFactory("SELECT * FROM item");
+    }
+    
+    public ArrayList SearchFactory(String preQueryStatement){
+        ResultSet rs = null;
         Connection cnnct = null;
         ArrayList<Shopping> al = null;
         PreparedStatement pStmnt = null;
         boolean isSuccess = false;
-        try{
+        try {
             cnnct = getConnection();
-            String preQueryStatement = "SELECT * FROM item";
+            //String preQueryStatement = "SELECT * FROM item";
             pStmnt = cnnct.prepareStatement(preQueryStatement);
             rs = pStmnt.executeQuery();
             al = new ArrayList();
-                while (rs.next()) {
-                    Shopping sp = new Shopping();
-                    sp.setItemId(rs.getString("ItemId"));
-                    sp.setPrice(rs.getDouble("price"));
-                    sp.setPoint(rs.getInt("point"));
-                    sp.setQuantity(rs.getInt("quantity"));
-                    sp.setBrand(rs.getString("brand"));
-                    sp.setCategory(rs.getString("category"));
-                    sp.setDescriptions(rs.getString("descriptions"));
-                    sp.setItemName(rs.getString("item_name"));
-                    al.add(sp);
-                }
+            while (rs.next()) {
+                Shopping sp = new Shopping();
+                sp.setItemId(rs.getString("ItemId"));
+                sp.setPrice(rs.getDouble("price"));
+                sp.setPoint(rs.getInt("point"));
+                sp.setQuantity(rs.getInt("quantity"));
+                sp.setBrand(rs.getString("brand"));
+                sp.setCategory(rs.getString("category"));
+                sp.setDescriptions(rs.getString("descriptions"));
+                sp.setItemName(rs.getString("item_name"));
+                al.add(sp);
+            }
             pStmnt.close();
             cnnct.close();
-        }catch(SQLException ex){
-            while(ex !=null){
+        } catch (SQLException ex) {
+            while (ex != null) {
                 ex.printStackTrace();
                 ex = ex.getNextException();
             }
-        }catch(IOException ex){
+        } catch (IOException ex) {
             ex.printStackTrace();
         }
         return al;

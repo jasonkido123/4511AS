@@ -94,11 +94,9 @@ public class ClientDb {
         return isValid; 
     }
     
-<<<<<<< HEAD
-    public boolean addClientInfo(String clientId, String name, int tel, String d_address, String login_ac, String login_pw, String login_statues, double balance, int point,String admin){
-=======
+
     public boolean addClientInfo(String clientId, String name, int tel, String d_address, String login_ac, String login_pw, boolean login_statues, double balance, int point,boolean admin){
->>>>>>> origin/master
+
         Connection cnnct = null;
         PreparedStatement pStmnt = null;
         boolean isSuccess = false;
@@ -112,17 +110,10 @@ public class ClientDb {
             pStmnt.setString(4, d_address);
             pStmnt.setString(5, login_ac);
             pStmnt.setString(6, login_pw);
-<<<<<<< HEAD
-            pStmnt.setString(7, login_statues);
-            pStmnt.setDouble(8, balance);
-            pStmnt.setInt(9, point);
-            pStmnt.setString(10,admin);
-=======
             pStmnt.setBoolean(7, login_statues);
             pStmnt.setDouble(8, balance);
             pStmnt.setInt(9, point);
             pStmnt.setBoolean(10, admin);
->>>>>>> origin/master
             int rowCount = pStmnt.executeUpdate();
             if(rowCount >= 1){
                 isSuccess = true;

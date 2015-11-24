@@ -46,7 +46,7 @@ public class AddClientController extends HttpServlet {
         int point = Integer.parseInt(request.getParameter("point"));
         String adminOrNot = request.getParameter("adminOrNot");
         
-        db.addClientInfo(ClientId, ClientName, tel, address, login_ac, login_pw, status, balance, point, adminOrNot);
+        //db.addClientInfo(ClientId, ClientName, tel, address, login_ac, login_pw, status, balance, point, adminOrNot);
         targetURL = "/addSuccess.jsp";
         
         RequestDispatcher rd;

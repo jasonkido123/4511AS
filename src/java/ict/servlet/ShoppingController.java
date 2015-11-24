@@ -60,11 +60,17 @@ public class ShoppingController extends HttpServlet {
         String dbUrl = this.getServletContext().getInitParameter("dbUrl");
         //categoryList(dbUrl, dbUser, dbPassword, request, response);
         String action = request.getParameter("action");
+        String[] search = new String[4];
+        String min = request.getParameter("min");
+        String max = request.getParameter("max");
+        String name = request.getParameter("SearchName");
+        String brand = request.getParameter("SearchBrand");
+        
         if("search".equals(action)){
             PrintWriter out = response.getWriter();
             ArrayList<Shopping> al =  db.AllItem();
             request.setAttribute("product", al);
-            System.out.println("hi");
+            System.out.println(min);
             RequestDispatcher rd;
             rd = getServletContext().getRequestDispatcher("/shopping.jsp");
             rd.forward(request, response);

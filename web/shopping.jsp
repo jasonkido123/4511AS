@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-=======
+
 <%-- 
     Document   : shopping
     Created on : Nov 23, 2015, 10:52:28 PM
@@ -10,7 +9,6 @@
 <%@page import="ict.bean.Shopping"%>
 <%@page import="java.util.ArrayList"%>
 
->>>>>>> origin/master
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -25,33 +23,33 @@
                 <tr><td>Product Name:<input type="Textbox" name="SearchName"></td>
                     <td>Money range:</br>
                         Min:
-                    <select>
-                        <option value="" name="min"></option>
-                        <option value="1" name="min">1$</option>
+                    <select name="min">
+                        <option value=""></option>
+                        <option value="1">1$</option>
                         <%
                             for(int i=5;i<=15;i+=5){
-                                out.print("<option value=\""+i+"\" name=\"min\">"+i+"$"+"</option>");
+                                out.print("<option value=\""+i+"\" >"+i+"$"+"</option>");
                             }
                             for(int i=20;i<=100;i+=10){
-                                out.print("<option value=\""+i+"\" name=\"min\">"+i+"$"+"</option>");
+                                out.print("<option value=\""+i+"\" >"+i+"$"+"</option>");
                             }
                             for(int i=200;i<=500;i+=100){
-                                out.print("<option value=\""+i+"\" name=\"min\">"+i+"$"+"</option>");
+                                out.print("<option value=\""+i+"\" >"+i+"$"+"</option>");
                             }
                         %>
                         </select>~
-                        Max:<select>
-                        <option value="" name="max"></option>
-                        <option value="1" name="max">1$</option>
+                        Max:<select name="max">
+                        <option value="" ></option>
+                        <option value="1" >1$</option>
                         <%
                             for(int i=5;i<=15;i+=5){
-                                out.print("<option value=\""+i+"\" name=\"max\">"+i+"$"+"</option>");
+                                out.print("<option value=\""+i+"\" >"+i+"$"+"</option>");
                             }
                             for(int i=20;i<=100;i+=10){
-                                out.print("<option value=\""+i+"\" name=\"max\">"+i+"$"+"</option>");
+                                out.print("<option value=\""+i+"\" >"+i+"$"+"</option>");
                             }
                             for(int i=200;i<=500;i+=100){
-                                out.print("<option value=\""+i+"\" name=\"max\">"+i+"$"+"</option>");
+                                out.print("<option value=\""+i+"\" >"+i+"$"+"</option>");
                             }
                         %>
                         </select>
