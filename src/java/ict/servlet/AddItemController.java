@@ -43,6 +43,4 @@ public class AddItemController extends HttpServlet {
         rd = getServletContext().getRequestDispatcher("/"+targetURL);
         rd.forward(request, response);
     }
-    
-    
 }
