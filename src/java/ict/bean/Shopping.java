@@ -10,7 +10,15 @@ package ict.bean;
  * @author chanyan
  */
 public class Shopping {
-    private String ItemId,ItemName,category,descriptions;
+    private String ItemId,ItemName,category,descriptions,brand;
+
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
+
+    public String getBrand() {
+        return brand;
+    }
     private double price;
 
     public void setItemId(String ItemId) {
