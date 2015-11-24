@@ -4,6 +4,8 @@
     Author     : chanyan
 --%>
 
+<%@page import="ict.db.CategoryDb"%>
+<%@page import="ict.bean.Shopping"%>
 <%@page import="java.util.ArrayList"%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -56,10 +58,17 @@
                         <input type="Textbox" name="SearchBrand">
                     </td>    
                     <td>
-                        <% ArrayList<String> al = (ArrayList<String>)request.getAttribute("categoryType");%>
+                        <% ArrayList<Shopping> al1 = (ArrayList<Shopping>)request.getAttribute("product");
+                            String dbUser = this.getServletContext().getInitParameter("dbUser");
+                            String dbPassword = this.getServletContext().getInitParameter("dbPassword");
+                            String dbUrl = this.getServletContext().getInitParameter("dbUrl");
+                            CategoryDb db = new CategoryDb(dbUrl, dbUser, dbPassword);
+                            ArrayList<Shopping> al = db.AllCategory();
+                        %>
                         <select>
                             <option value="" name="category"></option>
                             <%
+                                
                                 for(int i=0;i<al.size();i++){
                                     out.print("<option value=\""+al.get(i)+"\" name=\"category\">"+al.get(i)+"</option>");
                                 }
@@ -67,10 +76,13 @@
                         </select>
                     </td>
                     <td>
-                        <input type="submit" name="sumbit" />
+                        <input type="submit" name="action" value=search />
+ 
                     </td>
                 </tr>
             </table>
+            </br>
+            
         </form>
     </body>
 </html>
