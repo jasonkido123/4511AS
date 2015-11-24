@@ -35,6 +35,14 @@
                     <td><input type="text" name="brand" maxlength="20" size="25"></td>
                 </tr>
                 <tr>
+                    <td>Quantity:</td>
+                    <td><input type="number" name="quantity" min="0" max="1000"></td>
+                </tr>                
+                <tr>
+                    <td>Point:</td>
+                    <td><input type="number" name="point" min="0" max="10000"></td>
+                </tr>
+                <tr>
                     <td><a href="welcome.jsp">Back</a></td>
                     <td><input type="submit" value="Submit"></td>
                 </tr>

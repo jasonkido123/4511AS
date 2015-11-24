@@ -1,5 +1,6 @@
 package ict.db;
 
+import ict.bean.ClientInfo;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -7,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 public class ClientDb {
     private String url ="";
@@ -94,11 +96,8 @@ public class ClientDb {
         return isValid; 
     }
     
-<<<<<<< HEAD
-    public boolean addClientInfo(String clientId, String name, int tel, String d_address, String login_ac, String login_pw, String login_statues, double balance, int point,String admin){
-=======
     public boolean addClientInfo(String clientId, String name, int tel, String d_address, String login_ac, String login_pw, boolean login_statues, double balance, int point,boolean admin){
->>>>>>> origin/master
+
         Connection cnnct = null;
         PreparedStatement pStmnt = null;
         boolean isSuccess = false;
@@ -112,17 +111,10 @@ public class ClientDb {
             pStmnt.setString(4, d_address);
             pStmnt.setString(5, login_ac);
             pStmnt.setString(6, login_pw);
-<<<<<<< HEAD
-            pStmnt.setString(7, login_statues);
-            pStmnt.setDouble(8, balance);
-            pStmnt.setInt(9, point);
-            pStmnt.setString(10,admin);
-=======
             pStmnt.setBoolean(7, login_statues);
             pStmnt.setDouble(8, balance);
             pStmnt.setInt(9, point);
             pStmnt.setBoolean(10, admin);
->>>>>>> origin/master
             int rowCount = pStmnt.executeUpdate();
             if(rowCount >= 1){
                 isSuccess = true;
@@ -139,4 +131,122 @@ public class ClientDb {
         }
         return isSuccess;
     }
+    
+    public ArrayList queryCust(){
+        Connection cnnct = null;
+        PreparedStatement pStnmt = null;
+        ClientInfo cb = null;
+        ArrayList <ClientInfo> cbs = new ArrayList <ClientInfo> ();
+        try{
+            cnnct = getConnection();
+            String preQueryStatment = "select * from client";
+            pStnmt = cnnct.prepareStatement(preQueryStatment);
+            ResultSet rs = null;
+            rs = pStnmt.executeQuery();
+            while (rs.next()){
+                cb = new ClientInfo();
+                String clientid = rs.getString("clientId");
+                String name = rs.getString("name");
+                int tel = rs.getInt("tel");
+                String address = rs.getString("d_address");
+                String username = rs.getString("login_ac");
+                String password = rs.getString("login_pw");
+                Boolean status = rs.getBoolean("login_statues");
+                double balance = rs.getDouble("balance");
+                int point = rs.getInt("point");
+                Boolean admin = rs.getBoolean("admin");
+                
+                cb.setId(clientid);
+                cb.setName(name);
+                cb.setTel(tel);
+                cb.setAddress(address);
+                cb.setUsername(username);
+                cb.setPassword(password);
+                cb.setStatus(status);
+                cb.setBalance(balance);
+                cb.setPoint(point);
+                cb.setAdmin(admin);
+                cbs.add(cb);
+            }
+            pStnmt.close();
+            cnnct.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            ex = ex.getNextException();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return cbs;
+    }
+    
+    public ClientInfo queryCustByID(String id){
+        Connection cnnct = null;
+        PreparedStatement pStnmt = null;
+        ClientInfo cb = null;
+        try{
+            cnnct = getConnection();
+            String preQueryStatment = "select * from client where clientId = ?";
+            pStnmt = cnnct.prepareStatement(preQueryStatment);
+            pStnmt.setString(1, id);
+            ResultSet rs = null;
+            rs = pStnmt.executeQuery();
+            if (rs.next()){
+                cb = new ClientInfo();
+                String clientid = rs.getString("clientId");
+                String name = rs.getString("name");
+                int tel = rs.getInt("tel");
+                String address = rs.getString("d_address");
+                String username = rs.getString("login_ac");
+                String password = rs.getString("login_pw");
+                Boolean status = rs.getBoolean("login_statues");
+                double balance = rs.getDouble("balance");
+                int point = rs.getInt("point");
+                Boolean admin = rs.getBoolean("admin");
+                
+                cb.setId(clientid);
+                cb.setName(name);
+                cb.setTel(tel);
+                cb.setAddress(address);
+                cb.setUsername(username);
+                cb.setPassword(password);
+                cb.setStatus(status);
+                cb.setBalance(balance);
+                cb.setPoint(point);
+                cb.setAdmin(admin);
+            }
+            pStnmt.close();
+            cnnct.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            ex = ex.getNextException();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return cb;
+    }
+    
+    public boolean delRecord(String clientID){
+        Connection cnnct = null;
+        PreparedStatement pStnmt = null;
+        boolean isSuccess = false;
+        try{
+            cnnct = getConnection();
+            String preQueryStatment = "delete from client where clientId = ?";
+            pStnmt = cnnct.prepareStatement(preQueryStatment);
+            pStnmt.setString(1, clientID);
+            int rowCount = pStnmt.executeUpdate();
+            if (rowCount >=1 ){
+                isSuccess = true;
+            }
+            pStnmt.close();
+            cnnct.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            ex = ex.getNextException();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return isSuccess;
+    }
+    
 }

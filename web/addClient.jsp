@@ -36,18 +36,18 @@
                 </tr>
                 <tr>
                     <td>Login status(Y/N):</td>
-                    <td><input type="text" name="status" maxlength="1" size="2"></td>
+                    <td><input type="text" name="status" maxlength="1" size="1"></td>
                 </tr>
                 <tr>
                     <td>Balance:</td>
-                    <td><input type="number" name="balance" value="0" maxlength="20" size="25"></td>
+                    <td><input type="number" name="balance" step="10" value="0" min="0" maxlength="20" size="25"></td>
                 </tr>
                 <tr>
                     <td>Point:</td>
                     <td><input type="number" name="point" min="0" max="10000"></td>
                 </tr>
                 <tr>
-                    <td>Is admin?</td>
+                    <td>Is admin?:(Y/N)</td>
                     <td><input type="text" name="adminOrNot" maxlength="1" size="1"></td>
                 </tr>
                 <tr>
