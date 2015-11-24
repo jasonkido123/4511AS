@@ -41,7 +41,7 @@ public class ItemDb {
             String sql ="CREATE TABLE IF NOT EXISTS Item("+
                     "ItemId varchar(5) NOT NULL,"+
                     "Item_name varchar(25) NOT NULL,"+
-                    "price Numeric(20,2) NOT NULL,"+
+                    "price int(5) NOT NULL,"+
                     "category varchar(20) NOT NULL,"+
                     "descriptions varchar(100) NOT NULL,"+
                     "brand varchar(20) NOT NULL,"+
@@ -58,18 +58,18 @@ public class ItemDb {
         }
     }
     
-    public boolean addItem(String ItemId, String Item_name, double price, String category, String descriptions,String brand){
+    public boolean addItem(String ItemId, String Item_name, int price, String category, String descriptions,String brand){
 
         Connection cnnct = null;
         PreparedStatement pStmnt = null;
         boolean isSuccess = false;
         try{
             cnnct = getConnection();
-            String preQueryStatement = "insert into Item (ItemId, Item_name, price, category, descriptions,brand) values (?,?,?,?,?,?)";
+            String preQueryStatement = "insert into item (ItemId, Item_name, price, category, descriptions,brand) values (?,?,?,?,?,?)";
             pStmnt = cnnct.prepareStatement(preQueryStatement);
             pStmnt.setString(1, ItemId);
             pStmnt.setString(2, Item_name);
-            pStmnt.setDouble(3, price);
+            pStmnt.setInt(3, price);
             pStmnt.setString(4, category);
             pStmnt.setString(5, descriptions);
             pStmnt.setString(6, brand);

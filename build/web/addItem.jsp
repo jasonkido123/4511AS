@@ -8,6 +8,7 @@
     <body>
         <h1>Please enter the following details:</h1>
         <form method="post" action="additem">
+            <input type="hidden" name="action" value="additem"/>
             <table border='1'>
                 <tr>
                     <td>Item id:</td>
@@ -28,6 +29,10 @@
                 <tr>
                     <td>Descriptions:</td>
                     <td><input type="text" name="descriptions" maxlength="95" size="100"></td>
+                </tr>
+                <tr>
+                    <td>Brands:</td>
+                    <td><input type="text" name="brand" maxlength="20" size="25"></td>
                 </tr>
                 <tr>
                     <td><a href="welcome.jsp">Back</a></td>
