@@ -7,7 +7,7 @@
     
     <context-param>
         <param-name>dbUrl</param-name>
-        <param-value>jdbc:mysql://localhost/itp4912_db</param-value>
+        <param-value>jdbc:mysql://localhost/jsp_ass</param-value>
     </context-param>
     <context-param>
         <param-name>dbUser</param-name>

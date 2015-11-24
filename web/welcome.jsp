@@ -6,7 +6,7 @@
         <title>Welcome</title>
     </head>
     <body>
-        <jsp:useBean id="userInfo" class="ict.bean.UserInfo" scope="session" />
+        <jsp:useBean id="clientInfo" class="ict.bean.ClientInfo" scope="session" />
         <b>Hello, <jsp:getProperty name="client" property="username" /></b>
         <p>Welcome to Stationery Online Station</p>
         <table border='1'>

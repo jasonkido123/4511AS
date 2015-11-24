@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ict.db;
 
 import java.io.IOException;
@@ -11,14 +6,11 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-/**
- *
- * @author chanyan
- */
 public class OrdersDb {
     private String url ="";
     private String username ="";
     private String password ="";
+    
     public java.sql.Connection getConnection() throws SQLException,IOException{
         //System.setProperty("jdbc.drivers","com.mysql.jdbc.Driver");
         //return DriverManager.getConnection(url,username,password);

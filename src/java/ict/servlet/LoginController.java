@@ -1,7 +1,7 @@
 package ict.servlet;
 
-import ict.bean.UserInfo;
-import ict.db.UserDB;
+import ict.bean.ClientInfo;
+import ict.db.ClientDb;
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,13 +13,13 @@ import javax.servlet.http.HttpSession;
 
 @WebServlet(name = "LoginController", urlPatterns = {"/main"})
 public class LoginController extends HttpServlet {
-    private UserDB db;
+    private ClientDb db;
     
     public void init (){
         String dbUser = this.getServletContext().getInitParameter("dbUser");
         String dbPassword = this.getServletContext().getInitParameter("dbPassword");
         String dbUrl = this.getServletContext().getInitParameter("dbUrl");
-        db = new UserDB(dbUrl, dbUser, dbPassword);
+        db = new ClientDb(dbUrl, dbUser, dbPassword);
     }
 
     protected void doGet(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
@@ -49,7 +49,7 @@ public class LoginController extends HttpServlet {
         String targetURL;
         if(db.isValidUser(username, password)==true){
             HttpSession session = request.getSession(true);
-            UserInfo bean = new UserInfo();
+            ClientInfo bean = new ClientInfo();
             bean.setUsername(username);
             bean.setPassword(password);
             session.setAttribute("client", bean);

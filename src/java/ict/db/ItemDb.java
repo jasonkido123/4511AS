@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
@@ -56,21 +57,20 @@ public class ItemDb {
         }
     }
     
-    public boolean addItem(String ItemId, String Item_name, double price, String category, String descriptions, String photo){
+    public boolean addItem(String ItemId, String Item_name, double price, String category, String descriptions){
 
         Connection cnnct = null;
         PreparedStatement pStmnt = null;
         boolean isSuccess = false;
         try{
             cnnct = getConnection();
-            String preQueryStatement = "insert into Item (ItemId, Item_name, price, category, descriptions,photo) values (?,?,?,?,?,?)";
+            String preQueryStatement = "insert into Item (ItemId, Item_name, price, category, descriptions) values (?,?,?,?,?)";
             pStmnt = cnnct.prepareStatement(preQueryStatement);
             pStmnt.setString(1, ItemId);
             pStmnt.setString(2, Item_name);
             pStmnt.setDouble(3, price);
             pStmnt.setString(4, category);
             pStmnt.setString(5, descriptions);
-            pStmnt.setString(6, photo);
             int rowCount = pStmnt.executeUpdate();
             if(rowCount >= 1){
                 isSuccess = true;
@@ -87,5 +87,26 @@ public class ItemDb {
         }
         return isSuccess;
     }
-
+    public ResultSet AllItem(){
+        ResultSet rs =null;
+        Connection cnnct = null;
+        PreparedStatement pStmnt = null;
+        boolean isSuccess = false;
+        try{
+            cnnct = getConnection();
+            String preQueryStatement = "SELECT * FROM Item";
+            pStmnt = cnnct.prepareStatement(preQueryStatement);
+             rs = pStmnt.executeQuery();
+            pStmnt.close();
+            cnnct.close();
+        }catch(SQLException ex){
+            while(ex !=null){
+                ex.printStackTrace();
+                ex = ex.getNextException();
+            }
+        }catch(IOException ex){
+            ex.printStackTrace();
+        }
+        return rs;
+    }
 }
