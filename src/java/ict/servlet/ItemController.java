@@ -51,11 +51,8 @@ public class ItemController extends HttpServlet {
         int point = Integer.parseInt(request.getParameter("point"));
 
         try {
-<<<<<<< HEAD:src/java/ict/servlet/ItemController.java
             db.addItem(ItemId, Item_name, price, category, descriptions, brand, quantity, point);
-=======
-            //db.addItem(ItemId, Item_name, price, category, descriptions, brand);
->>>>>>> origin/master:src/java/ict/servlet/AddItemController.java
+
         } catch (Exception ex) {
             PrintWriter out = new PrintWriter(System.out);
             out.println("<h1><font color='red'>Please input correct data!</font></h1>");

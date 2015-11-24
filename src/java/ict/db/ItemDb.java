@@ -62,24 +62,16 @@ public class ItemDb {
             e.printStackTrace();
         }
     }
-<<<<<<< HEAD
-    
-    public boolean addItem(String ItemId, String Item_name, double price, String category, String descriptions,String brand,int quantity,int point){
-=======
 
     public boolean addItem(String ItemId, String Item_name, double price, String category, String descriptions, String brand, int quantity, int point) {
 
->>>>>>> origin/master
+
         Connection cnnct = null;
         PreparedStatement pStmnt = null;
         boolean isSuccess = false;
         try {
             cnnct = getConnection();
             String preQueryStatement = "insert into Item (ItemId, Item_name, price, category, descriptions,brand,quantity,point) values (?,?,?,?,?,?,?,?)";
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/master
             pStmnt = cnnct.prepareStatement(preQueryStatement);
             pStmnt.setString(1, ItemId);
             pStmnt.setString(2, Item_name);
@@ -106,20 +98,32 @@ public class ItemDb {
         return isSuccess;
     }
 
-    public ArrayList AllItem() {
-        return SearchFactory("SELECT * FROM item");
-    }
-    
-    public ArrayList SearchFactory(String preQueryStatement){
-        ResultSet rs = null;
+    public ArrayList AllItem()throws  IOException,SQLException{
         Connection cnnct = null;
-        ArrayList<Shopping> al = null;
         PreparedStatement pStmnt = null;
-        boolean isSuccess = false;
+        cnnct = getConnection();
+        String preQueryStatement = "SELECT * FROM item";
+        pStmnt = cnnct.prepareStatement(preQueryStatement);
+        return SearchFactory(pStmnt,cnnct);
+    }
+    public ArrayList SearchByPrice(int min,int max)throws  IOException,SQLException{
+        Connection cnnct = null;
+        PreparedStatement pStmnt = null;
+        cnnct = getConnection();
+        String preQueryStatement = "SELECT * FROM item WHERE price>=? AND price<=?";
+
+        pStmnt = cnnct.prepareStatement(preQueryStatement);
+        pStmnt.setInt(1, min);
+        pStmnt.setInt(2, max);
+        return SearchFactory(pStmnt,cnnct);
+    }
+    public ArrayList SearchFactory(PreparedStatement pStmnt,Connection cnnct){
+        ResultSet rs = null;
+        ArrayList<Shopping> al = null;
         try {
-            cnnct = getConnection();
+            
             //String preQueryStatement = "SELECT * FROM item";
-            pStmnt = cnnct.prepareStatement(preQueryStatement);
+            cnnct = getConnection();
             rs = pStmnt.executeQuery();
             al = new ArrayList();
             while (rs.next()) {

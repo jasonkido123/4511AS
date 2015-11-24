@@ -17,7 +17,6 @@ import javax.servlet.annotation.WebServlet;
 
 import javax.servlet.http.*;
 
-
 /**
  *
  * @author chanyan
@@ -48,29 +47,47 @@ public class ShoppingController extends HttpServlet {
     protected void doPost(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
 
-        
-        
     }
 
     @Override
     protected void doGet(HttpServletRequest request,
-        HttpServletResponse response) throws ServletException, IOException {
+            HttpServletResponse response) throws ServletException, IOException {
         String dbUser = this.getServletContext().getInitParameter("dbUser");
         String dbPassword = this.getServletContext().getInitParameter("dbPassword");
         String dbUrl = this.getServletContext().getInitParameter("dbUrl");
         //categoryList(dbUrl, dbUser, dbPassword, request, response);
         String action = request.getParameter("action");
         String[] search = new String[4];
-        String min = request.getParameter("min");
-        String max = request.getParameter("max");
-        String name = request.getParameter("SearchName");
-        String brand = request.getParameter("SearchBrand");
-        
-        if("search".equals(action)){
+        search[0] = request.getParameter("min");
+        search[1] = request.getParameter("max");
+        search[2] = request.getParameter("SearchName");
+        search[3] = request.getParameter("SearchBrand");
+        int temp1=1,temp2=1,min=1,max=1;
+        if ("search".equals(action)) {
+            if(search[0]!=null&&search[1]!=null){
+                temp1 = Integer.parseInt(search[0]);
+                temp2 = Integer.parseInt(search[1]);
+                if(temp1>temp2){
+                    max = temp1;
+                    min = temp2;
+                }
+                else{
+                    max = temp2;
+                    min = temp1;
+                }
+            }
+                
             PrintWriter out = response.getWriter();
-            ArrayList<Shopping> al =  db.AllItem();
-            request.setAttribute("product", al);
-            System.out.println(min);
+            try {
+                ArrayList<Shopping> al = db.SearchByPrice(min,max);
+                request.setAttribute("product", al);
+            } catch (SQLException ex) {
+                while (ex != null) {
+                    ex.printStackTrace();
+                    ex = ex.getNextException();
+                }
+            }
+
             RequestDispatcher rd;
             rd = getServletContext().getRequestDispatcher("/shopping.jsp");
             rd.forward(request, response);
