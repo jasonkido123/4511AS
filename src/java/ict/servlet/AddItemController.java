@@ -33,8 +33,9 @@ public class AddItemController extends HttpServlet {
         Double price = Double.parseDouble(request.getParameter("itemprice"));
         String category = request.getParameter("category");
         String descriptions = request.getParameter("descriptions");
+        String brand = request.getParameter("brand");
         if ("additem".equals(action)) {
-            db.addItem(ItemId, Item_name, price, category, descriptions);
+            db.addItem(ItemId, Item_name, price, category, descriptions,brand);
             targetURL = "/addSuccess.jsp";
         } else {
             response.sendError(HttpServletResponse.SC_NOT_IMPLEMENTED);

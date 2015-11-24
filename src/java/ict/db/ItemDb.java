@@ -44,6 +44,7 @@ public class ItemDb {
                     "price Numeric(20,2) NOT NULL,"+
                     "category varchar(20) NOT NULL,"+
                     "descriptions varchar(100) NOT NULL,"+
+                    "brand varchar(20) NOT NULL,"+
                     "PRIMARY KEY(ItemId)"
                     +")";
             stmnt.execute(sql);
@@ -57,20 +58,21 @@ public class ItemDb {
         }
     }
     
-    public boolean addItem(String ItemId, String Item_name, double price, String category, String descriptions){
+    public boolean addItem(String ItemId, String Item_name, double price, String category, String descriptions,String brand){
 
         Connection cnnct = null;
         PreparedStatement pStmnt = null;
         boolean isSuccess = false;
         try{
             cnnct = getConnection();
-            String preQueryStatement = "insert into Item (ItemId, Item_name, price, category, descriptions) values (?,?,?,?,?)";
+            String preQueryStatement = "insert into Item (ItemId, Item_name, price, category, descriptions,brand) values (?,?,?,?,?,?)";
             pStmnt = cnnct.prepareStatement(preQueryStatement);
             pStmnt.setString(1, ItemId);
             pStmnt.setString(2, Item_name);
             pStmnt.setDouble(3, price);
             pStmnt.setString(4, category);
             pStmnt.setString(5, descriptions);
+            pStmnt.setString(6, brand);
             int rowCount = pStmnt.executeUpdate();
             if(rowCount >= 1){
                 isSuccess = true;
