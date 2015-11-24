@@ -11,6 +11,9 @@
         <p>Welcome to Stationery Online Station</p>
         <table border='1'>
             <tr>
+                <td><a href="addClient.jsp">Add Client</a></td>
+            </tr>
+            <tr>
                 <td><a href="addItem.jsp">Add Item</a></td>
             </tr>
         </table>

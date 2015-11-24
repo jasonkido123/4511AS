@@ -6,7 +6,7 @@
         <title>Add new item success!</title>
     </head>
     <body>
-        <h1><p>A new item record has been created!</p></h1>
+        <h1><p>A new record has been created!</p></h1>
         <div><a href="welcome.jsp">Continue</a></div>
     </body>
 </html>

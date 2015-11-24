@@ -1,14 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ict.bean;
 
-/**
- *
- * @author chanyan
- */
 public class Shopping {
     private String ItemId,ItemName,category,descriptions,brand;
     private int quantity,point;

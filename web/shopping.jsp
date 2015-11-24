@@ -1,3 +1,5 @@
+<<<<<<< HEAD
+=======
 <%-- 
     Document   : shopping
     Created on : Nov 23, 2015, 10:52:28 PM
@@ -8,6 +10,7 @@
 <%@page import="ict.bean.Shopping"%>
 <%@page import="java.util.ArrayList"%>
 
+>>>>>>> origin/master
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
