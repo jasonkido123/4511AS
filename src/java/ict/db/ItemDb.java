@@ -111,10 +111,30 @@ public class ItemDb {
         PreparedStatement pStmnt = null;
         cnnct = getConnection();
         String preQueryStatement = "SELECT * FROM item WHERE price>=? AND price<=?";
-
         pStmnt = cnnct.prepareStatement(preQueryStatement);
         pStmnt.setInt(1, min);
         pStmnt.setInt(2, max);
+        return SearchFactory(pStmnt,cnnct);
+    }
+    public ArrayList SearchByName(String name)throws  IOException,SQLException{
+        Connection cnnct = null;
+        PreparedStatement pStmnt = null;
+        cnnct = getConnection();
+        String preQueryStatement = "SELECT * FROM item WHERE Item_name LIKE ?";
+        pStmnt = cnnct.prepareStatement(preQueryStatement);
+        name = "%"+name+"%";
+        pStmnt.setString(1, name);
+        return SearchFactory(pStmnt,cnnct);
+    }
+    
+    public ArrayList SearchByBrand(String brand)throws  IOException,SQLException{
+        Connection cnnct = null;
+        PreparedStatement pStmnt = null;
+        cnnct = getConnection();
+        String preQueryStatement = "SELECT * FROM item WHERE brand LIKE ?";
+        pStmnt = cnnct.prepareStatement(preQueryStatement);
+        brand = "%"+brand+"%";
+        pStmnt.setString(1, brand);
         return SearchFactory(pStmnt,cnnct);
     }
     public ArrayList SearchFactory(PreparedStatement pStmnt,Connection cnnct){

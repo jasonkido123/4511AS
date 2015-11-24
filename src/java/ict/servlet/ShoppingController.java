@@ -62,24 +62,31 @@ public class ShoppingController extends HttpServlet {
         search[1] = request.getParameter("max");
         search[2] = request.getParameter("SearchName");
         search[3] = request.getParameter("SearchBrand");
-        int temp1=1,temp2=1,min=1,max=1;
+        int temp1=0,temp2=0,min=0,max=0;
         if ("search".equals(action)) {
-            if(search[0]!=null&&search[1]!=null){
-                temp1 = Integer.parseInt(search[0]);
-                temp2 = Integer.parseInt(search[1]);
-                if(temp1>temp2){
-                    max = temp1;
-                    min = temp2;
-                }
-                else{
-                    max = temp2;
-                    min = temp1;
-                }
-            }
-                
-            PrintWriter out = response.getWriter();
             try {
-                ArrayList<Shopping> al = db.SearchByPrice(min,max);
+                ArrayList<Shopping> al = db.AllItem();
+                if(search[0].isEmpty()==false&&search[1].isEmpty()==false){
+                    temp1 = Integer.parseInt(search[0]);
+                    temp2 = Integer.parseInt(search[1]);
+                    if(temp1>temp2){
+                        max = temp1;
+                        min = temp2;
+                    }
+                    else{
+                        max = temp2;
+                        min = temp1;
+                    }
+                    al = db.SearchByPrice(min,max);
+                }else if(search[2].isEmpty()==false){
+                    al = db.SearchByName(search[2]);
+                }else if(search[3].isEmpty()==false){
+                    al = db.SearchByBrand(search[3]);
+                }
+                else
+                    al = db.AllItem();
+            PrintWriter out = response.getWriter();
+            
                 request.setAttribute("product", al);
             } catch (SQLException ex) {
                 while (ex != null) {

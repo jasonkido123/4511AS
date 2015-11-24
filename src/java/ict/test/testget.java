@@ -22,8 +22,8 @@ public class testget {
         String url = "jdbc:mysql://localhost:3306/jsp_ass";
         String username = "root";
         ItemDb cdb = new ItemDb(url,username,"");
-        ArrayList<Shopping> al = cdb.SearchByPrice(100,200);
-        Shopping s = al.get(0);
+        ArrayList<Shopping> al = cdb.SearchByBrand("1");
+        Shopping s = al.get(1);
         System.out.println(s.getItemId());
         System.out.println(s.getPrice());
         System.out.println(s.getPoint());
