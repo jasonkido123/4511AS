@@ -17,7 +17,6 @@ import javax.servlet.annotation.WebServlet;
 
 import javax.servlet.http.*;
 
-
 /**
  *
  * @author chanyan
@@ -48,29 +47,38 @@ public class ShoppingController extends HttpServlet {
     protected void doPost(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
 
-        
-        
     }
 
     @Override
     protected void doGet(HttpServletRequest request,
-        HttpServletResponse response) throws ServletException, IOException {
+            HttpServletResponse response) throws ServletException, IOException {
         String dbUser = this.getServletContext().getInitParameter("dbUser");
         String dbPassword = this.getServletContext().getInitParameter("dbPassword");
         String dbUrl = this.getServletContext().getInitParameter("dbUrl");
         //categoryList(dbUrl, dbUser, dbPassword, request, response);
         String action = request.getParameter("action");
-        String[] search = new String[4];
-        String min = request.getParameter("min");
-        String max = request.getParameter("max");
-        String name = request.getParameter("SearchName");
-        String brand = request.getParameter("SearchBrand");
-        
-        if("search".equals(action)){
-            PrintWriter out = response.getWriter();
-            ArrayList<Shopping> al =  db.AllItem();
-            request.setAttribute("product", al);
-            System.out.println(min);
+        String[] search = new String[7];
+        search[0] = request.getParameter("min");
+        search[1] = request.getParameter("max");
+        search[2] = request.getParameter("Pmin");
+        search[3] = request.getParameter("Pmax");
+        search[4] = request.getParameter("SearchName");
+        search[5] = request.getParameter("SearchBrand");
+        search[6] = request.getParameter("category");
+        if ("search".equals(action)) {
+            try {
+                ArrayList<Shopping> al;
+                al = db.SearchBy(search);
+                PrintWriter out = response.getWriter();
+
+                request.setAttribute("product", al);
+            } catch (SQLException ex) {
+                while (ex != null) {
+                    ex.printStackTrace();
+                    ex = ex.getNextException();
+                }
+            }
+
             RequestDispatcher rd;
             rd = getServletContext().getRequestDispatcher("/shopping.jsp");
             rd.forward(request, response);
