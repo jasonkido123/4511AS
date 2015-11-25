@@ -8,7 +8,7 @@
     <body>
         <h1>Please enter the following details:</h1>
         <form method="post" action="addclient">
-            <input type="hidden" name="action" value="addclient"/>
+            <input type="hidden" name="action" value="add"/>
             <table border='1'>
                 <tr>
                     <td>Client id:</td>

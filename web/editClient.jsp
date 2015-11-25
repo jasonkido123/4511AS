@@ -8,7 +8,7 @@
     <body>
         <jsp:useBean id="c" scope="request" class="ict.bean.ClientInfo" />
         <%
-            String type = c.getId() != null ? "update" : "add";
+            String type = c.getId() != null ? "edit" : "add";
             String id = c.getId() != null ? c.getId() : "" ;
             String name = c.getId() != null ? c.getName(): "" ;
             String tel = c.getId() != null ? c.getTel()+"": "" ;
@@ -16,19 +16,16 @@
             String username = c.getId() != null ? c.getUsername(): "" ;
             String password = c.getId() != null ? c.getPassword(): "" ;
             String status = c.getId() != null ? Boolean.toString(c.isStatus()): "" ;
-            String balance = c.getId() != null ? Double.toString(c.getBalance()): "" ;
-            String point = c.getId() != null ? Integer.toString(c.getPoint()): "" ;
+            String balance = c.getId() != null ? c.getBalance()+"": "" ;
+            String point = c.getId() != null ? c.getPoint()+"": "" ;
             String admin = c.getId() != null ? Boolean.toString(c.isAdmin()): "" ;
             
         %>
         <h1><%=type%></h1>
-        <form method="post" action="addclient">
+        <form method="post" action="handleEdit">
             <input type="hidden" name="action" value="<%=type%>"/>
             <table border="0">
-                <tr>
-                    <td><p align="right" /><b>Client id </b></td>
-                    <td><p /><input type="text" name="id" maxlength="5" size="8" value="<%=id%>"/></td>
-                </tr>
+                <p /><input type="hidden" name="id" maxlength="5" size="8" value="<%=id%>"/>
                 <tr>
                     <td><p align="right" /><b>Client name </b></td>
                     <td><p /><input type="text" name="name" maxlength="25" size="30" value="<%=name%>"/></td>
@@ -55,18 +52,18 @@
                 </tr>
                 <tr>
                     <td><p align="right" /><b>Balance </b></td>
-                    <td><p /><input type="number" name="balance" step="10" min="0" maxlength="20" size="25" value="<%=balance%>"/></td>
+                    <td><p /><input type="number" name="balance" step="0.01" min="0" maxlength="20" size="25" value="<%=balance%>"/></td>
                 </tr>
                 <tr>
                     <td><p align="right" /><b>Point </b></td>
-                    <td><p /><input type="number" name="point" min="0" max="10000" value="<%=point%>"/></td>
+                    <td><p /><input type="number" name="point" step="100" min="0" max="10000" value="<%=point%>"/></td>
                 </tr>
                 <tr>
                     <td><p align="right" /><b>Is admin?:(Y/N) </b></td>
                     <td><p /><input type="text" name="adminOrNot" maxlength="1" size="1" value="<%=admin%>"/></td>
                 </tr>
                 <tr>
-                    <td colspan="2"><p align="center" /><input type="submit" name="test" value="update"/></td>
+                    <td colspan="2"><p align="center" /><input type="submit" value="submit"/></td>
                 </tr>
             </table>
         </form>

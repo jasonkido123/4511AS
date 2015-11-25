@@ -37,6 +37,5 @@
             }
             out.println("</table>");
         %>
-        <a href="welcome.jsp">Back</a>
     </body>
 </html>
