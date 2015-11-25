@@ -13,19 +13,20 @@ import javax.servlet.http.HttpSession;
 
 @WebServlet(name = "LoginController", urlPatterns = {"/main"})
 public class LoginController extends HttpServlet {
+
     private ClientDb db;
-    
-    public void init (){
+
+    public void init() {
         String dbUser = this.getServletContext().getInitParameter("dbUser");
         String dbPassword = this.getServletContext().getInitParameter("dbPassword");
         String dbUrl = this.getServletContext().getInitParameter("dbUrl");
         db = new ClientDb(dbUrl, dbUser, dbPassword);
     }
 
-    protected void doGet(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doPost(request, response);
     }
-     
+
     protected void doPost(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
@@ -42,49 +43,53 @@ public class LoginController extends HttpServlet {
             response.sendError(HttpServletResponse.SC_NOT_IMPLEMENTED);
         }
     }
-    
-    private void doAuthenticate(HttpServletRequest request,HttpServletResponse response) throws IOException, ServletException {
+
+    private void doAuthenticate(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         String targetURL;
-        if(db.isValidUser(username, password)==true){
+        if (db.isValidUser(username, password) == true) {
             HttpSession session = request.getSession(true);
             ClientInfo bean = new ClientInfo();
             bean.setUsername(username);
             bean.setPassword(password);
-       
             session.setAttribute("client", bean);
-            targetURL = "/welcome.jsp";
-        }else{
+            if (bean.isAdmin() == true) {
+                targetURL = "/welcome.jsp";
+            } else {
+                targetURL = "/welcomeNormal.jsp";
+            }
+//            targetURL = "/welcome.jsp";
+        } else {
             targetURL = "/loginError.jsp";
         }
         RequestDispatcher rd;
-        rd = getServletContext().getRequestDispatcher("/"+targetURL);
+        rd = getServletContext().getRequestDispatcher("/" + targetURL);
         rd.forward(request, response);
     }
-    
-    private boolean isAuthenticated(HttpServletRequest request){
+
+    private boolean isAuthenticated(HttpServletRequest request) {
         boolean result = false;
         HttpSession session = request.getSession();
-        if(session.getAttribute("client")!=null){
+        if (session.getAttribute("client") != null) {
             result = true;
         }
         return result;
     }
-    
-    private void doLogin(HttpServletRequest request,HttpServletResponse response) throws IOException, ServletException {
+
+    private void doLogin(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String targetURL = "login.jsp";
         RequestDispatcher rd;
-        rd = getServletContext().getRequestDispatcher("/"+targetURL);
+        rd = getServletContext().getRequestDispatcher("/" + targetURL);
         rd.forward(request, response);
     }
-    
-    private void doLogout(HttpServletRequest request,HttpServletResponse response) throws IOException, ServletException {
+
+    private void doLogout(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         HttpSession session = request.getSession(false);
-        if(session !=null){
+        if (session != null) {
             session.removeAttribute("client");
             session.invalidate();
         }
-        doLogin(request,response);
+        doLogin(request, response);
     }
 }

@@ -12,10 +12,10 @@
         <%
             ArrayList<ClientInfo> client
                     = (ArrayList<ClientInfo>) request.getAttribute("client");
-            out.println("<h1>Clients</h1>");
-            out.println("<table border='1' >");
+            out.println("<h1>Here is the clients details!</h1>");
+            out.println("<table border='3' >");
             out.println("<tr>");
-            out.println("<th>ClientId</th> <th>Name</th><th>Tel</th><th>Address</th ><th>Login name</th ><th>Login password</th ><th>Status</th ><th>Balance</th ><th>Point</th ><th>Is admin?</th >");
+            out.println("<th>ClientId</th> <th>Name</th><th>Tel</th><th>Address</th ><th>Login name</th ><th>Login password</th ><th>Status</th ><th>Balance</th ><th>Point</th ><th>Is admin?</th ><th>Edit client</th><th>Delete client</th>");
             out.println("</tr>");
             // loop through the customer array to display each customer record
             for (int i = 0; i < client.size(); i++) {
@@ -31,8 +31,8 @@
                 out.println("<td>" + c.getBalance()+ "</td>");
                 out.println("<td>" + c.getPoint()+ "</td>");
                 out.println("<td>" + c.isAdmin()+ "</td>");
-                out.println("<td><a href=\"addclient?action=delete&id=" + c.getId()+ "\">delete</td>");
                 out.println("<td><a href=\"addclient?action=getEditClient&id=" + c.getId() + "\">edit</td>");
+                out.println("<td><a href=\"addclient?action=delete&id=" + c.getId()+ "\">delete</td>");
                 out.println("</tr>");
             }
             out.println("</table>");

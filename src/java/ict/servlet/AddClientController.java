@@ -49,9 +49,7 @@ public class AddClientController extends HttpServlet {
         } else if ("delete".equalsIgnoreCase(action)) {
             String id = request.getParameter("id");
             db.delRecord(id);
-            RequestDispatcher rd;
-            rd = getServletContext().getRequestDispatcher("/showClient.jsp");
-            rd.forward(request, response);
+            response.sendRedirect("addclient?action=list");
         } else if ("getEditClient".equalsIgnoreCase(action)) {
             String id = request.getParameter("id");
             if (id != null) {
