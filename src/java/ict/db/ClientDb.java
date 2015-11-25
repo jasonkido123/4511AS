@@ -95,11 +95,6 @@ public class ClientDb {
         }
         return isValid; 
     }
-    
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/master
     public boolean addClientInfo(String clientId, String name, int tel, String d_address, String login_ac, String login_pw, boolean login_statues, double balance, int point,boolean admin){
 
         Connection cnnct = null;
@@ -183,6 +178,63 @@ public class ClientDb {
         return cbs;
     }
     
+    public boolean delRecord(String clientID){
+        Connection cnnct = null;
+        PreparedStatement pStnmt = null;
+        boolean isSuccess = false;
+        try{
+            cnnct = getConnection();
+            String preQueryStatment = "delete from client where clientId = ?";
+            pStnmt = cnnct.prepareStatement(preQueryStatment);
+            pStnmt.setString(1, clientID);
+            int rowCount = pStnmt.executeUpdate();
+            if (rowCount >=1 ){
+                isSuccess = true;
+            }
+            pStnmt.close();
+            cnnct.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            ex = ex.getNextException();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return isSuccess;
+    }
+    
+    public boolean editRecord(ClientInfo cb){
+        Connection cnnct = null;
+        PreparedStatement pStnmt = null;
+        boolean isSuccess = false;
+        try{
+            cnnct = getConnection();
+            String preQueryStatment = "update client set name = ?, tel = ?, d_address = ?, login_ac=?, login_pw=?, login_statues=?, balance=?, point=?, admin=? where clientId = ?";
+            pStnmt = cnnct.prepareStatement(preQueryStatment);
+            pStnmt.setString(1, cb.getName());
+            pStnmt.setInt(2, cb.getTel());
+            pStnmt.setString(3, cb.getAddress());
+            pStnmt.setString(4, cb.getUsername());
+            pStnmt.setString(5, cb.getPassword());
+            pStnmt.setBoolean(6, cb.isStatus());
+            pStnmt.setDouble(7, cb.getBalance());            
+            pStnmt.setInt(8, cb.getPoint());
+            pStnmt.setBoolean(9, cb.isAdmin());     
+            pStnmt.setString(10, cb.getId());
+            int rowCount = pStnmt.executeUpdate();
+            if (rowCount >=1 ){
+                isSuccess = true;
+            }
+            pStnmt.close();
+            cnnct.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            ex = ex.getNextException();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return isSuccess;
+    }
+    
     public ClientInfo queryCustByID(String id){
         Connection cnnct = null;
         PreparedStatement pStnmt = null;
@@ -228,29 +280,4 @@ public class ClientDb {
         }
         return cb;
     }
-    
-    public boolean delRecord(String clientID){
-        Connection cnnct = null;
-        PreparedStatement pStnmt = null;
-        boolean isSuccess = false;
-        try{
-            cnnct = getConnection();
-            String preQueryStatment = "delete from client where clientId = ?";
-            pStnmt = cnnct.prepareStatement(preQueryStatment);
-            pStnmt.setString(1, clientID);
-            int rowCount = pStnmt.executeUpdate();
-            if (rowCount >=1 ){
-                isSuccess = true;
-            }
-            pStnmt.close();
-            cnnct.close();
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-            ex = ex.getNextException();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-        return isSuccess;
-    }
-    
 }

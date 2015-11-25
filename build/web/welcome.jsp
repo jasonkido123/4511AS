@@ -17,9 +17,6 @@
                 <td><a href="addclient?action=list">Show Client</a></td>
             </tr>
             <tr>
-                <td><a href="editClient.jsp">Edit Client</a></td>
-            </tr>
-            <tr>
                 <td><a href="addItem.jsp">Add Item</a></td>
             </tr>
         </table>

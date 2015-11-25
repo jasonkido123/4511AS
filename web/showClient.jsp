@@ -32,7 +32,7 @@
                 out.println("<td>" + c.getPoint()+ "</td>");
                 out.println("<td>" + c.isAdmin()+ "</td>");
                 out.println("<td><a href=\"addclient?action=delete&id=" + c.getId()+ "\">delete</td>");
-//                out.println("<td><a href=\"handleCustomer?action=getEditCustomer&id=" + c.getCustId() + "\">edit</td>");
+                out.println("<td><a href=\"addclient?action=getEditClient&id=" + c.getId() + "\">edit</td>");
                 out.println("</tr>");
             }
             out.println("</table>");
