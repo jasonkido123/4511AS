@@ -57,36 +57,20 @@ public class ShoppingController extends HttpServlet {
         String dbUrl = this.getServletContext().getInitParameter("dbUrl");
         //categoryList(dbUrl, dbUser, dbPassword, request, response);
         String action = request.getParameter("action");
-        String[] search = new String[4];
+        String[] search = new String[7];
         search[0] = request.getParameter("min");
         search[1] = request.getParameter("max");
-        search[2] = request.getParameter("SearchName");
-        search[3] = request.getParameter("SearchBrand");
-        int temp1=0,temp2=0,min=0,max=0;
+        search[2] = request.getParameter("Pmin");
+        search[3] = request.getParameter("Pmax");
+        search[4] = request.getParameter("SearchName");
+        search[5] = request.getParameter("SearchBrand");
+        search[6] = request.getParameter("category");
         if ("search".equals(action)) {
             try {
-                ArrayList<Shopping> al = db.AllItem();
-                if(search[0].isEmpty()==false&&search[1].isEmpty()==false){
-                    temp1 = Integer.parseInt(search[0]);
-                    temp2 = Integer.parseInt(search[1]);
-                    if(temp1>temp2){
-                        max = temp1;
-                        min = temp2;
-                    }
-                    else{
-                        max = temp2;
-                        min = temp1;
-                    }
-                    al = db.SearchByPrice(min,max);
-                }else if(search[2].isEmpty()==false){
-                    al = db.SearchByName(search[2]);
-                }else if(search[3].isEmpty()==false){
-                    al = db.SearchByBrand(search[3]);
-                }
-                else
-                    al = db.AllItem();
-            PrintWriter out = response.getWriter();
-            
+                ArrayList<Shopping> al;
+                al = db.SearchBy(search);
+                PrintWriter out = response.getWriter();
+
                 request.setAttribute("product", al);
             } catch (SQLException ex) {
                 while (ex != null) {

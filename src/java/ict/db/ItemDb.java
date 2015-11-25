@@ -65,7 +65,6 @@ public class ItemDb {
 
     public boolean addItem(String ItemId, String Item_name, double price, String category, String descriptions, String brand, int quantity, int point) {
 
-
         Connection cnnct = null;
         PreparedStatement pStmnt = null;
         boolean isSuccess = false;
@@ -98,15 +97,16 @@ public class ItemDb {
         return isSuccess;
     }
 
-    public ArrayList AllItem()throws  IOException,SQLException{
+    public ArrayList AllItem() throws IOException, SQLException {
         Connection cnnct = null;
         PreparedStatement pStmnt = null;
         cnnct = getConnection();
         String preQueryStatement = "SELECT * FROM item";
         pStmnt = cnnct.prepareStatement(preQueryStatement);
-        return SearchFactory(pStmnt,cnnct);
+        return SearchFactory(pStmnt, cnnct);
     }
-    public ArrayList SearchByPrice(int min,int max)throws  IOException,SQLException{
+
+    public ArrayList SearchByPrice(int min, int max) throws IOException, SQLException {
         Connection cnnct = null;
         PreparedStatement pStmnt = null;
         cnnct = getConnection();
@@ -114,34 +114,143 @@ public class ItemDb {
         pStmnt = cnnct.prepareStatement(preQueryStatement);
         pStmnt.setInt(1, min);
         pStmnt.setInt(2, max);
-        return SearchFactory(pStmnt,cnnct);
+        return SearchFactory(pStmnt, cnnct);
     }
-    public ArrayList SearchByName(String name)throws  IOException,SQLException{
+
+    public ArrayList SearchByName(String name) throws IOException, SQLException {
         Connection cnnct = null;
         PreparedStatement pStmnt = null;
         cnnct = getConnection();
         String preQueryStatement = "SELECT * FROM item WHERE Item_name LIKE ?";
         pStmnt = cnnct.prepareStatement(preQueryStatement);
-        name = "%"+name+"%";
+        name = "%" + name + "%";
         pStmnt.setString(1, name);
-        return SearchFactory(pStmnt,cnnct);
+        return SearchFactory(pStmnt, cnnct);
     }
-    
-    public ArrayList SearchByBrand(String brand)throws  IOException,SQLException{
+
+    public ArrayList SearchByCate(String category) throws IOException, SQLException {
+        Connection cnnct = null;
+        PreparedStatement pStmnt = null;
+        cnnct = getConnection();
+        String preQueryStatement = "SELECT * FROM item WHERE category=?";
+        pStmnt = cnnct.prepareStatement(preQueryStatement);
+        pStmnt.setString(1, category);
+        return SearchFactory(pStmnt, cnnct);
+    }
+
+    public ArrayList SearchByBrand(String brand) throws IOException, SQLException {
         Connection cnnct = null;
         PreparedStatement pStmnt = null;
         cnnct = getConnection();
         String preQueryStatement = "SELECT * FROM item WHERE brand LIKE ?";
         pStmnt = cnnct.prepareStatement(preQueryStatement);
-        brand = "%"+brand+"%";
+        brand = "%" + brand + "%";
         pStmnt.setString(1, brand);
-        return SearchFactory(pStmnt,cnnct);
+        return SearchFactory(pStmnt, cnnct);
     }
-    public ArrayList SearchFactory(PreparedStatement pStmnt,Connection cnnct){
+
+    public ArrayList SearchBy(String[] data) throws IOException, SQLException {
+        Connection cnnct = null;
+        PreparedStatement pStmnt = null;
+        cnnct = getConnection();
+        String preQueryStatement = "SELECT * FROM item WHERE";
+        int max = 0, min = 0,Pmax=0,Pmin=0, counter = 1, setCounter = 1;
+        boolean[] dataCheck = new boolean[7];
+        if (data[0].isEmpty() == false && data[1].isEmpty() == false) {
+            if (Integer.parseInt(data[0]) > Integer.parseInt(data[1])) {
+                max = Integer.parseInt(data[0]);
+                min = Integer.parseInt(data[1]);
+            } else {
+                max = Integer.parseInt(data[1]);
+                min = Integer.parseInt(data[0]);
+            }
+            dataCheck[0] = true;
+            dataCheck[1] = true;
+            counter = 2;
+            preQueryStatement += " price>=? AND price<=?";
+        }
+        if (data[2].isEmpty() == false && data[3].isEmpty() == false) {
+            if (Integer.parseInt(data[2]) > Integer.parseInt(data[3])) {
+                Pmax = Integer.parseInt(data[2]);
+                Pmin = Integer.parseInt(data[3]);
+            } else {
+                Pmax = Integer.parseInt(data[3]);
+                Pmin = Integer.parseInt(data[2]);
+            }
+            dataCheck[2] = true;
+            dataCheck[3] = true;
+            if (counter == 1) {
+                preQueryStatement += " point>=? AND point<=?";
+                counter = 2;
+            } else {
+                preQueryStatement += " AND point>=? AND point<=?";
+                counter = 4;
+            }
+        }
+        if (data[4].isEmpty() == false) {
+            if (counter == 1) {
+                preQueryStatement += " Item_name LIKE ?";
+            } else {
+                preQueryStatement += " AND Item_name LIKE ?";
+            }
+            counter++;
+            dataCheck[4] = true;
+        }
+        if (data[5].isEmpty() == false) {
+            if (counter == 1) {
+                preQueryStatement += " brand LIKE ?";
+            } else {
+                preQueryStatement += " AND brand LIKE ?";
+            }
+            counter++;
+            dataCheck[5] = true;
+        }
+        if (data[6].isEmpty() == false) {
+            if (counter == 1) {
+                preQueryStatement += " category LIKE ?";
+            } else {
+                preQueryStatement += " AND category LIKE ?";
+            }
+            counter++;
+            dataCheck[6] = true;
+        }
+        if (counter == 1) {
+            preQueryStatement = "SELECT * FROM item";
+        }
+        System.out.println(preQueryStatement);
+        pStmnt = cnnct.prepareStatement(preQueryStatement);
+        if (dataCheck[0] == true && dataCheck[1] == true) {
+            pStmnt.setInt(1, min);
+            pStmnt.setInt(2, max);
+            setCounter = 3;
+        }
+        if (dataCheck[2] == true && dataCheck[3] == true) {
+            if (dataCheck[0] == true && dataCheck[1] == true) {
+                pStmnt.setInt(3, Pmin);
+                pStmnt.setInt(4, Pmax);
+                setCounter = 5;
+            } else {
+                pStmnt.setInt(1, Pmin);
+                pStmnt.setInt(2, Pmax);
+                setCounter = 3;
+            }
+        }
+        System.out.print(pStmnt.toString());
+        for (int i= 4; i <=6 ; i++) {
+            if (dataCheck[i] == true) {
+                data[i] = "%" + data[i] + "%";
+                pStmnt.setString(setCounter, data[i]);
+                setCounter++;
+            }
+        }
+        return SearchFactory(pStmnt, cnnct);
+    }
+
+    public ArrayList SearchFactory(PreparedStatement pStmnt, Connection cnnct) {
         ResultSet rs = null;
         ArrayList<Shopping> al = null;
         try {
-            
+
             //String preQueryStatement = "SELECT * FROM item";
             cnnct = getConnection();
             rs = pStmnt.executeQuery();

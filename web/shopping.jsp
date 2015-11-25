@@ -19,7 +19,7 @@
     <body>
         <form action="shopping">
             <table border="1">
-                <tr><td colspan="5">Search</td></tr>
+                <tr><td colspan="6">Search</td></tr>
                 <tr><td>Product Name:<input type="Textbox" name="SearchName"></td>
                     <td>Money range:</br>
                         Min:
@@ -66,19 +66,51 @@
                             CategoryDb db = new CategoryDb(dbUrl, dbUser, dbPassword);
                             ArrayList<Shopping> al = db.AllCategory();
                         %>
-                        <select>
-                            <option value="" name="category"></option>
+                        <select name="category">
+                            <option value=""></option>
                             <%
                                 
                                 for(int i=0;i<al.size();i++){
-                                    out.print("<option value=\""+al.get(i)+"\" name=\"category\">"+al.get(i)+"</option>");
+                                    out.print("<option value=\""+al.get(i)+"\">"+al.get(i)+"</option>");
                                 }
                             %>
                         </select>
                     </td>
+                    <td>Point range:</br>
+                        Min:
+                    <select name="Pmin">
+                        <option value=""></option>
+                        <option value="1">1Point</option>
+                        <%
+                            for(int i=5;i<=15;i+=5){
+                                out.print("<option value=\""+i+"\" >"+i+"Point"+"</option>");
+                            }
+                            for(int i=20;i<=100;i+=10){
+                                out.print("<option value=\""+i+"\" >"+i+"Point"+"</option>");
+                            }
+                            for(int i=200;i<=500;i+=100){
+                                out.print("<option value=\""+i+"\" >"+i+"Point"+"</option>");
+                            }
+                        %>
+                        </select>~
+                        Max:<select name="Pmax">
+                        <option value="" ></option>
+                        <option value="1" >1Point</option>
+                        <%
+                            for(int i=5;i<=15;i+=5){
+                                out.print("<option value=\""+i+"\" >"+i+"Point"+"</option>");
+                            }
+                            for(int i=20;i<=100;i+=10){
+                                out.print("<option value=\""+i+"\" >"+i+"Point"+"</option>");
+                            }
+                            for(int i=200;i<=500;i+=100){
+                                out.print("<option value=\""+i+"\" >"+i+"Point"+"</option>");
+                            }
+                        %>
+                        </select>
+                    </td>
                     <td>
                         <input type="submit" name="action" value=search />
- 
                     </td>
                 </tr>
             </table>
@@ -94,6 +126,7 @@
                     s+="<td>"+item.getQuantity()+"</td>";
                     s+="<td>"+item.getPrice()+"</td>";
                     s+="<td>"+item.getPoint()+"</td>";
+                    s+="<td>"+"Add to Cart"+"</td>";
                     s+="</tr>";
                 }
                 s+="</table>";
