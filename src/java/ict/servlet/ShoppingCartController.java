@@ -61,6 +61,12 @@ public class ShoppingCartController extends HttpServlet {
             if (action.equals("del")) {
                 actionDel(pid);
             }
+            if (action.equals("plus")) {
+                actionPlus(pid);
+            }
+            if (action.equals("Minus")) {
+                actionMinus(pid);
+            }
             request.setAttribute("ItemList", al);
             request.setAttribute("id", pid);
             RequestDispatcher rd;
@@ -129,6 +135,37 @@ public class ShoppingCartController extends HttpServlet {
             while (ex != null) {
                 ex.printStackTrace();
                 ex = ex.getNextException();
+            }
+        }
+    }
+
+    public void actionPlus(String pid) {
+        if (al.size() > 0) {
+            ShoppingCart sc = new ShoppingCart();
+            for (int i = 0; i < al.size(); i++) {
+                sc = al.get(i);
+                if (sc.getItemId().equals(pid)) {
+                    al.get(i).setQuantity(al.get(i).getQuantity() + 1);
+                    break;
+                }
+            }
+        }
+    }
+
+    public void actionMinus(String pid) {
+        if (al.size() > 0) {
+            ShoppingCart sc = new ShoppingCart();
+            for (int i = 0; i < al.size(); i++) {
+                sc = al.get(i);
+                if (sc.getItemId().equals(pid)) {
+                    int k = al.get(i).getQuantity() - 1;
+                    if (k < 1) {
+                        al.remove(i);
+                    } else {
+                        al.get(i).setQuantity(k);
+                    }
+                    break;
+                }
             }
         }
     }
