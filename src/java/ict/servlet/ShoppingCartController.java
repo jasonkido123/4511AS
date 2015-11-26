@@ -28,6 +28,7 @@ public class ShoppingCartController extends HttpServlet {
 
     private ItemDb db;
     private ArrayList<ShoppingCart> al;
+
     public void init() {
         String dbUser = this.getServletContext().getInitParameter("dbUser");
         String dbPassword = this.getServletContext().getInitParameter("dbPassword");
@@ -45,25 +46,49 @@ public class ShoppingCartController extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
         String pid = request.getParameter("pid");
-        
+
         //al = request.getParameter(ItemList);
-        ShoppingCart sc = new ShoppingCart();
+        //ShoppingCart sc = new ShoppingCart();
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             ArrayList als = db.SearchById(pid);
             Shopping s = (Shopping) als.get(0);
-            sc.setItemId(pid);
-            sc.setPoint(s.getPoint());
-            sc.setPrice(s.getPrice());
-            sc.setName(s.getItemName());
-            int q = sc.getQuantity();
-            sc.setQuantity((q += 1));
-            al.add(sc);
+            if (al.size() > 0) {
+                ShoppingCart sc = new ShoppingCart();
+                boolean isExitst = false;
+                for (int i = 0; i < al.size(); i++) {
+                    sc = al.get(i);
+                    if (sc.getItemId().equals(pid)) {
+                        isExitst = true;
+                    }
+
+                }
+                //System.out.println(sc.getItemId() + "   " + pid);
+                if (isExitst) {
+                    sc.setQuantity(sc.getQuantity() + 1);
+                } else {
+                    sc = new ShoppingCart();
+                    sc.setQuantity(1);
+                    sc.setItemId(pid);
+                    sc.setPoint(s.getPoint());
+                    sc.setPrice(s.getPrice());
+                    sc.setName(s.getItemName());
+                    al.add(sc);
+                }
+            } else {
+                ShoppingCart sc = new ShoppingCart();
+                sc.setItemId(pid);
+                sc.setPoint(s.getPoint());
+                sc.setPrice(s.getPrice());
+                sc.setName(s.getItemName());
+                int q = sc.getQuantity();
+                sc.setQuantity(1);
+                al.add(sc);
+            }
             request.setAttribute("ItemList", al);
             request.setAttribute("id", pid);
             RequestDispatcher rd;
