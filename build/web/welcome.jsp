@@ -7,7 +7,7 @@
     </head>
     <body>
         <jsp:useBean id="clientInfo" class="ict.bean.ClientInfo" scope="session" />
-        <b>Hello, <jsp:getProperty name="client" property="username" /></b>
+        <b>Hello, admin <jsp:getProperty name="client" property="username" /></b>
         <p>Welcome to Stationery Online Station</p>
         <table border='1'>
             <tr>

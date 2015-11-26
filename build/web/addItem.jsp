@@ -43,7 +43,6 @@
                     <td><input type="number" name="point" min="0" max="10000"></td>
                 </tr>
                 <tr>
-                    <td><a href="welcome.jsp">Back</a></td>
                     <td><input type="submit" value="Submit"></td>
                 </tr>
             </table>

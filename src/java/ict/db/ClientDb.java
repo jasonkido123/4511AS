@@ -95,7 +95,7 @@ public class ClientDb {
         }
         return isValid; 
     }
-
+    
     public boolean addClientInfo(String clientId, String name, int tel, String d_address, String login_ac, String login_pw, boolean login_statues, double balance, int point,boolean admin){
 
         Connection cnnct = null;
