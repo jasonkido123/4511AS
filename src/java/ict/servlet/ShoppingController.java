@@ -78,7 +78,6 @@ public class ShoppingController extends HttpServlet {
                     ex = ex.getNextException();
                 }
             }
-
             RequestDispatcher rd;
             rd = getServletContext().getRequestDispatcher("/shopping.jsp");
             rd.forward(request, response);

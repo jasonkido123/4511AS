@@ -20,7 +20,7 @@ public class testget {
         search[4] = "";//request.getParameter("category");
         search[5] = "";//request.getParameter("category");
         search[6] = "";//request.getParameter("category");
-        ArrayList<Shopping> al = cdb.SearchBy(search);
+        ArrayList<Shopping> al = cdb.SearchById("i0001");
         Shopping s = al.get(0);
         System.out.println(al.size());
         System.out.println(s.getItemId());
