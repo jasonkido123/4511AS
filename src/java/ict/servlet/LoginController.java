@@ -48,18 +48,23 @@ public class LoginController extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         String targetURL;
-        if (db.isValidUser(username, password) == true) {
+        boolean isValidate = db.isValidUser(username, password);
+        boolean isAdmin = db.checkAdmin(username);
+
+        if (isValidate && isAdmin) {
             HttpSession session = request.getSession(true);
             ClientInfo bean = new ClientInfo();
             bean.setUsername(username);
             bean.setPassword(password);
             session.setAttribute("client", bean);
-            if (bean.isAdmin() == true) {
-                targetURL = "/welcome.jsp";
-            } else {
-                targetURL = "/welcomeNormal.jsp";
-            }
-//            targetURL = "/welcome.jsp";
+            targetURL = "/welcome.jsp";
+        } else if (isValidate && isAdmin == false) {
+            HttpSession session = request.getSession(true);
+            ClientInfo bean = new ClientInfo();
+            bean.setUsername(username);
+            bean.setPassword(password);
+            session.setAttribute("client", bean);
+            targetURL = "/welcomeNormal.jsp";
         } else {
             targetURL = "/loginError.jsp";
         }

@@ -17,10 +17,10 @@ public class TestEdit {
         cb.setAddress("ABC");
         cb.setUsername("tom");
         cb.setPassword("tom");
-        cb.setStatus(true);
+        cb.setStatus("Y");
         cb.setBalance(100.0);
         cb.setPoint(100);
-        cb.setAdmin(true);
+        cb.setAdmin("Y");
         clientdb.editRecord(cb);
     }
 }

@@ -7,8 +7,8 @@ public class Test {
         String url = "jdbc:mysql://localhost:3306/jsp_ass";
         String username = "root";
         ClientDb clientdb = new ClientDb(url,username,"");
-        clientdb.addClientInfo("U0001", "Tom", 12345678, "ABC", "tom", "tom", false, 200, 100,false);
-        clientdb.addClientInfo("U0002", "Jason", 12345677, "BCD", "jason", "jason", true, 200, 100,true);
+        clientdb.addClientInfo("U0001", "Tom", 12345678, "ABC", "tom", "tom", "N", 200, 100,"N");
+        clientdb.addClientInfo("U0002", "Jason", 12345677, "BCD", "jason", "jason", "Y", 200, 100,"Y");
         ItemDb idb = new ItemDb(url,username,"");
         idb.addItem("I0001","P1",300,"pen", "super pen","brand1",10,5);
         idb.addItem("I0002","P2",200,"pen", "super pen1","brand2",10,5);

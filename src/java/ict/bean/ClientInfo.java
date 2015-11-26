@@ -6,7 +6,7 @@ public class ClientInfo implements Serializable{
     private String id,name,address,username,password;
     private int tel,point;
     private double balance;
-    private boolean status,admin;
+    private String status,admin;
 
     public ClientInfo() {
     }
@@ -75,19 +75,19 @@ public class ClientInfo implements Serializable{
         this.balance = balance;
     }
 
-    public boolean isStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(boolean status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
-    public boolean isAdmin() {
+    public String getAdmin() {
         return admin;
     }
 
-    public void setAdmin(boolean admin) {
+    public void setAdmin(String admin) {
         this.admin = admin;
     }
 }

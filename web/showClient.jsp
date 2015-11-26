@@ -27,10 +27,10 @@
                 out.println("<td>" + c.getAddress()+ "</td>");
                 out.println("<td>" + c.getUsername()+ "</td>");
                 out.println("<td>" + c.getPassword()+ "</td>");
-                out.println("<td>" + c.isStatus()+ "</td>");
+                out.println("<td>" + c.getStatus()+ "</td>");
                 out.println("<td>" + c.getBalance()+ "</td>");
                 out.println("<td>" + c.getPoint()+ "</td>");
-                out.println("<td>" + c.isAdmin()+ "</td>");
+                out.println("<td>" + c.getAdmin()+ "</td>");
                 out.println("<td><a href=\"addclient?action=getEditClient&id=" + c.getId() + "\">edit</td>");
                 out.println("<td><a href=\"addclient?action=delete&id=" + c.getId()+ "\">delete</td>");
                 out.println("</tr>");

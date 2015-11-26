@@ -15,10 +15,10 @@
             String address = c.getId() != null ? c.getAddress(): "" ;
             String username = c.getId() != null ? c.getUsername(): "" ;
             String password = c.getId() != null ? c.getPassword(): "" ;
-            String status = c.getId() != null ? Boolean.toString(c.isStatus()): "" ;
+            String status = c.getId() != null ? c.getStatus(): "" ;
             String balance = c.getId() != null ? c.getBalance()+"": "" ;
             String point = c.getId() != null ? c.getPoint()+"": "" ;
-            String admin = c.getId() != null ? Boolean.toString(c.isAdmin()): "" ;
+            String admin = c.getId() != null ? c.getAdmin(): "" ;
             
         %>
         <h1><%=type%></h1>

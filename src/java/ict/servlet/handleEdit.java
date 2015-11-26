@@ -30,10 +30,10 @@ public class handleEdit extends HttpServlet {
         String address = request.getParameter("address");
         String login_ac = request.getParameter("login_ac");
         String login_pw = request.getParameter("login_pw");
-        Boolean status = Boolean.parseBoolean(request.getParameter("status"));
+        String status = request.getParameter("status");
         Double balance = Double.parseDouble(request.getParameter("balance"));
         int point = Integer.parseInt(request.getParameter("point"));
-        Boolean adminOrNot = Boolean.parseBoolean(request.getParameter("adminOrNot"));
+        String adminOrNot = request.getParameter("adminOrNot");
         String action = request.getParameter("action");
         if ("add".equalsIgnoreCase(action)) {
             db.addClientInfo(ClientId, ClientName, tel, address, login_ac, login_pw, status, balance, point, adminOrNot);

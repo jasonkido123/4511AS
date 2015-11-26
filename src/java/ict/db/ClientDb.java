@@ -96,7 +96,7 @@ public class ClientDb {
         return isValid; 
     }
     
-    public boolean addClientInfo(String clientId, String name, int tel, String d_address, String login_ac, String login_pw, boolean login_statues, double balance, int point,boolean admin){
+    public boolean addClientInfo(String clientId, String name, int tel, String d_address, String login_ac, String login_pw, String login_statues, double balance, int point,String admin){
 
         Connection cnnct = null;
         PreparedStatement pStmnt = null;
@@ -111,10 +111,10 @@ public class ClientDb {
             pStmnt.setString(4, d_address);
             pStmnt.setString(5, login_ac);
             pStmnt.setString(6, login_pw);
-            pStmnt.setBoolean(7, login_statues);
+            pStmnt.setString(7, login_statues);
             pStmnt.setDouble(8, balance);
             pStmnt.setInt(9, point);
-            pStmnt.setBoolean(10, admin);
+            pStmnt.setString(10, admin);
             int rowCount = pStmnt.executeUpdate();
             if(rowCount >= 1){
                 isSuccess = true;
@@ -151,10 +151,10 @@ public class ClientDb {
                 String address = rs.getString("d_address");
                 String username = rs.getString("login_ac");
                 String password = rs.getString("login_pw");
-                Boolean status = rs.getBoolean("login_statues");
+                String status = rs.getString("login_statues");
                 double balance = rs.getDouble("balance");
                 int point = rs.getInt("point");
-                Boolean admin = rs.getBoolean("admin");
+                String admin = rs.getString("admin");
                 
                 cb.setId(clientid);
                 cb.setName(name);
@@ -203,6 +203,31 @@ public class ClientDb {
         return isSuccess;
     }
     
+    public boolean checkAdmin(String username){
+        Connection cnnct = null;
+        PreparedStatement pStnmt = null;
+        boolean isAdmin = false;
+        try{
+            cnnct = getConnection();
+            String preQueryStatment = "select admin from client where login_ac=?";
+            pStnmt = cnnct.prepareStatement(preQueryStatment);
+            pStnmt.setString(1, username);
+            ResultSet rs = null;
+            rs = pStnmt.executeQuery();
+            if (rs.next()){
+                isAdmin = rs.getString("admin").equals("Y");
+            }
+            pStnmt.close();
+            cnnct.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            ex = ex.getNextException();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return isAdmin;
+    }
+    
     public boolean editRecord(ClientInfo cb){
         Connection cnnct = null;
         PreparedStatement pStnmt = null;
@@ -216,10 +241,10 @@ public class ClientDb {
             pStnmt.setString(3, cb.getAddress());
             pStnmt.setString(4, cb.getUsername());
             pStnmt.setString(5, cb.getPassword());
-            pStnmt.setBoolean(6, cb.isStatus());
+            pStnmt.setString(6, cb.getStatus());
             pStnmt.setDouble(7, cb.getBalance());            
             pStnmt.setInt(8, cb.getPoint());
-            pStnmt.setBoolean(9, cb.isAdmin());     
+            pStnmt.setString(9, cb.getAdmin());     
             pStnmt.setString(10, cb.getId());
             int rowCount = pStnmt.executeUpdate();
             if (rowCount >=1 ){
@@ -255,10 +280,10 @@ public class ClientDb {
                 String address = rs.getString("d_address");
                 String username = rs.getString("login_ac");
                 String password = rs.getString("login_pw");
-                Boolean status = rs.getBoolean("login_statues");
+                String status = rs.getString("login_statues");
                 double balance = rs.getDouble("balance");
                 int point = rs.getInt("point");
-                Boolean admin = rs.getBoolean("admin");
+                String admin = rs.getString("admin");
                 
                 cb.setId(clientid);
                 cb.setName(name);
