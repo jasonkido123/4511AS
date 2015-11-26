@@ -9,7 +9,7 @@ public class totalTest {
         String password="";
         ClientDb cdb = new ClientDb(url,username,password);
         ItemDb idb = new ItemDb(url,username,password);
-        OrdersDb odb = new OrdersDb(url,username,password);
+        OrderDb odb = new OrderDb(url,username,password);
         OrderInfoDb oidb = new OrderInfoDb(url,username,password);
         CategoryDb cadb = new CategoryDb (url,username,password);
         try{

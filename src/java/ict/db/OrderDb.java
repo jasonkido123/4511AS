@@ -6,7 +6,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class OrdersDb {
+public class OrderDb {
     private String url ="";
     private String username ="";
     private String password ="";
@@ -23,7 +23,7 @@ public class OrdersDb {
         java.sql.Connection cnnct = DriverManager.getConnection(url,username,password);
         return cnnct;
     }
-    public OrdersDb(String url,String username,String password) {
+    public OrderDb(String url,String username,String password) {
         this.url = url;
         this.username=username;
         this.password=password;

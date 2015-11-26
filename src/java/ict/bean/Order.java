@@ -2,12 +2,12 @@ package ict.bean;
 
 import java.io.Serializable;
 
-public class Orders implements Serializable{
+public class Order implements Serializable{
     private String OrderId, clientId;
     private double totalPrice;
     private int giftPoint;
 
-    public Orders() {
+    public Order() {
     }
 
     public String getOrderId() {
