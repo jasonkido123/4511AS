@@ -149,6 +149,15 @@ public class ItemDb {
         pStmnt.setString(1, brand);
         return SearchFactory(pStmnt, cnnct);
     }
+    public ArrayList SearchById(String id) throws IOException, SQLException {
+        Connection cnnct = null;
+        PreparedStatement pStmnt = null;
+        cnnct = getConnection();
+        String preQueryStatement = "SELECT * FROM item WHERE itemid =?";
+        pStmnt = cnnct.prepareStatement(preQueryStatement);
+        pStmnt.setString(1, id);
+        return SearchFactory(pStmnt, cnnct);
+    }
 
     public ArrayList SearchBy(String[] data) throws IOException, SQLException {
         Connection cnnct = null;
@@ -218,7 +227,7 @@ public class ItemDb {
         if (counter == 1) {
             preQueryStatement = "SELECT * FROM item";
         }
-        System.out.println(preQueryStatement);
+        //System.out.println(preQueryStatement);
         pStmnt = cnnct.prepareStatement(preQueryStatement);
         if (dataCheck[0] == true && dataCheck[1] == true) {
             pStmnt.setInt(1, min);

@@ -5,8 +5,13 @@
  */
 package ict.servlet;
 
+import ict.bean.Shopping;
+import ict.bean.ShoppingCart;
+import ict.db.ItemDb;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,8 +23,18 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author chanyan
  */
-@WebServlet(name = "ShoppingCartController", urlPatterns = {"/cart"})
+@WebServlet(name = "ShoppingCartController", urlPatterns = {"/ShoppingCart"})
 public class ShoppingCartController extends HttpServlet {
+
+    private ItemDb db;
+    private ArrayList<ShoppingCart> al;
+    public void init() {
+        String dbUser = this.getServletContext().getInitParameter("dbUser");
+        String dbPassword = this.getServletContext().getInitParameter("dbPassword");
+        String dbUrl = this.getServletContext().getInitParameter("dbUrl");
+        db = new ItemDb(dbUrl, dbUser, dbPassword);
+        al = new ArrayList();
+    }
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -30,56 +45,50 @@ public class ShoppingCartController extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
-        String id = request.getParameter("itemid");
+        String pid = request.getParameter("pid");
+        
+        //al = request.getParameter(ItemList);
+        ShoppingCart sc = new ShoppingCart();
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            //request.setAttribute("id", id);
+            ArrayList als = db.SearchById(pid);
+            Shopping s = (Shopping) als.get(0);
+            sc.setItemId(pid);
+            sc.setPoint(s.getPoint());
+            sc.setPrice(s.getPrice());
+            sc.setName(s.getItemName());
+            int q = sc.getQuantity();
+            sc.setQuantity((q += 1));
+            al.add(sc);
+            request.setAttribute("ItemList", al);
+            request.setAttribute("id", pid);
             RequestDispatcher rd;
             rd = getServletContext().getRequestDispatcher("/ShoppingCart.jsp");
             rd.forward(request, response);
+        } catch (IOException e) {
+
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        //processRequest(req, resp); //To change body of generated methods, choose Tools | Templates.
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        try {
+            processRequest(req, resp); //To change body of generated methods, choose Tools | Templates.
+        } catch (SQLException ex) {
+            while (ex != null) {
+                ex.printStackTrace();
+                ex = ex.getNextException();
+            }
+        }
     }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
 
 }

@@ -3,6 +3,7 @@ package ict.bean;
 public class Shopping {
     private String ItemId,ItemName,category,descriptions,brand;
     private int quantity,point;
+    private double price;
 
     public void setPoint(int point) {
         this.point = point;
@@ -27,7 +28,7 @@ public class Shopping {
     public String getBrand() {
         return brand;
     }
-    private double price;
+    
 
     public void setItemId(String ItemId) {
         this.ItemId = ItemId;
