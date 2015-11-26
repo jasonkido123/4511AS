@@ -40,7 +40,8 @@ public class OrdersDb {
                     "clientId varchar(5) NOT NULL,"+
                     "totalPrice Numeric(20,2) NOT NULL,"+
                     "PricePoint Integer(20) NOT NULL,"+
-                    "Payment char(1) NOT NULL,"+
+                    "PaymentMothed char(1) NOT NULL,"+
+                    "status varchar(10) NOT NULL,"+
                     "PRIMARY KEY(OrderId)"
                     +")";
             stmnt.execute(sql);
