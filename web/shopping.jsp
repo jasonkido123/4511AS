@@ -64,7 +64,7 @@
                         Brand:
                         <input type="Textbox" name="SearchBrand">
                     </td>    
-                    <td>
+                    <td>Category:
                         <% ArrayList<Shopping> al1 = (ArrayList<Shopping>) request.getAttribute("product");
                             String dbUser = this.getServletContext().getInitParameter("dbUser");
                             String dbPassword = this.getServletContext().getInitParameter("dbPassword");

@@ -54,19 +54,19 @@ public class LoginController extends HttpServlet {
         if (isValidate && isAdmin) {
             HttpSession session = request.getSession(true);
             String id = db.queryID(username, password);
-            ClientInfo bean = new ClientInfo();
-            bean.setUsername(username);
-            bean.setPassword(password);
-            bean.setId(id);
+            ClientInfo bean = db.queryCustByID(id);
+//            bean.setUsername(username);
+//            bean.setPassword(password);
+//            bean.setId(id);
             session.setAttribute("client", bean);
             targetURL = "/welcome.jsp";
         } else if (isValidate && isAdmin == false) {
             HttpSession session = request.getSession(true);
             String id = db.queryID(username, password);
-            ClientInfo bean = new ClientInfo();
-            bean.setUsername(username);
-            bean.setPassword(password);            
-            bean.setId(id);
+            ClientInfo bean = db.queryCustByID(id);
+//            bean.setUsername(username);
+//            bean.setPassword(password);            
+//            bean.setId(id);
             session.setAttribute("client", bean);
             targetURL = "/welcomeNormal.jsp";
         } else {
