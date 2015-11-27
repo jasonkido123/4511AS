@@ -5,15 +5,17 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-    <script type="text/javascript" src="//jquery/jquery-latest.js"></script>
-    <script type="text/javascript" src="//jquery/jquery.tablesorter.js"></script>
+    <script type="text/javascript" src="/jquery/jquery-latest.js"></script> 
+    <script type="text/javascript" src="/jquery/jquery.tablesorter.js"></script> 
 
     <script type="text/javascript">
         $(document).ready(function ()
         {
+            $("#myTable").tablesorter(); 
             $("#myTable").tablesorter({sortList: [[0, 0], [1, 0]]});
         }
         );
+
     </script>
 
     <head>
@@ -120,8 +122,8 @@
         </form>
         </br>
         <%if (al1 != null) {
-                String s = "<table border=\"1\" ><thead><tr><td>ItemName</td><td>descriptions</td><td>category</td><td>brand</td><td>quantity</td><td>Price</td><td>Point</td><td>Add To Cart</td></tr></thead>";
-                s+= "<tbody>";
+                String s = "<table border=\"1\" id=\"search\" class=\"tablesorter\"><thead><tr><td>ItemName</td><td>descriptions</td><td>category</td><td>brand</td><td>quantity</td><td>Price</td><td>Point</td><td>Add To Cart</td></tr></thead>";
+                s += "<tbody>";
                 for (int i = 0; i < al1.size(); i++) {
                     Shopping item = (Shopping) al1.get(i);
                     s += "<tr><td>" + item.getItemName() + "</td>";
@@ -136,6 +138,49 @@
                 }
                 s += "</tbody></table>";
                 out.print(s);
-                }%>
+            }%>
+
+
+        <table id="myTable" class="tablesorter"> 
+            <thead> 
+                <tr> 
+                    <th>Last Name</th> 
+                    <th>First Name</th> 
+                    <th>Email</th> 
+                    <th>Due</th> 
+                    <th>Web Site</th> 
+                </tr> 
+            </thead> 
+            <tbody> 
+                <tr> 
+                    <td>Smith</td> 
+                    <td>John</td> 
+                    <td>jsmith@gmail.com</td> 
+                    <td>$50.00</td> 
+                    <td>http://www.jsmith.com</td> 
+                </tr> 
+                <tr> 
+                    <td>Bach</td> 
+                    <td>Frank</td> 
+                    <td>fbach@yahoo.com</td> 
+                    <td>$50.00</td> 
+                    <td>http://www.frank.com</td> 
+                </tr> 
+                <tr> 
+                    <td>Doe</td> 
+                    <td>Jason</td> 
+                    <td>jdoe@hotmail.com</td> 
+                    <td>$100.00</td> 
+                    <td>http://www.jdoe.com</td> 
+                </tr> 
+                <tr> 
+                    <td>Conway</td> 
+                    <td>Tim</td> 
+                    <td>tconway@earthlink.net</td> 
+                    <td>$50.00</td> 
+                    <td>http://www.timconway.com</td> 
+                </tr> 
+            </tbody> 
+        </table> 
     </body>
 </html>
