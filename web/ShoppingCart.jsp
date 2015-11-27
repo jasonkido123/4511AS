@@ -49,21 +49,17 @@
                                 + "<td align=\"right\" colspan=\"2\">" + totalPrice + "</td></tr>";
                         s += "<tr><td align=\"right\" colspan=\"3\">Total Point:</td>"
                                 + "<td align=\"right\" colspan=\"2\">" + totalPoint + "</td></tr>";
-                        s += "<tr><td align=\"right\" colspan=\"3\">Payment Method</td>"
-                                + "<td align=\"right\" colspan=\"2\">"
-                                + "<input type=\"radio\" value=\"point\" name=\"payment\">Point"
-                                + "<input type=\"radio\" value=\"cash\" name=\"payment\">Cash"
-                                + "</td></tr>";
+                        
                         s += "<tr><td align=\"left\" colspan=\"3\"><a href=\"shopping.jsp\"><input type=\"button\" value=\"Continue Shopping\"/ ></a></td>"
-                                + "<td align=\"right\" colspan=\"2\"><input type=\"submit\" name=\"action\" value=\"update\"/></td></tr>";
+                                + "<td align=\"right\" colspan=\"1\"><input type=\"submit\" name=\"action\" value=\"update\"/></td>"
+                                + "<td align=\"right\" colspan=\"1\"><a href=\"OrderController\"><input type=\"button\" name=\"action\" value=\"CheckOut\" /></a></td></tr>";
                         s += "</table>";
                         out.print(s);
-
                     } catch (NullPointerException e) {
                         out.print("invild access.");
                     }
                 %>
-
+                
         </form>
     </body>
 </html>

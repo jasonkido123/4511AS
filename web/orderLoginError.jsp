@@ -9,10 +9,10 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Incorrect Input Data</title>
+        <title>Login Error</title>
     </head>
     <body>
-        <h1>Please input digital.</h1>
-        <a href="ShoppingCart.jsp">try again</a>
+        <h1>Please Loign First.</h1>
+        <a href="login.jsp">try again</a>
     </body>
 </html>
