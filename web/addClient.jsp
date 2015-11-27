@@ -11,43 +11,43 @@
             <input type="hidden" name="action" value="add"/>
             <table border='1'>
                 <tr>
-                    <td>Client id:</td>
+                    <td><b>Client id:</b></td>
                     <td><input type="text" name="clientid" maxlength="5" size="8"></td>
                 </tr>
                 <tr>
-                    <td>Client name:</td>
+                    <td><b>Client name:</b></td>
                     <td><input type="text" name="clientname" maxlength="25" size="30"></td>
                 </tr>
                 <tr>
-                    <td>Contact number:</td>
+                    <td><b>Contact number:</b></td>
                     <td><input type="text" name="tel" maxlength="8" size="10"></td>
                 </tr>
                 <tr>
-                    <td>Address:</td>
+                    <td><b>Address:</b></td>
                     <td><input type="text" name="address" maxlength="100" size="105"></td>
                 </tr>
                 <tr>
-                    <td>Login name:</td>
+                    <td><b>Login name:</b></td>
                     <td><input type="text" name="login_ac" maxlength="20" size="25"></td>
                 </tr>
                 <tr>
-                    <td>Login password:</td>
+                    <td><b>Login password:</b></td>
                     <td><input type="text" name="login_pw" maxlength="16" size="20"></td>
                 </tr>
                 <tr>
-                    <td>Login status(Y/N):</td>
+                    <td><b>Login status(Y/N):</b></td>
                     <td><input type="text" name="status" maxlength="1" size="1"></td>
                 </tr>
                 <tr>
-                    <td>Balance:</td>
+                    <td><b>Balance:</b></td>
                     <td><input type="number" name="balance" step="10" value="0" min="0" maxlength="20" size="25"></td>
                 </tr>
                 <tr>
-                    <td>Point:</td>
+                    <td><b>Point:</b></td>
                     <td><input type="number" name="point" min="0" max="10000"></td>
                 </tr>
                 <tr>
-                    <td>Is admin?:(Y/N)</td>
+                    <td><b>Is admin?:(Y/N)</b></td>
                     <td><input type="text" name="adminOrNot" maxlength="1" size="1"></td>
                 </tr>
                 <tr>

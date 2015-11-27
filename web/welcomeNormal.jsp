@@ -7,14 +7,14 @@
     </head>
     <body>
         <jsp:useBean id="clientInfo" class="ict.bean.ClientInfo" scope="session" />
-        <b>Hello, normal user <jsp:getProperty name="client" property="username" /></b>
+        <b>Hello, client <jsp:getProperty name="client" property="username" /></b>
         <p>Welcome to Stationery Online Station</p>
+        <%
+            String id = clientInfo.getId() != null ? clientInfo.getId() : "";
+        %>
         <table border='1'>
             <tr>
-                <td><a href="addclient?action=list">Show Client</a></td>
-            </tr>
-            <tr>
-                <td><a href="addItem.jsp">Add Item</a></td>
+                <td><a href="addclient?action=clientUpdate&id=<%=id%>">Update personal infomation</a></td>
             </tr>
         </table>
         <form method="post" action="main">

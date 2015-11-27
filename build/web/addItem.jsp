@@ -11,39 +11,40 @@
             <input type="hidden" name="action" value="additem"/>
             <table border='1'>
                 <tr>
-                    <td>Item id:</td>
+                    <td><b>Item id:</b></td>
                     <td><input type="text" name="itemid" maxlength="5" size="5"></td>
                 </tr>
                 <tr>
-                    <td>Item name:</td>
+                    <td><b>Item name:</b></td>
                     <td><input type="text" name="itemname" maxlength="25" size="25"></td>
                 </tr>
                 <tr>
-                    <td>Price($):</td>
+                    <td><b>Price($):</b></td>
                     <td><input type="text" name="itemprice" min="0" max="1000" value="10"></td>
                 </tr>
                 <tr>
-                    <td>Category:</td>
+                    <td><b>Category:</b></td>
                     <td><input type="text" name="category" maxlength="15" size="20"></td>
                 </tr>
                 <tr>
-                    <td>Descriptions:</td>
+                    <td><b>Descriptions:</b></td>
                     <td><input type="text" name="descriptions" maxlength="95" size="100"></td>
                 </tr>
                 <tr>
-                    <td>Brands:</td>
+                    <td><b>Brands:</b></td>
                     <td><input type="text" name="brand" maxlength="20" size="25"></td>
                 </tr>
                 <tr>
-                    <td>Quantity:</td>
+                    <td><b>Quantity:</b></td>
                     <td><input type="number" name="quantity" min="0" max="1000"></td>
                 </tr>                
                 <tr>
-                    <td>Point:</td>
+                    <td><b>Point:</b></td>
                     <td><input type="number" name="point" min="0" max="10000"></td>
                 </tr>
                 <tr>
-                    <td><input type="submit" value="Submit"></td>
+                    <td></td>
+                    <td><div align="right"><input type="submit" value="Submit"></div></td>
                 </tr>
             </table>
         </form>

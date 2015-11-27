@@ -18,5 +18,6 @@ public class Test {
         CategoryDb cdb = new CategoryDb(url,username,"");
         cdb.addCategory("C0001", "pen");
         cdb.addCategory("C0002", "rubber");
+        cdb.addCategory("C0003", "ruler");
     }
 }

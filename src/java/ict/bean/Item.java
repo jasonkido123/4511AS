@@ -3,8 +3,9 @@ package ict.bean;
 import java.io.Serializable;
 
 public class Item implements Serializable{
-    private String ItemId,Item_name,category,descriptions;
+    private String ItemId,Item_name,category,descriptions,brand;
     private double price;
+    private int quantity,point;
 
     public Item() {
     }
@@ -47,6 +48,30 @@ public class Item implements Serializable{
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public String getBrand() {
+        return brand;
+    }
+
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public int getPoint() {
+        return point;
+    }
+
+    public void setPoint(int point) {
+        this.point = point;
     }
     
 }

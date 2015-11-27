@@ -71,17 +71,17 @@ public class ClientDb {
         try{
             cnnct = getConnection();
             //1. getb Connection
-            String preQueryStatement = "SELECT * FROM client WHERE login_ac =  ? and  login_pw =  ?";
+            String preQueryStatement = "SELECT * FROM client WHERE login_ac =  ?";
             //2. get the prepare Statement
             pStmnt = cnnct.prepareStatement(preQueryStatement);
             //3. update the placeholders with username and pwd
             pStmnt.setString(1, login_ac);
-            pStmnt.setString(2, login_pw);
             //4. execute the query and assign to the result
             ResultSet rs = null;
             rs = pStmnt.executeQuery();
             if (rs.next()) {
-                isValid = true;
+                if(login_ac.equals(rs.getString("login_ac")))
+                    isValid = login_pw.equals(rs.getString("login_pw"));
             }
             pStmnt.close();
             cnnct.close();

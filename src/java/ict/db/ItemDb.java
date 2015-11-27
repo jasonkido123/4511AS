@@ -1,5 +1,6 @@
 package ict.db;
 
+import ict.bean.Item;
 import ict.bean.Shopping;
 import java.io.IOException;
 import java.sql.Connection;
@@ -96,6 +97,49 @@ public class ItemDb {
             ex.printStackTrace();
         }
         return isSuccess;
+    }
+    
+    public ArrayList queryItem(){
+        Connection cnnct = null;
+        PreparedStatement pStnmt = null;
+        Item cb = null;
+        ArrayList <Item> cbs = new ArrayList <Item> ();
+        try{
+            cnnct = getConnection();
+            String preQueryStatment = "select * from item";
+            pStnmt = cnnct.prepareStatement(preQueryStatment);
+            ResultSet rs = null;
+            rs = pStnmt.executeQuery();
+            while (rs.next()){
+                cb = new Item();
+                String itemid = rs.getString("ItemId");
+                String name = rs.getString("Item_name");
+                int price = rs.getInt("price");
+                String category = rs.getString("category");
+                String descriptions = rs.getString("descriptions");
+                String brand = rs.getString("brand");
+                int quantity = rs.getInt("quantity");
+                int point = rs.getInt("point");
+                
+                cb.setItemId(itemid);
+                cb.setItem_name(name);
+                cb.setPrice(price);
+                cb.setCategory(category);
+                cb.setDescriptions(descriptions);
+                cb.setBrand(brand);
+                cb.setQuantity(quantity);
+                cb.setPoint(point);
+                cbs.add(cb);
+            }
+            pStnmt.close();
+            cnnct.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            ex = ex.getNextException();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return cbs;
     }
 
     public ArrayList AllItem() throws IOException, SQLException {

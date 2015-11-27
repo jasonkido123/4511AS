@@ -1,7 +1,9 @@
 package ict.servlet;
 
 import ict.bean.ClientInfo;
+import ict.bean.Item;
 import ict.db.ClientDb;
+import ict.db.ItemDb;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -16,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 public class AddClientController extends HttpServlet {
 
     private ClientDb db;
+    private ItemDb itemdb;
 
     public void init() {
         String dbUser = this.getServletContext().getInitParameter("dbUser");
@@ -46,7 +49,13 @@ public class AddClientController extends HttpServlet {
             RequestDispatcher rd;
             rd = getServletContext().getRequestDispatcher("/showClient.jsp");
             rd.forward(request, response);
-        } else if ("delete".equalsIgnoreCase(action)) {
+        } else if("listItem".equalsIgnoreCase(action)){
+            ArrayList<Item> items = itemdb.queryItem();
+            request.setAttribute("item", items);
+            RequestDispatcher rd;
+            rd = getServletContext().getRequestDispatcher("/showItem.jsp");
+            rd.forward(request, response);
+        }else if ("delete".equalsIgnoreCase(action)) {
             String id = request.getParameter("id");
             db.delRecord(id);
             response.sendRedirect("addclient?action=list");
@@ -59,7 +68,9 @@ public class AddClientController extends HttpServlet {
                 rd = getServletContext().getRequestDispatcher("/editClient.jsp");
                 rd.forward(request, response);
             }
-        } else if ("add".equalsIgnoreCase(action)) {
+        } else if("clientUpdate".equalsIgnoreCase(action)){
+            
+        }else if ("add".equalsIgnoreCase(action)) {
 
             String ClientId = request.getParameter("clientid");
             String ClientName = request.getParameter("clientname");
