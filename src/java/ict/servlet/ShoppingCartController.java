@@ -51,8 +51,7 @@ public class ShoppingCartController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String pid = request.getParameter("pid");
         String action = request.getParameter("action");
-        
-        
+        request.getSession().setAttribute("shoppingCart", al);
         //al = request.getParameter(ItemList);
         //ShoppingCart sc = new ShoppingCart();
         try (PrintWriter out = response.getWriter()) {
