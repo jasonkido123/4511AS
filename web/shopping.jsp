@@ -126,7 +126,7 @@
                     s+="<td>"+item.getQuantity()+"</td>";
                     s+="<td>"+item.getPrice()+"</td>";
                     s+="<td>"+item.getPoint()+"</td>";
-                    s+="<td>"+"<a href=\"ShoppingCart?action=add&pid="+item.getItemId()+"\">add</a></td>";
+                    s+="<td>"+"<a href=\"ShoppingCart?action=add&pid="+item.getItemId()+"\"><input type=\"button\" value=\"Add\"/ ></a></td>";
                     s+="</tr>";
                 }
                 s+="</table>";

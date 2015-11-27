@@ -51,9 +51,17 @@ public class ShoppingCartController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String pid = request.getParameter("pid");
         String action = request.getParameter("action");
+        
+        
         //al = request.getParameter(ItemList);
         //ShoppingCart sc = new ShoppingCart();
         try (PrintWriter out = response.getWriter()) {
+            if (action.equals("update")) {
+                for(int i=0;i<al.size();i++){
+                    String v = request.getParameter("quantity"+i);
+                    al.get(i).setQuantity(Integer.parseInt(v));
+                }
+            }
             /* TODO output your page here. You may use following sample code. */
             if (action.equals("add")) {
                 ActionAdd(pid);
@@ -61,17 +69,12 @@ public class ShoppingCartController extends HttpServlet {
             if (action.equals("del")) {
                 actionDel(pid);
             }
-            if (action.equals("plus")) {
-                actionPlus(pid);
-            }
-            if (action.equals("Minus")) {
-                actionMinus(pid);
-            }
             request.setAttribute("ItemList", al);
             request.setAttribute("id", pid);
             RequestDispatcher rd;
             rd = getServletContext().getRequestDispatcher("/ShoppingCart.jsp");
             rd.forward(request, response);
+
         } catch (IOException e) {
 
         }
@@ -139,36 +142,6 @@ public class ShoppingCartController extends HttpServlet {
         }
     }
 
-    public void actionPlus(String pid) {
-        if (al.size() > 0) {
-            ShoppingCart sc = new ShoppingCart();
-            for (int i = 0; i < al.size(); i++) {
-                sc = al.get(i);
-                if (sc.getItemId().equals(pid)) {
-                    al.get(i).setQuantity(al.get(i).getQuantity() + 1);
-                    break;
-                }
-            }
-        }
-    }
-
-    public void actionMinus(String pid) {
-        if (al.size() > 0) {
-            ShoppingCart sc = new ShoppingCart();
-            for (int i = 0; i < al.size(); i++) {
-                sc = al.get(i);
-                if (sc.getItemId().equals(pid)) {
-                    int k = al.get(i).getQuantity() - 1;
-                    if (k < 1) {
-                        al.remove(i);
-                    } else {
-                        al.get(i).setQuantity(k);
-                    }
-                    break;
-                }
-            }
-        }
-    }
 
     public void actionDel(String pid) {
         if (al.size() > 0) {
