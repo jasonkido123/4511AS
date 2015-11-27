@@ -1,10 +1,3 @@
-
-<%-- 
-    Document   : shopping
-    Created on : Nov 23, 2015, 10:52:28 PM
-    Author     : chanyan
---%>
-
 <%@page import="ict.db.CategoryDb"%>
 <%@page import="ict.bean.Shopping"%>
 <%@page import="java.util.ArrayList"%>
@@ -126,7 +119,7 @@
                     s+="<td>"+item.getQuantity()+"</td>";
                     s+="<td>"+item.getPrice()+"</td>";
                     s+="<td>"+item.getPoint()+"</td>";
-                    s+="<td>"+"<a href=\"ShoppingCart?action=add&pid="+item.getItemId()+"\">add</a></td>";
+                    s+="<td>"+"<a href=\"ShoppingCart?action=add&pid="+item.getItemId()+"\"><input type=\"button\" value=\"Add\"/ ></a></td>";
                     s+="</tr>";
                 }
                 s+="</table>";

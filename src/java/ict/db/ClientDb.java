@@ -261,6 +261,63 @@ public class ClientDb {
         return isSuccess;
     }
     
+    public boolean updateRecord(ClientInfo cb){
+        Connection cnnct = null;
+        PreparedStatement pStnmt = null;
+        boolean isSuccess = false;
+        try{
+            cnnct = getConnection();
+            String preQueryStatment = "update client set name = ?, tel = ?, d_address = ?, login_ac=?, login_pw=? where clientId = ?";
+            pStnmt = cnnct.prepareStatement(preQueryStatment);
+            pStnmt.setString(1, cb.getName());
+            pStnmt.setInt(2, cb.getTel());
+            pStnmt.setString(3, cb.getAddress());
+            pStnmt.setString(4, cb.getUsername());
+            pStnmt.setString(5, cb.getPassword());
+            pStnmt.setString(6, cb.getId());
+            int rowCount = pStnmt.executeUpdate();
+            if (rowCount >=1 ){
+                isSuccess = true;
+            }
+            pStnmt.close();
+            cnnct.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            ex = ex.getNextException();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return isSuccess;
+    }
+    
+    public String queryID(String username,String password){
+        Connection cnnct = null;
+        PreparedStatement pStnmt = null;
+        String id = null;
+        try{
+            cnnct = getConnection();
+            String preQueryStatment = "select * from client where login_ac=? and login_pw=?";
+            pStnmt = cnnct.prepareStatement(preQueryStatment);
+            pStnmt.setString(1, username);
+            pStnmt.setString(2, password);
+            ResultSet rs = null;
+            rs = pStnmt.executeQuery();
+            if (rs.next()){
+                if(username.equals(rs.getString("login_ac"))&&password.equals(rs.getString("login_pw"))){
+                    id = rs.getString("clientId");
+                }
+            }
+            pStnmt.close();
+            cnnct.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            ex = ex.getNextException();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }        
+        return id;
+    }
+    
     public ClientInfo queryCustByID(String id){
         Connection cnnct = null;
         PreparedStatement pStnmt = null;

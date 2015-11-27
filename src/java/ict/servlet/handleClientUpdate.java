@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(urlPatterns = {"/handleEdit"})
-public class handleEdit extends HttpServlet {
+@WebServlet(name = "handleClientUpdate", urlPatterns = {"/handleClientUpdate"})
+public class handleClientUpdate extends HttpServlet {
 
     private ClientDb db;
 
@@ -22,42 +22,6 @@ public class handleEdit extends HttpServlet {
         db = new ClientDb(dbUrl, dbUser, dbPassword);
     }
 
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        String ClientId = request.getParameter("id");
-        String ClientName = request.getParameter("name");
-        int tel = Integer.parseInt(request.getParameter("tel"));
-        String address = request.getParameter("address");
-        String login_ac = request.getParameter("login_ac");
-        String login_pw = request.getParameter("login_pw");
-        String status = request.getParameter("status");
-        Double balance = Double.parseDouble(request.getParameter("balance"));
-        int point = Integer.parseInt(request.getParameter("point"));
-        String adminOrNot = request.getParameter("adminOrNot");
-        String action = request.getParameter("action");
-        if ("add".equalsIgnoreCase(action)) {
-            db.addClientInfo(ClientId, ClientName, tel, address, login_ac, login_pw, status, balance, point, adminOrNot);
-            response.sendRedirect("addclient?action=list");
-        } else if ("edit".equalsIgnoreCase(action)) {
-            ClientInfo cb = new ClientInfo();
-            cb.setId(ClientId);
-            cb.setName(ClientName);
-            cb.setTel(tel);
-            cb.setAddress(address);
-            cb.setUsername(login_ac);
-            cb.setPassword(login_pw);
-            cb.setStatus(status);
-            cb.setBalance(balance);
-            cb.setPoint(point);
-            cb.setAdmin(adminOrNot);
-            db.editRecord(cb);
-            response.sendRedirect("addclient?action=list");
-        }else {
-            PrintWriter out = response.getWriter();
-            out.println("No such action!!!");
-        }
-    }
-
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
@@ -66,5 +30,30 @@ public class handleEdit extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+    }
+    
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String ClientId = request.getParameter("id");
+        String ClientName = request.getParameter("name");
+        int tel = Integer.parseInt(request.getParameter("tel"));
+        String address = request.getParameter("address");
+        String login_ac = request.getParameter("login_ac");
+        String login_pw = request.getParameter("login_pw");
+        String action = request.getParameter("action");
+        if("update".equalsIgnoreCase(action)){
+            ClientInfo cb = new ClientInfo();
+            cb.setId(ClientId);
+            cb.setName(ClientName);
+            cb.setTel(tel);
+            cb.setAddress(address);
+            cb.setUsername(login_ac);
+            cb.setPassword(login_pw);
+            db.updateRecord(cb);
+            response.sendRedirect("welcomeNormal.jsp");
+        }else {
+            PrintWriter out = response.getWriter();
+            out.println("No such action!!!");
+        }
     }
 }

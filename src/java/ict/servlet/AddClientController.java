@@ -68,8 +68,15 @@ public class AddClientController extends HttpServlet {
                 rd = getServletContext().getRequestDispatcher("/editClient.jsp");
                 rd.forward(request, response);
             }
-        } else if("clientUpdate".equalsIgnoreCase(action)){
-            
+        } else if("getClientUpdate".equalsIgnoreCase(action)){
+            String id = request.getParameter("id");
+            if (id != null) {
+                ClientInfo client = db.queryCustByID(id);
+                request.setAttribute("c", client);
+                RequestDispatcher rd;
+                rd = getServletContext().getRequestDispatcher("/clientUpdate.jsp");
+                rd.forward(request, response);
+            }
         }else if ("add".equalsIgnoreCase(action)) {
 
             String ClientId = request.getParameter("clientid");
