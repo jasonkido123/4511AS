@@ -19,5 +19,9 @@ public class Test {
         cdb.addCategory("C0001", "pen");
         cdb.addCategory("C0002", "rubber");
         cdb.addCategory("C0003", "ruler");
+        OrderDb odb = new OrderDb(url,username,"");
+        odb.addOrder("O0001","U0001",200,10,"b","process");
+        OrderInfoDb oidb = new OrderInfoDb(url,username,"");
+        oidb.addOrderinfo("O0001", "I0001", 300, 5,1);
     }
 }

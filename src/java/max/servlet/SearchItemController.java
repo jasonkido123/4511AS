@@ -11,6 +11,7 @@ import max.bean.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -45,14 +46,21 @@ public class SearchItemController extends HttpServlet {
 
     public void processRequest(HttpServletRequest request, HttpServletResponse response) {
         try {
-
             String action = request.getParameter("action");
             PrintWriter out = response.getWriter();
+
             if (action.equals("showAll")) {
                 ArrayList<ItemBean> items = db.queryAll();
-                out.print(items.size());
+                request.setAttribute("items", items);
+                RequestDispatcher rd = getServletContext().getRequestDispatcher("/searchItem.jsp");
+                rd.forward(request, response);
+            } else if (action.equals("condition")) {
+                String col = request.getParameter("col");
+                String keyword = request.getParameter("keyword");
+                ArrayList<ItemBean> items = db.queryByCondition(col, keyword);
+                request.setAttribute("items", items);
+                RequestDispatcher rd = getServletContext().getRequestDispatcher("/searchItem.jsp");
             } else {
-                
                 out.print("No Such Action");
             }
         } catch (Exception e) {

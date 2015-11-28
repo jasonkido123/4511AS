@@ -26,7 +26,7 @@
         <title>Check Out Order</title>
     </head>
     <body>
-        <form action="OrderFirst" onSubmit="if(!confirm('Are you really to buy these product?')){return false;}">
+        <form action="CheckoutOrderController" onSubmit="if(!confirm('Are you really to buy these product?')){return false;}">
             <table border="1">
                 <tr><td>Item_Name</td><td>Item_Point</td><td>Item_Price</td><td>Quantity</td></tr>
                 <%

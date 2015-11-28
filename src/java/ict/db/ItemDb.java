@@ -202,6 +202,17 @@ public class ItemDb {
         pStmnt.setString(1, id);
         return SearchFactory(pStmnt, cnnct);
     }
+    public Shopping SearchByIdShopping(String id) throws IOException, SQLException {
+        Connection cnnct = null;
+        PreparedStatement pStmnt = null;
+        cnnct = getConnection();
+        String preQueryStatement = "SELECT * FROM item WHERE itemid =?";
+        pStmnt = cnnct.prepareStatement(preQueryStatement);
+        pStmnt.setString(1, id);
+        ArrayList al =SearchFactory(pStmnt, cnnct);
+        Shopping s = (Shopping)al.get(0);
+        return s;
+    }
 
     public ArrayList SearchBy(String[] data) throws IOException, SQLException {
         Connection cnnct = null;

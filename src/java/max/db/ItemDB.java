@@ -6,10 +6,8 @@
 package max.db;
 
 import max.bean.ItemBean;
-import java.sql.Connection;
-import java.sql.Statement;
-import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.sql.*;
 
 /**
  *
@@ -22,18 +20,45 @@ public class ItemDB extends Database {
     }
 
     public ArrayList<ItemBean> queryAll() {
-        ArrayList<ItemBean> items = new ArrayList<ItemBean>();
+        ResultSet rs = null;
 
         try {
             Connection c = super.getConnection();
             String Sql = "select * from item";
             Statement stm = c.createStatement();
-            ResultSet rs = stm.executeQuery(Sql);
+            rs = stm.executeQuery(Sql);
 
+        } catch (Exception e) {
+
+        }
+        return fillList(rs);
+    }
+
+    public ArrayList<ItemBean> queryByCondition(String col, String keyword) {
+        ResultSet rs = null;
+        try {
+            String sql = "select * from item where " + col + " like '%"+  keyword+"%'";
+            Connection c = super.getConnection();
+            Statement stm = c.createStatement();
+            
+            //PreparedStatement preStm = c.prepareStatement(sql);
+            //preStm.setString(1, keyword);
+            //System.out.println(sql);
+            rs = stm.executeQuery(sql);
+        } catch (Exception e) {
+
+        }
+
+        return fillList(rs);
+    }
+
+    public ArrayList<ItemBean> fillList(ResultSet rs) {
+        ArrayList<ItemBean> items = new ArrayList<ItemBean>();
+        try {
             while (rs.next()) {
                 ItemBean b = new ItemBean();
                 b.setItemId(rs.getString("ItemId"));
-                b.setItemId(rs.getString("Item_name"));
+                b.setItem_name(rs.getString("Item_name"));
                 b.setPrice(rs.getInt("price"));
                 b.setCategory(rs.getString("category"));
                 b.setDescriptions(rs.getString("descriptions"));
@@ -46,7 +71,6 @@ public class ItemDB extends Database {
         } catch (Exception e) {
 
         }
-
         return items;
     }
 
