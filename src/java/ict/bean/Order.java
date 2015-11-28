@@ -3,7 +3,23 @@ package ict.bean;
 import java.io.Serializable;
 
 public class Order implements Serializable{
-    private String OrderId, clientId;
+    private String OrderId, clientId,status,PaymentMothed;
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public void setPaymentMothed(String PaymentMothed) {
+        this.PaymentMothed = PaymentMothed;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public String getPaymentMothed() {
+        return PaymentMothed;
+    }
     private double totalPrice;
     private int giftPoint;
 
