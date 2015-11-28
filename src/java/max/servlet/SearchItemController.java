@@ -3,9 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ict.servlet;
+package max.servlet;
 
-import ict.db.*;
+import max.db.*;
+import max.bean.*;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -22,7 +24,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(urlPatterns = {"/searchItem"})
 public class SearchItemController extends HttpServlet {
 
-    private ItemDb db;
+    private ItemDB db;
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -38,7 +40,7 @@ public class SearchItemController extends HttpServlet {
         String dbUser = this.getServletContext().getInitParameter("dbUser");
         String dbPassword = this.getServletContext().getInitParameter("dbPassword");
         String dbUrl = this.getServletContext().getInitParameter("dbUrl");
-        db = new ItemDb(dbUrl, dbUser, dbPassword);
+        db = new ItemDB(dbUrl, dbUser, dbPassword);
     }
 
     public void processRequest(HttpServletRequest request, HttpServletResponse response) {
@@ -47,7 +49,7 @@ public class SearchItemController extends HttpServlet {
             String action = request.getParameter("action");
             PrintWriter out = response.getWriter();
             if (action.equals("showAll")) {
-                ArrayList items = db.AllItem();
+                ArrayList<ItemBean> items = db.queryAll();
                 out.print(items.size());
             } else {
                 

@@ -3,26 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/YIKFEI/Documents/NetBeansProjects/4511AS/src/java/ict/db/ClientDb.java</file>
+            <file>file:/C:/Users/YIKFEI/Documents/NetBeansProjects/4511AS/src/java/max/servlet/SearchItemController.java</file>
             <file>file:/C:/Users/YIKFEI/Documents/NetBeansProjects/4511AS/web/searchItem.jsp</file>
-            <file>file:/C:/Users/YIKFEI/Documents/NetBeansProjects/4511AS/src/java/ict/servlet/SearchItemController.java</file>
-            <file>file:/C:/Users/YIKFEI/Documents/NetBeansProjects/4511AS/web/index.jsp</file>
-            <file>file:/C:/Users/YIKFEI/Documents/NetBeansProjects/4511AS/src/java/ict/servlet/LoginController.java</file>
-            <file>file:/C:/Users/YIKFEI/Documents/NetBeansProjects/4511AS/web/addItem.jsp</file>
-            <file>file:/C:/Users/YIKFEI/Documents/NetBeansProjects/4511AS/src/java/ict/servlet/ShoppingCartController.java</file>
-            <file>file:/C:/Users/YIKFEI/Documents/NetBeansProjects/4511AS/web/WEB-INF/web.xml</file>
-            <file>file:/C:/Users/YIKFEI/Documents/NetBeansProjects/4511AS/src/java/ict/db/ItemDb.java</file>
-            <file>file:/C:/Users/YIKFEI/Documents/NetBeansProjects/4511AS/src/java/ict/db/CategoryDb.java</file>
-            <file>file:/C:/Users/YIKFEI/Documents/NetBeansProjects/4511AS/web/welcomeNormal.jsp</file>
-            <file>file:/C:/Users/YIKFEI/Documents/NetBeansProjects/4511AS/src/java/ict/db/max/Database.java</file>
-            <file>file:/C:/Users/YIKFEI/Documents/NetBeansProjects/4511AS/web/loginError.jsp</file>
-            <file>file:/C:/Users/YIKFEI/Documents/NetBeansProjects/4511AS/src/java/ict/bean/Shopping.java</file>
-            <file>file:/C:/Users/YIKFEI/Documents/NetBeansProjects/4511AS/web/login.jsp</file>
-            <file>file:/C:/Users/YIKFEI/Documents/NetBeansProjects/4511AS/src/java/ict/servlet/OrderFirst.java</file>
-            <file>file:/C:/Users/YIKFEI/Documents/NetBeansProjects/4511AS/src/java/ict/servlet/ShoppingController.java</file>
-            <file>file:/C:/Users/YIKFEI/Documents/NetBeansProjects/4511AS/web/welcome.jsp</file>
-            <file>file:/C:/Users/YIKFEI/Documents/NetBeansProjects/4511AS/src/java/ict/bean/Item.java</file>
-            <file>file:/C:/Users/YIKFEI/Documents/NetBeansProjects/4511AS/src/java/ict/db/max/ItemDB.java</file>
         </group>
     </open-files>
 </project-private>

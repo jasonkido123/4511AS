@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ict.db.max;
+package max.db;
 
 import java.io.IOException;
 import java.sql.DriverManager;
