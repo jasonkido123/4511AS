@@ -5,6 +5,7 @@
         <group>
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
             <file>file:/Z:/4511AS/src/java/ict/db/OrderDb.java</file>
             <file>file:/Z:/4511AS/src/java/ict/servlet/CheckLastTenOrderController.java</file>
             <file>file:/Z:/4511AS/src/java/ict/bean/OrderInfo.java</file>
@@ -17,6 +18,8 @@
 =======
 =======
 >>>>>>> origin/master
+=======
+>>>>>>> origin/master
             <file>file:/C:/Users/YIKFEI/Documents/NetBeansProjects/4511AS/src/java/max/db/ItemDB.java</file>
             <file>file:/C:/Users/YIKFEI/Documents/NetBeansProjects/4511AS/src/java/max/servlet/HandleItemModify.java</file>
             <file>file:/C:/Users/YIKFEI/Documents/NetBeansProjects/4511AS/src/java/max/servlet/SearchItemController.java</file>
@@ -25,6 +28,9 @@
             <file>file:/C:/Users/YIKFEI/Documents/NetBeansProjects/4511AS/src/java/max/bean/ItemBean.java</file>
             <file>file:/C:/Users/YIKFEI/Documents/NetBeansProjects/4511AS/web/shopping.jsp</file>
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> origin/master
+=======
 >>>>>>> origin/master
 =======
 >>>>>>> origin/master
