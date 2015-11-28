@@ -17,6 +17,7 @@
         <table border='1'>
             <tr>
                 <td><a href="addclient?action=getClientUpdate&id=<%=id%>">Update personal infomation</a></td>
+                <td><a href="CheckLastTenOrderController">last 10 Order</a></td>
             </tr>
         </table>
         <form method="post" action="main">

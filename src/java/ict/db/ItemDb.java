@@ -98,7 +98,30 @@ public class ItemDb {
         }
         return isSuccess;
     }
-    
+    public boolean updateQuantity(String id,int quantity){
+        Connection conn =null;
+        PreparedStatement pStmnt = null;
+        boolean isSuccess =false;
+        try{
+            conn = getConnection();
+            String preQueryStatement = "UPDATE Item SET quantity=? WHERE itemid=?";
+            pStmnt = conn.prepareStatement(preQueryStatement);
+            pStmnt.setInt(1,quantity);
+            pStmnt.setString(2, id);
+            int rowCount = pStmnt.executeUpdate();
+            if(rowCount>=1){
+                isSuccess = true;
+            }
+            pStmnt.close();
+            conn.close();
+        }catch(SQLException ex){
+            ex.printStackTrace();
+            ex = ex.getNextException();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+        return isSuccess;
+    }
     public ArrayList queryItem(){
         Connection cnnct = null;
         PreparedStatement pStnmt = null;
@@ -171,6 +194,18 @@ public class ItemDb {
         name = "%" + name + "%";
         pStmnt.setString(1, name);
         return SearchFactory(pStmnt, cnnct);
+    }
+    
+    
+    public String SearchByIdGiftString(String id) throws IOException, SQLException {
+        Connection cnnct = null;
+        PreparedStatement pStmnt = null;
+        cnnct = getConnection();
+        String preQueryStatement = "SELECT * FROM item WHERE itemid =?";
+        pStmnt = cnnct.prepareStatement(preQueryStatement);
+        pStmnt.setString(1, id);
+        ArrayList<Shopping> al = SearchFactory(pStmnt, cnnct);
+        return al.get(0).getItemName();
     }
 
     public ArrayList SearchByCate(String category) throws IOException, SQLException {
@@ -311,6 +346,8 @@ public class ItemDb {
         return SearchFactory(pStmnt, cnnct);
     }
 
+    
+    
     public ArrayList SearchFactory(PreparedStatement pStmnt, Connection cnnct) {
         ResultSet rs = null;
         ArrayList<Shopping> al = null;
