@@ -3,7 +3,15 @@ package ict.bean;
 import java.io.Serializable;
 
 public class Order implements Serializable{
-    private String OrderId, clientId,status,PaymentMothed;
+    private String OrderId, clientId,status,PaymentMothed,orderTime;
+
+    public void setOrderTime(String orderTime) {
+        this.orderTime = orderTime;
+    }
+
+    public String getOrderTime() {
+        return orderTime;
+    }
 
     public void setStatus(String status) {
         this.status = status;

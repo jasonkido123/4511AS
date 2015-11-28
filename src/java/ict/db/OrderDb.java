@@ -49,7 +49,7 @@ public class OrderDb {
                     + "PricePoint Integer(20) NOT NULL,"
                     + "PaymentMothed char(1) NOT NULL,"
                     + "status varchar(10) NOT NULL,"
-                    + "orderTime date NOT NULL"
+                    + "orderTime DATETIME NOT NULL,"
                     + "PRIMARY KEY(OrderId)"
                     + ")";
             stmnt.execute(sql);
@@ -69,7 +69,7 @@ public class OrderDb {
         boolean isSuccess = false;
         try {
             cnnct = getConnection();
-            String preQueryStatement = "insert into orders (OrderId, clientId, totalPrice, PricePoint, PaymentMothed,status) values (?,?,?,?,?,?)";
+            String preQueryStatement = "insert into orders (OrderId, clientId, totalPrice, PricePoint, PaymentMothed,status,orderTime) values (?,?,?,?,?,?,now())";
 
             pStmnt = cnnct.prepareStatement(preQueryStatement);
             pStmnt.setString(1, orderId);
@@ -140,6 +140,7 @@ public class OrderDb {
                 o.setTotalPrice(rs.getDouble("totalPrice"));
                 o.setStatus(rs.getString("status"));
                 o.setPaymentMothed(rs.getString("PaymentMothed"));
+                o.setOrderTime(rs.getString("orderTime"));
                 al.add(o);
             }
             pStmnt.close();
