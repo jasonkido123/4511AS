@@ -62,11 +62,19 @@ public class CheckoutOrderController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         bean = (ClientInfo) request.getSession().getAttribute("client");
         al = (ArrayList<ShoppingCart>) request.getSession().getAttribute("shoppingCart");
+        if (al.size() == 0) {
+            ArrayList temp = null;
+            al = temp;
+        }
         try (PrintWriter out = response.getWriter()) {
             String orderid = odb.genOrderId();
-            if (bean != null && al!=null) {
+            if (bean != null && al != null) {
                 String payment = request.getParameter("payment");
-                if (payment.equals("cash")) {
+                if (payment == null) {
+                    RequestDispatcher rd;
+                    rd = getServletContext().getRequestDispatcher("/PaymentMethodError.jsp");
+                    rd.forward(request, response);
+                } else if (payment.equals("cash")) {
                     double balance = bean.getBalance();
                     double totalPrice = getTotalPrice();
                     if (checkQuantity()) {
@@ -75,6 +83,7 @@ public class CheckoutOrderController extends HttpServlet {
                             cdb.editRecord(bean);
                             odb.addOrder(orderid, bean.getId(), totalPrice, 0, "b", "process");
                             addinfo(orderid);
+                            updateQuantity();
                             out.print("ko");
                             ArrayList temp = null;
                             al = temp;
@@ -82,7 +91,7 @@ public class CheckoutOrderController extends HttpServlet {
                         } else {
                             out.print("balance isn't enough.</br><a href=\"OrderController\">Please try again.</a>");
                         }
-                    }else{
+                    } else {
                         out.print("stock isn't enough.</br>You can use other of payment method or recharge.</br><a href=\"OrderController\">Please try again.</a>");
                     }
                 } else if (payment.equals("point")) {
@@ -94,6 +103,7 @@ public class CheckoutOrderController extends HttpServlet {
                             cdb.editRecord(bean);
                             odb.addOrder(orderid, bean.getId(), 0, totalPoint, "p", "process");
                             addinfo(orderid);
+                            updateQuantity();
                             out.print("ko");
                             ArrayList temp = null;
                             al = temp;
@@ -184,11 +194,20 @@ public class CheckoutOrderController extends HttpServlet {
         boolean check = true;
         for (int i = 0; i < al.size(); i++) {
             Shopping s = idb.SearchByIdShopping(al.get(i).getItemId());
-            if (s.getQuantity() <= al.get(i).getQuantity()) {
+            System.out.println(s.getQuantity() + "         " + al.get(i).getQuantity() + "         " + (s.getQuantity() >= al.get(i).getQuantity()));
+            if (s.getQuantity() < al.get(i).getQuantity()) {
                 check = false;
                 break;
             }
         }
         return check;
+    }
+
+    public void updateQuantity() throws IOException, SQLException {
+        for (int i = 0; i < al.size(); i++) {
+            Shopping s = idb.SearchByIdShopping(al.get(i).getItemId());
+            int newQuantity = s.getQuantity() - al.get(i).getQuantity();
+            idb.updateQuantity(s.getItemId(), newQuantity);
+        }
     }
 }

@@ -1,11 +1,15 @@
 package ict.db;
 
+
+import ict.bean.*;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 public class OrderInfoDb {
     private String url ="";
@@ -53,6 +57,37 @@ public class OrderInfoDb {
         }
     } 
     
+    public ArrayList queryOrderInfoById(String oid){
+        Connection cnnct = null;
+        PreparedStatement pStnmt = null;
+        Item cb = null;
+        ArrayList <OrderInfo> alo = new ArrayList<OrderInfo> ();
+        try{
+            cnnct = getConnection();
+            String preQueryStatment = "select * from orderinfo where OrderId=? ";
+            pStnmt = cnnct.prepareStatement(preQueryStatment);
+            pStnmt.setString(1, oid);
+            ResultSet rs = null;
+            rs = pStnmt.executeQuery();
+            while (rs.next()){
+                OrderInfo oi = new OrderInfo();
+                oi.setItemId(rs.getString("itemId"));
+                oi.setOrderId(rs.getString("orderId"));
+                oi.setPoint(rs.getInt("point"));
+                oi.setPrice(rs.getDouble("price"));
+                oi.setQuantity(rs.getInt("quantity"));
+                alo.add(oi);
+            }
+            pStnmt.close();
+            cnnct.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            ex = ex.getNextException();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return alo;
+    }
     public boolean addOrderinfo(String orderId, String ItemId, double price, int point,int quantity) {
         Connection cnnct = null;
         PreparedStatement pStmnt = null;

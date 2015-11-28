@@ -24,15 +24,15 @@
             <input type="hidden" name="action" value="update">
             <div class="pure-control-group">
                 <label for="itemid">ID</label>
-                <input type="text" id="itemid"  name="itemid"  value="<%= b.getItemId()%>">
+                <input type="text" id="itemid"  name="itemid"  value="<%= b.getItemId()%>" readonly>
             </div>
             <div class="pure-control-group">
                 <label for="item_name">Name</label>
-                <input type="text" id="item_name"  name="item_name" value="<%= b.getItem_name()%>">
+                <input type="text" id="item_name"  name="item_name" value="<%= b.getItem_name()%>" maxlength="25" >
             </div>
             <div class="pure-control-group">
                 <label for="price">Price</label>
-                <input type="text" id="price"  name="price" value="<%= b.getPrice()%>">
+                <input type="text" id="price"  name="price" value="<%= b.getPrice()%>" maxlength="5" >
             </div>
             <div class="pure-control-group">
                 <label for="category">Category</label>

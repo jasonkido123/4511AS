@@ -1,5 +1,6 @@
 package ict.db;
 
+import ict.bean.Item;
 import ict.bean.Order;
 import ict.bean.Shopping;
 import java.io.IOException;
@@ -62,6 +63,41 @@ public class OrderDb {
             e.printStackTrace();
         }
     }
+    
+    
+    public ArrayList queryOrderById(String cid){
+        Connection cnnct = null;
+        PreparedStatement pStnmt = null;
+        Item cb = null;
+        ArrayList <Order> alo = new ArrayList <Order> ();
+        try{
+            cnnct = getConnection();
+            String preQueryStatment = "select * from orders where clientid=? ORDER BY orderTime DESC";
+            pStnmt = cnnct.prepareStatement(preQueryStatment);
+            pStnmt.setString(1, cid);
+            ResultSet rs = null;
+            rs = pStnmt.executeQuery();
+            while (rs.next()){
+                Order o = new Order();
+                o.setClientId(rs.getString("clientid"));
+                o.setGiftPoint(rs.getInt("pricepoint"));
+                o.setOrderId(rs.getString("orderID"));
+                o.setOrderTime(rs.getString("orderTime"));
+                o.setPaymentMothed(rs.getString("paymentMothed"));
+                o.setStatus(rs.getString("status"));
+                o.setTotalPrice(rs.getDouble("totalprice"));
+                alo.add(o);
+            }
+            pStnmt.close();
+            cnnct.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            ex = ex.getNextException();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return alo;
+    }
 
     public boolean addOrder(String orderId, String clientId, double totalPrice, int PricePoint, String PaymentMothed, String status) {
         Connection cnnct = null;
@@ -122,6 +158,9 @@ public class OrderDb {
         id = "O"+id;
         return id;
     }
+    
+    
+    
 
     public ArrayList SearchFactory(PreparedStatement pStmnt, Connection cnnct) {
         ResultSet rs = null;
