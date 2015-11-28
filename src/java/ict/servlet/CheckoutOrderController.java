@@ -62,11 +62,19 @@ public class CheckoutOrderController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         bean = (ClientInfo) request.getSession().getAttribute("client");
         al = (ArrayList<ShoppingCart>) request.getSession().getAttribute("shoppingCart");
+        if (al.size() == 0) {
+            ArrayList temp = null;
+            al = temp;
+        }
         try (PrintWriter out = response.getWriter()) {
             String orderid = odb.genOrderId();
             if (bean != null && al != null) {
                 String payment = request.getParameter("payment");
-                if (payment.equals("cash")) {
+                if (payment == null) {
+                    RequestDispatcher rd;
+                    rd = getServletContext().getRequestDispatcher("/PaymentMethodError.jsp");
+                    rd.forward(request, response);
+                } else if (payment.equals("cash")) {
                     double balance = bean.getBalance();
                     double totalPrice = getTotalPrice();
                     if (checkQuantity()) {
