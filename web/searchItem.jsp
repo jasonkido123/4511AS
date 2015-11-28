@@ -37,19 +37,20 @@
             <%
                 ArrayList<ItemBean> items = (ArrayList<ItemBean>) request.getAttribute("items");
                 //create table with table head
-                out.print("<table class=\"pure-table pure-table-bordered\"");
-                //out.print("<thead>");
+                out.print("<table class=\"pure-table pure-table-bordered\">");
+                out.print("<thead>");
                 out.print("<tr>");
-                out.print("<td>Id</td>");
-                out.print("<td>Name</td>");
-                out.print("<td>Price</td>");
-                out.print("<td>Category</td>");
-                out.print("<td>Description</td>");
-                out.print("<td>Brand</td>");
-                out.print("<td>Quantity</td>");
-                out.print("<td>Point</td>");
+                out.print("<th>Id</th>");
+                out.print("<th>Name</th>");
+                out.print("<th>Price</th>");
+                out.print("<th>Category</th>");
+                out.print("<th>Description</th>");
+                out.print("<th>Brand</th>");
+                out.print("<th>Quantity</th>");
+                out.print("<th>Point</th>");
+                out.print("<th>Modify</th>");
                 out.print("</tr>");
-    //out.print("</thead>");
+                out.print("</thead>");
 
                 //out.print("<tbody>");
                 for (int i = 0; i < items.size(); i++) {
@@ -69,6 +70,7 @@
                     out.print("<td>" + b.getBrand() + "</td>");
                     out.print("<td>" + b.getQuantity() + "</td>");
                     out.print("<td>" + b.getPoint() + "</td>");
+                    out.print("<td><a href=\"modifyItem?action=show&itemid=" + b.getItemId() + "\">Modify</a></td>");
                     out.print("</tr>");
                 }
                 //out.print("</tbody>");

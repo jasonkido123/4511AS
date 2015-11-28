@@ -19,6 +19,6 @@ public class Test {
         ItemDB db = new ItemDB("jdbc:mysql://localhost/jsp_ass","root","");
         ArrayList<ItemBean> al = db.queryByCondition("Item_name", "1");
         
-        //System.out.println( al.size());
+        System.out.print(db.queryById("I0001"));
     }
 }

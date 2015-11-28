@@ -3,22 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< HEAD
             <file>file:/C:/Users/YIKFEI/Documents/NetBeansProjects/4511AS/src/java/max/db/ItemDB.java</file>
-            <file>file:/C:/Users/YIKFEI/Documents/NetBeansProjects/4511AS/src/java/max/db/Database.java</file>
+            <file>file:/C:/Users/YIKFEI/Documents/NetBeansProjects/4511AS/src/java/max/servlet/HandleItemModify.java</file>
             <file>file:/C:/Users/YIKFEI/Documents/NetBeansProjects/4511AS/src/java/max/servlet/SearchItemController.java</file>
-            <file>file:/C:/Users/YIKFEI/Documents/NetBeansProjects/4511AS/src/java/ict/servlet/ItemController.java</file>
+            <file>file:/C:/Users/YIKFEI/Documents/NetBeansProjects/4511AS/web/modifyItem.jsp</file>
             <file>file:/C:/Users/YIKFEI/Documents/NetBeansProjects/4511AS/web/searchItem.jsp</file>
-            <file>file:/C:/Users/YIKFEI/Documents/NetBeansProjects/4511AS/src/java/ict/servlet/LoginController.java</file>
-            <file>file:/C:/Users/YIKFEI/Documents/NetBeansProjects/4511AS/src/java/ict/servlet/AddItemController.java</file>
-            <file>file:/C:/Users/YIKFEI/Documents/NetBeansProjects/4511AS/src/java/ict/servlet/OrderController.java</file>
-            <file>file:/C:/Users/YIKFEI/Documents/NetBeansProjects/4511AS/src/java/max/Test.java</file>
-=======
-            <file>file:/Z:/4511AS/src/java/ict/db/OrderDb.java</file>
-            <file>file:/Z:/4511AS/src/java/ict/db/ItemDb.java</file>
-            <file>file:/Z:/4511AS/src/java/ict/servlet/ShoppingCartController.java</file>
-            <file>file:/Z:/4511AS/src/java/ict/servlet/CheckoutOrderController.java</file>
->>>>>>> origin/master
+            <file>file:/C:/Users/YIKFEI/Documents/NetBeansProjects/4511AS/src/java/max/bean/ItemBean.java</file>
+            <file>file:/C:/Users/YIKFEI/Documents/NetBeansProjects/4511AS/web/shopping.jsp</file>
         </group>
     </open-files>
 </project-private>

@@ -47,7 +47,6 @@ public class SearchItemController extends HttpServlet {
     public void processRequest(HttpServletRequest request, HttpServletResponse response) {
         try {
             String action = request.getParameter("action");
-            PrintWriter out = response.getWriter();
 
             if (action.equals("showAll")) {
                 ArrayList<ItemBean> items = db.queryAll();
@@ -57,10 +56,13 @@ public class SearchItemController extends HttpServlet {
             } else if (action.equals("condition")) {
                 String col = request.getParameter("col");
                 String keyword = request.getParameter("keyword");
+                //System.out.print(col+" "+ keyword);
                 ArrayList<ItemBean> items = db.queryByCondition(col, keyword);
                 request.setAttribute("items", items);
                 RequestDispatcher rd = getServletContext().getRequestDispatcher("/searchItem.jsp");
+                rd.forward(request, response);
             } else {
+                PrintWriter out = response.getWriter();
                 out.print("No Such Action");
             }
         } catch (Exception e) {

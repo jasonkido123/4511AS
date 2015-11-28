@@ -80,7 +80,11 @@ public class ItemBean implements Serializable {
     public void setPoint(int point) {
         this.point = point;
     }
-    
+
+    @Override
+    public String toString() {
+        return "ItemBean{" + "ItemId=" + ItemId + ", Item_name=" + Item_name + ", category=" + category + ", descriptions=" + descriptions + ", brand=" + brand + ", price=" + price + ", quantity=" + quantity + ", point=" + point + '}';
+    }
     
     
 
