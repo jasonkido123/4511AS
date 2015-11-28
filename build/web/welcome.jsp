@@ -19,6 +19,9 @@
             <tr>
                 <td><a href="addItem.jsp">Add Item</a></td>
             </tr>
+            <tr>
+                <td><a href="searchItem?action=showAll">Search Item</a></td>
+            </tr>
         </table>
         <form method="post" action="main">
             <input type="hidden" name="action" value="logout">
