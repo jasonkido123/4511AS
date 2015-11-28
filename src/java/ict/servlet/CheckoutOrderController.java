@@ -6,8 +6,10 @@
 package ict.servlet;
 
 import ict.bean.ClientInfo;
+import ict.bean.Shopping;
 import ict.bean.ShoppingCart;
 import ict.db.ClientDb;
+import ict.db.ItemDb;
 import ict.db.OrderDb;
 import ict.db.OrderInfoDb;
 import java.io.IOException;
@@ -29,6 +31,7 @@ import javax.servlet.http.HttpSession;
 @WebServlet(name = "CheckoutOrderController", urlPatterns = {"/CheckoutOrderController"})
 public class CheckoutOrderController extends HttpServlet {
 
+    private ItemDb idb;
     private ClientDb cdb;
     private OrderDb odb;
     private OrderInfoDb oidb;
@@ -42,6 +45,7 @@ public class CheckoutOrderController extends HttpServlet {
         cdb = new ClientDb(dbUrl, dbUser, dbPassword);
         odb = new OrderDb(dbUrl, dbUser, dbPassword);
         oidb = new OrderInfoDb(dbUrl, dbUser, dbPassword);
+        idb = new ItemDb(dbUrl, dbUser, dbPassword);
     }
 
     /**
@@ -59,36 +63,46 @@ public class CheckoutOrderController extends HttpServlet {
         bean = (ClientInfo) request.getSession().getAttribute("client");
         al = (ArrayList<ShoppingCart>) request.getSession().getAttribute("shoppingCart");
         try (PrintWriter out = response.getWriter()) {
-            String orderid =odb.genOrderId();
-            if (bean != null && al != null) {
+            String orderid = odb.genOrderId();
+            if (bean != null && al!=null) {
                 String payment = request.getParameter("payment");
                 if (payment.equals("cash")) {
                     double balance = bean.getBalance();
                     double totalPrice = getTotalPrice();
-                    if (balance>=totalPrice) {
-                        bean.setBalance(balance-totalPrice);
-                        cdb.editRecord(bean);
-                        odb.addOrder(orderid, bean.getId(),totalPrice, 0, "b", "process");
-                        addinfo(orderid);
-                        out.print("ko");
-                        al.clear();
-                        request.getSession().setAttribute("shoppingCart", al);
-                    } else {
-                        out.print("Balance isn't enough.</br>You can use other of payment method or recharge.</br><a href=\"OrderController\">Please try again.</a>");
+                    if (checkQuantity()) {
+                        if (balance >= totalPrice) {
+                            bean.setBalance(balance - totalPrice);
+                            cdb.editRecord(bean);
+                            odb.addOrder(orderid, bean.getId(), totalPrice, 0, "b", "process");
+                            addinfo(orderid);
+                            out.print("ko");
+                            ArrayList temp = null;
+                            al = temp;
+                            request.getSession().setAttribute("shoppingCart", al);
+                        } else {
+                            out.print("balance isn't enough.</br><a href=\"OrderController\">Please try again.</a>");
+                        }
+                    }else{
+                        out.print("stock isn't enough.</br>You can use other of payment method or recharge.</br><a href=\"OrderController\">Please try again.</a>");
                     }
                 } else if (payment.equals("point")) {
                     int point = bean.getPoint();
                     int totalPoint = getTotalPoint();
-                    if (point>=totalPoint) {
-                        bean.setBalance(point-totalPoint);
-                        cdb.editRecord(bean);
-                        odb.addOrder(orderid, bean.getId(),0, totalPoint, "p", "process");
-                        addinfo(orderid);
-                        out.print("ko");
-                        al.clear();
-                        request.getSession().setAttribute("shoppingCart", al);
+                    if (checkQuantity()) {
+                        if (point >= totalPoint) {
+                            bean.setPoint(point - totalPoint);
+                            cdb.editRecord(bean);
+                            odb.addOrder(orderid, bean.getId(), 0, totalPoint, "p", "process");
+                            addinfo(orderid);
+                            out.print("ko");
+                            ArrayList temp = null;
+                            al = temp;
+                            request.getSession().setAttribute("shoppingCart", al);
+                        } else {
+                            out.print("Point of balance isn't enough.</br><a href=\"OrderController\">Please try again.</a>");
+                        }
                     } else {
-                        out.print("Point of balance isn't enough.</br>You can use other of payment method or recharge.</br><a href=\"OrderController\">Please try again.</a>");
+                        out.print("stock isn't enough.</br>You can use other of payment method or recharge.</br><a href=\"OrderController\">Please try again.</a>");
                     }
                 } else {
                     out.print("invaild payment method</br><a href=\"OrderController\">Please try again.</a>");
@@ -101,9 +115,12 @@ public class CheckoutOrderController extends HttpServlet {
                 out.print("your order haven't product in cart.");
             }
         } catch (IOException e) {
-
-        }catch (SQLException ex) {
-
+            System.out.println(e);
+        } catch (SQLException ex) {
+            while (ex != null) {
+                ex.printStackTrace();
+                ex = ex.getNextException();
+            }
         }
     }
 
@@ -156,9 +173,22 @@ public class CheckoutOrderController extends HttpServlet {
         }
         return totalpoint;
     }
-    public void addinfo(String orderid){
-        for(int i=0;i<al.size();i++){
-            oidb.addOrderinfo(orderid, al.get(i).getItemId(), al.get(i).getPrice(), al.get(i).getPoint(),al.get(i).getQuantity());
+
+    public void addinfo(String orderid) {
+        for (int i = 0; i < al.size(); i++) {
+            oidb.addOrderinfo(orderid, al.get(i).getItemId(), al.get(i).getPrice(), al.get(i).getPoint(), al.get(i).getQuantity());
         }
+    }
+
+    public boolean checkQuantity() throws IOException, SQLException {
+        boolean check = true;
+        for (int i = 0; i < al.size(); i++) {
+            Shopping s = idb.SearchByIdShopping(al.get(i).getItemId());
+            if (s.getQuantity() <= al.get(i).getQuantity()) {
+                check = false;
+                break;
+            }
+        }
+        return check;
     }
 }
