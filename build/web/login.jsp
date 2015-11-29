@@ -11,6 +11,13 @@
                 width:4cm;
             }
 
+            body {
+                background-image: url(img/bg.jpg);            
+                background-size: 100%;
+                background-origin: content;
+                background-repeat: no-repeat;
+            }
+
             #outPopUp{
                 position:absolute;
                 top:50%;
@@ -19,19 +26,19 @@
             }
         </style>
     </head>
-    <body background="img/bg.jpg" >
+    <body>
         <div id="outPopUp">
             <form method="post" action="main"  class="pure-form pure-form-stacked" >
 
-                <label for="username" style="color: white" >Username</label>
-                <input type="text" id="username" name="username" maxlength="15" size="20">
+                <label for="username" style="color: white" ></label>
+                <input type="text" id="username" name="username" maxlength="15" size="20" placeholder="Username" >
 
-                <label for="password" style="color: white" >Password</label>
-                <input type="password" name="password" maxlength="11" size="16">
+                <label for="password" style="color: white" ></label>
+                <input type="password" name="password" maxlength="11" size="16" placeholder="password" >
 
                 <input type="hidden" name="action" value="authenticate"/>
                 <label></label>
-                <button type="submit" class="pure-button pure-button-primary">Login</button>
+                <button type="submit" class="pure-button button-success">Login</button>
             </form>
             <form  id="form2" action="register.jsp" class="pure-form pure-form-stacked">
                 <label></label>
