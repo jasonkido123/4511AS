@@ -53,13 +53,19 @@
                     s += "<h3>" + alo.get(i).getOrderId() + "</br>" + "Order Time:" + alo.get(i).getOrderTime()
                             + "</br>" + "Payment Method:" + paymentMethod
                             + "</br>" + "Total Price:" + price
-                            + "</br>" + "status:" + alo.get(i).getStatus() + "</h3>";
+                            + "</br>" + "status:" + alo.get(i).getStatus();
+
+                    s += "</h3>";
                     s += "<div>";
                     s += "<p><ul>";
-                    for(int k=0;k<aloi.size();k++){
-                        s+="<li>";
-                        s+= idb.SearchByIdGiftString(aloi.get(k).getItemId())+"  "+aloi.get(k).getQuantity()+"  "+aloi.get(k).getPoint()+"  "+aloi.get(k).getPrice();
-                        s+="</li>";
+                    for (int k = 0; k < aloi.size(); k++) {
+                        s += "<li>";
+                        s += idb.SearchByIdGiftString(aloi.get(k).getItemId()) + "  " + aloi.get(k).getQuantity() + "  " + aloi.get(k).getPoint() + "  " + aloi.get(k).getPrice();
+                        s += "</li>";
+
+                    }
+                    if (alo.get(i).getStatus().equals("process")) {
+                        s += "</br><a href=\"CancelOrderController?action=cancel&oid=" + alo.get(i).getOrderId() + "\"><input type=\"button\" value=\"Cancel Order\"></a>";
                     }
                     s += "</ul></p>";
                     s += "</div>";

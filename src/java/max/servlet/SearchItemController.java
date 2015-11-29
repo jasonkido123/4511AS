@@ -5,6 +5,7 @@
  */
 package max.servlet;
 
+import ict.bean.ClientInfo;
 import max.db.*;
 import max.bean.*;
 
@@ -26,7 +27,7 @@ import javax.servlet.http.HttpServletResponse;
 public class SearchItemController extends HttpServlet {
 
     private ItemDB db;
-
+    private ClientInfo bean;
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         processRequest(req, resp); //To change body of generated methods, choose Tools | Templates.
@@ -47,27 +48,33 @@ public class SearchItemController extends HttpServlet {
     public void processRequest(HttpServletRequest request, HttpServletResponse response) {
         try {
             String action = request.getParameter("action");
-
-            if (action.equals("showAll")) {
-                ArrayList<ItemBean> items = db.queryAll();
-                request.setAttribute("items", items);
-                RequestDispatcher rd = getServletContext().getRequestDispatcher("/searchItem.jsp");
-                rd.forward(request, response);
-            } else if (action.equals("condition")) {
-                String col = request.getParameter("col");
-                String keyword = request.getParameter("keyword");
-                //System.out.print(col+" "+ keyword);
-                ArrayList<ItemBean> items = db.queryByCondition(col, keyword);
-                request.setAttribute("items", items);
-                RequestDispatcher rd = getServletContext().getRequestDispatcher("/searchItem.jsp");
-                rd.forward(request, response);
-            } else {
-                PrintWriter out = response.getWriter();
-                out.print("No Such Action");
-            }
-        } catch (Exception e) {
+            bean = (ClientInfo) request.getSession().getAttribute("client");
+            if (bean.getAdmin().equals("Y")) {
+                if (action.equals("showAll")) {
+                    ArrayList<ItemBean> items = db.queryAll();
+                    request.setAttribute("items", items);
+                    RequestDispatcher rd = getServletContext().getRequestDispatcher("/searchItem.jsp");
+                    rd.forward(request, response);
+                } else if (action.equals("condition")) {
+                    String col = request.getParameter("col");
+                    String keyword = request.getParameter("keyword");
+                    //System.out.print(col+" "+ keyword);
+                    ArrayList<ItemBean> items = db.queryByCondition(col, keyword);
+                    request.setAttribute("items", items);
+                    RequestDispatcher rd = getServletContext().getRequestDispatcher("/searchItem.jsp");
+                    rd.forward(request, response);
+                } else {
+                    PrintWriter out = response.getWriter();
+                    out.print("No Such Action");
+                }
+            }else {
+            RequestDispatcher rd;
+            rd = getServletContext().getRequestDispatcher("/welcomeNormal.jsp");
+            rd.forward(request, response);
+        }
+            }catch (Exception e) {
             System.out.println(e.getMessage());
         }
-    }
+        }
 
-}
+    }

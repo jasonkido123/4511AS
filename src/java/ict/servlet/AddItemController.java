@@ -1,5 +1,6 @@
 package ict.servlet;
 
+import ict.bean.ClientInfo;
 import ict.db.ItemDb;
 import java.io.PrintWriter;
 import java.io.IOException;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 public class AddItemController extends HttpServlet {
 
     private ItemDb db;
+    private ClientInfo bean;
 
     public void init() {
         String dbUser = this.getServletContext().getInitParameter("dbUser");
@@ -26,12 +28,19 @@ public class AddItemController extends HttpServlet {
     protected void doPost(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
-
-        if ("additem".equals(action)) {
-            doAdd(request, response);
-        } else {
-            response.sendError(HttpServletResponse.SC_NOT_IMPLEMENTED);
+        bean = (ClientInfo) request.getSession().getAttribute("client");
+        if (bean.getAdmin().equals("Y")) {
+            if ("additem".equals(action)) {
+                doAdd(request, response);
+            } else {
+                response.sendError(HttpServletResponse.SC_NOT_IMPLEMENTED);
+            }
+        }else {
+            RequestDispatcher rd;
+            rd = getServletContext().getRequestDispatcher("/welcomeNormal.jsp");
+            rd.forward(request, response);
         }
+
     }
 
     private void doAdd(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -45,10 +54,9 @@ public class AddItemController extends HttpServlet {
         String brand = request.getParameter("brand");
         int quantity = Integer.parseInt(request.getParameter("quantity"));
         int point = Integer.parseInt(request.getParameter("point"));
-        
 
         try {
-            db.addItem(ItemId, Item_name, price, category, descriptions, brand,quantity,point);
+            db.addItem(ItemId, Item_name, price, category, descriptions, brand, quantity, point);
         } catch (Exception ex) {
             PrintWriter out = new PrintWriter(System.out);
             out.println("<h1><font color='red'>Please input correct data!</font></h1>");

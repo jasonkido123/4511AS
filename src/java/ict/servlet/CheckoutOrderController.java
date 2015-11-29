@@ -90,7 +90,7 @@ public class CheckoutOrderController extends HttpServlet {
                             odb.addOrder(orderid, bean.getId(), totalPrice, 0, "b", "process");
                             addinfo(orderid);
                             updateQuantity();
-                            out.print("ko");
+                            out.print("Successful Check Out</br><a href=\"welcomeNormal.jsp\">back to index page</a>");
                             ArrayList temp = null;
                             al = temp;
                             request.getSession().setAttribute("shoppingCart", al);
@@ -110,7 +110,7 @@ public class CheckoutOrderController extends HttpServlet {
                             odb.addOrder(orderid, bean.getId(), 0, totalPoint, "p", "process");
                             addinfo(orderid);
                             updateQuantity();
-                            out.print("ko");
+                            out.print("Successful Check Out</br><a href=\"welcomeNormal.jsp\">back to index page</a>");
                             ArrayList temp = null;
                             al = temp;
                             request.getSession().setAttribute("shoppingCart", al);

@@ -5,6 +5,7 @@
  */
 package max.servlet;
 
+import ict.bean.ClientInfo;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -24,7 +25,7 @@ import max.db.ItemDB;
 public class HandleItemModify extends HttpServlet {
 
     private ItemDB db;
-
+    private ClientInfo bean;
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         processRequest(req, resp); //To change body of generated methods, choose Tools | Templates.
@@ -39,32 +40,37 @@ public class HandleItemModify extends HttpServlet {
         String itemid = request.getParameter("itemid");
         String action = request.getParameter("action");
         try {
+            bean = (ClientInfo) request.getSession().getAttribute("client");
+            if (bean.getAdmin().equals("Y")) {
+                if (action.equals("show")) {
+                    ItemBean item = db.queryById(itemid);
+                    request.setAttribute("item", item);
+                    RequestDispatcher rd = getServletContext().getRequestDispatcher("/modifyItem.jsp");
+                    rd.forward(request, response);
+                } else if (action.equals("update")) {
+                    ItemBean b = new ItemBean();
+                    b.setItemId(request.getParameter("itemid"));
+                    b.setItem_name(request.getParameter("item_name"));
+                    b.setPrice(Double.parseDouble(request.getParameter("price")));
+                    b.setCategory(request.getParameter("category"));
+                    b.setDescriptions(request.getParameter("descriptions"));
+                    b.setBrand(request.getParameter("brand"));
+                    b.setQuantity(Integer.parseInt(request.getParameter("quantity")));
+                    b.setPoint(Integer.parseInt(request.getParameter("point")));
+                    //System.out.print(b);
+                    db.updateRecord(b);
+                    RequestDispatcher rd = getServletContext().getRequestDispatcher("/searchItem?action=showAll");
+                    rd.forward(request, response);
 
-            if (action.equals("show")) {
-                ItemBean item = db.queryById(itemid);
-                request.setAttribute("item", item);
-                RequestDispatcher rd = getServletContext().getRequestDispatcher("/modifyItem.jsp");
-                rd.forward(request, response);
-            } else if (action.equals("update")) {
-                ItemBean b = new ItemBean();
-                b.setItemId(request.getParameter("itemid"));
-                b.setItem_name(request.getParameter("item_name"));
-                b.setPrice(Double.parseDouble(request.getParameter("price")));
-                b.setCategory(request.getParameter("category"));
-                b.setDescriptions(request.getParameter("descriptions"));
-                b.setBrand(request.getParameter("brand"));
-                b.setQuantity(Integer.parseInt(request.getParameter("quantity")));
-                b.setPoint(Integer.parseInt(request.getParameter("point")));
-                //System.out.print(b);
-                db.updateRecord(b);
-                RequestDispatcher rd = getServletContext().getRequestDispatcher("/searchItem?action=showAll");
-                rd.forward(request, response);
-
+                } else {
+                    PrintWriter out = response.getWriter();
+                    out.print("No Such Action");
+                }
             } else {
-                PrintWriter out = response.getWriter();
-                out.print("No Such Action");
+                RequestDispatcher rd;
+                rd = getServletContext().getRequestDispatcher("/welcomeNormal.jsp");
+                rd.forward(request, response);
             }
-
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
