@@ -63,6 +63,11 @@ public class UpdateOrderController extends HttpServlet {
                 for (int i = 0; i < status.length; i++) {
                     db.updateOrderStatus(orderid[i], status[i]);
                 }
+                
+                ArrayList<OrderBean> orders =  db.queryByIDs(orderid);
+                request.setAttribute("orders", orders);
+                RequestDispatcher rd = getServletContext().getRequestDispatcher("/updateOrder.jsp");
+                rd.forward(request, response);
             } else if (action.equals("search")) {
                 String col = request.getParameter("col");
                 String keyword = request.getParameter("keyword");
@@ -70,12 +75,12 @@ public class UpdateOrderController extends HttpServlet {
                 request.setAttribute("orders", orders);
                 RequestDispatcher rd = getServletContext().getRequestDispatcher("/updateOrder.jsp");
                 rd.forward(request, response);
-            } else{
+            } else {
                 out.print("No such action");
             }
 
         } catch (Exception e) {
-
+            System.out.println(e.getMessage());
         }
 
     }
