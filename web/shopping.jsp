@@ -8,7 +8,7 @@
 
     <script src="jquery/jquery-latest.js" type="text/javascript"></script>
     <script type="text/javascript" src="jquery/jquery.tablesorter.js"></script> 
-
+    <link href="max/css/pure/pure-min.css" rel="stylesheet" type="text/css"/>
     <script type="text/javascript">
         $(document).ready(function ()
         {
