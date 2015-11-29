@@ -9,7 +9,7 @@
         <h1>Please enter the following details:</h1>
         <form method="post" action="addclient">
             <input type="hidden" name="action" value="add"/>
-            <table border='1'>
+            <table border='1' >
                 <tr>
                     <td><b>Client id:</b></td>
                     <td><input type="text" name="clientid" maxlength="5" size="8"></td>
