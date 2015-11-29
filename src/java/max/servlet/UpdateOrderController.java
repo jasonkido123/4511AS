@@ -70,6 +70,8 @@ public class UpdateOrderController extends HttpServlet {
                 request.setAttribute("orders", orders);
                 RequestDispatcher rd = getServletContext().getRequestDispatcher("/updateOrder.jsp");
                 rd.forward(request, response);
+            } else{
+                out.print("No such action");
             }
 
         } catch (Exception e) {
