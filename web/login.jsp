@@ -19,14 +19,14 @@
             }
         </style>
     </head>
-    <body>
+    <body background="img/bg.jpg" >
         <div id="outPopUp">
             <form method="post" action="main"  class="pure-form pure-form-stacked" >
 
-                <label for="username">Username</label>
+                <label for="username" style="color: white" >Username</label>
                 <input type="text" id="username" name="username" maxlength="15" size="20">
 
-                <label for="password">Password</label>
+                <label for="password" style="color: white" >Password</label>
                 <input type="password" name="password" maxlength="11" size="16">
 
                 <input type="hidden" name="action" value="authenticate"/>

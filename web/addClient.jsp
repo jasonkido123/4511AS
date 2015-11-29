@@ -8,10 +8,6 @@
         <link href="max/css/div.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
-<<<<<<< HEAD
-<<<<<<< 218b514906bd530507f69ed9d49f65ec396ae9e8
-=======
->>>>>>> origin/master
         <%
             ClientInfo bean = (ClientInfo) request.getSession().getAttribute("client");
             if (bean.getAdmin().equals("N")) {
@@ -20,11 +16,6 @@
                 rd.forward(request, response);
             }
         %>
-<<<<<<< HEAD
-=======
->>>>>>> hjkl
-=======
->>>>>>> origin/master
         <div class="distance" >
             <h1>Please enter the following details</h1>
         </div>
@@ -90,6 +81,5 @@
                 </div>
             </fieldset>
         </form>
-
     </body>
 </html>
