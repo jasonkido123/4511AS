@@ -16,7 +16,7 @@
         <b>Hello, client <jsp:getProperty name="client" property="username" /></b>
         <p>Welcome to Stationery Online Station</p>
         <table border='1' class="pure-table pure-table-bordered">
-            <tr><td><a href="addclient?action=getClientUpdate&id=<%=id%>">Update personal infomation</a></td></tr>
+            <tr><td><a href="updateClientInfo.jsp">Update personal infomation</a></td></tr>
             <tr><td><a href="CheckLastTenOrderController">last 10 Order</a></td></tr>
             <tr><td><a href="shopping.jsp">Shopping</a></td></tr>
             <tr><td><a href="ShoppingCart?action=">Shopping Cart</a></tr>
