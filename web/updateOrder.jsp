@@ -30,6 +30,7 @@
                 <select name="col">
                     <option value="OrderId" >OrderID</option>
                     <option value="clientId" >ClientID</option>
+                    <option value="status" >Status</option>
                 </select>
                 <button type="submit" class="pure-button pure-button-primary">Search</button>
             </form>
@@ -70,9 +71,17 @@
                     out.print("<td>" + b.getTotalPrice() + "</td>");
                     out.print("<td>" + b.getPircePoint() + "</td>");
                     out.print("<td>" + b.getPaymentmethod() + "</td>");
-                    out.print("<td><select name=\"status\">");
+
+                    String cs = b.getStatus();
+                    if(cs.equals("cancel")){
+                        out.print("<td><select disabled name=\"status\">");
+                    }
+                    else{
+                        out.print("<td><select name=\"status\">");
+                    }
+                    
                     for (int j = 0; j < status.length; j++) {
-                        if (status[j].equals(b.getStatus())) {
+                        if (status[j].equals(cs)) {
                             out.print("<option selected value=\"" + b.getStatus() + "\">" + b.getStatus() + "</option>");
                         } else {
                             out.print("<option value=\"" + status[j] + "\"  >" + status[j] + "</option>");

@@ -74,13 +74,29 @@ public class UpdateOrderController extends HttpServlet {
                     RequestDispatcher rd = getServletContext().getRequestDispatcher("/updateOrder.jsp");
                     rd.forward(request, response);
                 }
+<<<<<<< HEAD
+                
+                ArrayList<OrderBean> orders =  db.queryByIDs(orderid);
+                request.setAttribute("orders", orders);
+                RequestDispatcher rd = getServletContext().getRequestDispatcher("/updateOrder.jsp");
+                rd.forward(request, response);
+            } else if (action.equals("search")) {
+                String col = request.getParameter("col");
+                String keyword = request.getParameter("keyword");
+                ArrayList<OrderBean> orders = db.queryByString(col, keyword);
+                request.setAttribute("orders", orders);
+                RequestDispatcher rd = getServletContext().getRequestDispatcher("/updateOrder.jsp");
+=======
             } else {
                 RequestDispatcher rd;
                 rd = getServletContext().getRequestDispatcher("/welcomeNormal.jsp");
+>>>>>>> origin/master
                 rd.forward(request, response);
+            } else {
+                out.print("No such action");
             }
         } catch (Exception e) {
-
+            System.out.println(e.getMessage());
         }
 
     }

@@ -108,7 +108,7 @@ public class OrderDB extends Database {
         ResultSet rs = null;
         try {
             Connection c = super.getConnection();
-            String sql = "select * from orders where "+col+" like '%" + keyword +"%'";
+            String sql = "select * from orders where " + col + " like '%" + keyword + "%'";
             Statement stm = c.createStatement();
             System.out.println(stm);
             rs = stm.executeQuery(sql);
@@ -116,6 +116,32 @@ public class OrderDB extends Database {
             System.out.println(e.getMessage());
         }
         return fillList(rs);
+    }
+
+    public ArrayList<OrderBean> queryByIDs(String[] ids) {
+        String idSet = "";
+        for (int i = 0; i < ids.length; i++) {
+            if (i == ids.length - 1) {
+                idSet += "'" + ids[i] + "'";
+            } else {
+                idSet += "'" + ids[i] + "'" + ",";
+            }
+        }
+
+        try {
+            Connection c = super.getConnection();
+            String sql = "Select * from orders where orderid in ("+idSet+ ")";
+            Statement stm = c.createStatement();
+            //System.out.println(sql);
+            ResultSet rs = stm.executeQuery(sql);
+            return fillList(rs);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+
+        }
+
+        //System.out.print(idSet);
+        return null;
     }
 
 }
