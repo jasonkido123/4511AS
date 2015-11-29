@@ -25,7 +25,7 @@ public class OrderDB extends Database {
             Connection c = super.getConnection();
             Statement stm = c.createStatement();
             String sql = "select * from orders where status != \"cancel\"";
-            System.out.println(sql);
+            //System.out.println(sql);
             rs = stm.executeQuery(sql);
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -88,4 +88,34 @@ public class OrderDB extends Database {
             System.out.println(e.getMessage());
         }
     }
+
+    public void updateOrderStatus(String orderid, String status) {
+        try {
+            Connection c = super.getConnection();
+            String sql = "update orders set status = ? where orderid = ?";
+            PreparedStatement stm = c.prepareStatement(sql);
+            stm.setString(1, status);
+            stm.setString(2, orderid);
+            stm.execute();
+            stm.close();
+            c.close();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public ArrayList<OrderBean> queryByString(String col, String keyword) {
+        ResultSet rs = null;
+        try {
+            Connection c = super.getConnection();
+            String sql = "select * from orders where "+col+" like '%" + keyword +"%'";
+            Statement stm = c.createStatement();
+            System.out.println(stm);
+            rs = stm.executeQuery(sql);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return fillList(rs);
+    }
+
 }

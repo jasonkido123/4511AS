@@ -8,7 +8,7 @@
 
     <script src="jquery/jquery-latest.js" type="text/javascript"></script>
     <script type="text/javascript" src="jquery/jquery.tablesorter.js"></script> 
-
+    <link href="max/css/pure/pure-min.css" rel="stylesheet" type="text/css"/>
     <script type="text/javascript">
         $(document).ready(function ()
         {
@@ -24,7 +24,7 @@
     </head>
     <body>
         <form action="shopping">
-            <table border="1">
+            <table border="1"  class="pure-table pure-table-bordered">
                 <tr><td colspan="6">Search</td></tr>
                 <tr><td>Product Name:<input type="Textbox" name="SearchName"></td>
                     <td>Money range:</br>
@@ -121,7 +121,7 @@
             </table>
         </form>
         </br>
-        <table border="1" id="search" class="tablesorter">
+        <table border="1" id="search" class="tablesorter pure-table pure-table-bordered">
             <thead>
                 <tr>
                     <th>ItemName</th>

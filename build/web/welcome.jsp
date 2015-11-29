@@ -3,13 +3,14 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link href="max/css/pure/pure-min.css" rel="stylesheet" type="text/css"/>
         <title>Welcome</title>
     </head>
     <body>
         <jsp:useBean id="clientInfo" class="ict.bean.ClientInfo" scope="session" />
         <b>Hello, admin <jsp:getProperty name="client" property="username" /></b>
         <p>Welcome to Stationery Online Station</p>
-        <table border='1'>
+        <table border='1'  class="pure-table pure-table-bordered">
             <tr>
                 <td><a href="addClient.jsp">Add Client</a></td>
             </tr>

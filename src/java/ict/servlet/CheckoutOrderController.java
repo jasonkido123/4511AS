@@ -62,7 +62,13 @@ public class CheckoutOrderController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         bean = (ClientInfo) request.getSession().getAttribute("client");
         al = (ArrayList<ShoppingCart>) request.getSession().getAttribute("shoppingCart");
-        if (al.size() == 0) {
+        try {
+            if (al.size() <= 0) {
+                ArrayList temp = null;
+                al = temp;
+            }
+        } catch (NullPointerException e) {
+
             ArrayList temp = null;
             al = temp;
         }

@@ -49,12 +49,29 @@ public class UpdateOrderController extends HttpServlet {
         try {
             PrintWriter out = response.getWriter();
             String action = request.getParameter("action");
+
             if (action.equals("showAll")) {
                 ArrayList<OrderBean> orders = db.queryNonCancelOrders();
                 request.setAttribute("orders", orders);
                 RequestDispatcher rd = getServletContext().getRequestDispatcher("/updateOrder.jsp");
                 rd.forward(request, response);
+            } else if (action.equals("update")) {
+                String[] orderid = request.getParameterValues("orderid");
+                String[] status = request.getParameterValues("status");
+                //System.out.print(orderid.length);
+                //out.print("Here");
+                for (int i = 0; i < status.length; i++) {
+                    db.updateOrderStatus(orderid[i], status[i]);
+                }
+            } else if (action.equals("search")) {
+                String col = request.getParameter("col");
+                String keyword = request.getParameter("keyword");
+                ArrayList<OrderBean> orders = db.queryByString(col, keyword);
+                request.setAttribute("orders", orders);
+                RequestDispatcher rd = getServletContext().getRequestDispatcher("/updateOrder.jsp");
+                rd.forward(request, response);
             }
+
         } catch (Exception e) {
 
         }

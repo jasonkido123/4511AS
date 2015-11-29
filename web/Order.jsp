@@ -22,12 +22,13 @@
     </script>
 
     <head>
+        <link href="max/css/pure/pure-min.css" rel="stylesheet" type="text/css"/>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Check Out Order</title>
     </head>
     <body>
         <form action="CheckoutOrderController" onSubmit="if(!confirm('Are you really to buy these product?')){return false;}">
-            <table border="1">
+            <table border="1" class="pure-table pure-table-bordered">
                 <tr><td>Item_Name</td><td>Item_Point</td><td>Item_Price</td><td>Quantity</td></tr>
                 <%
                     double totalPrice = 0;
@@ -66,7 +67,7 @@
                 %>
         </form>
 
-        <table border="1">
+        <table border="1" class="pure-table pure-table-bordered">
             <tr><td></td><td>Name</td><td>Your balance</td><td>Your point balance</td></tr>
             <%                    ClientInfo bean = (ClientInfo) request.getSession().getAttribute("client");
                 String s = "";

@@ -7,6 +7,7 @@
 <%@page import="ict.bean.ShoppingCart"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <script>
     function isNumberKey(evt) {
@@ -19,14 +20,15 @@
 
 <html>
     <head>
+        <link href="max/css/pure/pure-min.css" rel="stylesheet" type="text/css"/>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Shopping Cart</title>
     </head>
     <body>
         <%  String pid = (String) request.getAttribute("id");
             ArrayList<ShoppingCart> itemAL = (ArrayList<ShoppingCart>) request.getSession().getAttribute("shoppingCart");%>
         <form action="ShoppingCart">
-            <table border="1">
+            <table border="1" class="pure-table pure-table-bordered">
                 <tr><td>Item_Name</td><td>Item_Point</td><td>Item_Price</td><td>Quantity</td><td>Del</td></tr>
                 <%
                     try {
