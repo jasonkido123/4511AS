@@ -56,8 +56,8 @@
                                 + "<input type=\"radio\" value=\"point\" name=\"payment\">Point"
                                 + "<input type=\"radio\" value=\"cash\" name=\"payment\">Cash"
                                 + "</td></tr>";
-                        s += "<tr><td align=\"left\" colspan=\"3\"><a href=\"ShoppingCart?action=\"><input type=\"button\" value=\"Edit Product\"/ ></a></td>"
-                                + "<td align=\"right\" colspan=\"1\"><input type=\"submit\" name=\"action\" value=\"Confrim\" /></td></tr>";
+                        s += "<tr><td align=\"left\" colspan=\"3\"><a href=\"ShoppingCart?action=\"><input type=\"button\" value=\"Edit Product\" class=\"pure-button pure-button-primary\" / ></a></td>"
+                                + "<td align=\"right\" colspan=\"1\"><input type=\"submit\" name=\"action\" value=\"Confrim\" class=\"pure-button pure-button-primary\" /></td></tr>";
                         s += "</table>";
                         out.print(s);
                     } catch (NullPointerException e) {

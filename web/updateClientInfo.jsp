@@ -72,7 +72,7 @@
                 </tr>
                 <tr>
                     <td colspan="2" align="right">
-                        <input type="submit" value="update" name="action"/>
+                        <input type="submit" value="update" name="action" class="pure-button pure-button-primary"/>
                     </td>
                 </tr>
             </table>

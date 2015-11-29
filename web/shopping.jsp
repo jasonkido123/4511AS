@@ -116,7 +116,7 @@
                             </select>
                         </td>
                         <td>
-                            <input type="submit" name="action" value=search />
+                            <input type="submit" name="action" value=search class="pure-button pure-button-primary" />
                         </td>
                     </tr>
                 </table>
@@ -146,7 +146,7 @@
                                 out.println("<td>" + item.getQuantity() + "</td>");
                                 out.println("<td>" + item.getPrice() + "</td>");
                                 out.println("<td>" + item.getPoint() + "</td>");
-                                out.println("<td>" + "<a href=\"ShoppingCart?action=add&pid=" + item.getItemId() + "\"><input type=\"button\" value=\"Add\"/ ></a></td>");
+                                out.println("<td>" + "<a href=\"ShoppingCart?action=add&pid=" + item.getItemId() + "\"><input type=\"button\" value=\"Add\" class=\"pure-button pure-button-primary\"/ ></a></td>");
                                 out.println("</tr>");
                             }
                         }%>

@@ -8,6 +8,7 @@
 <%@page import="ict.bean.*"%>
 
 <%@page import="java.util.ArrayList"%>
+<link href="max/css/pure/pure-min.css" rel="stylesheet" type="text/css"/>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -60,12 +61,13 @@
                     s += "<p><ul>";
                     for (int k = 0; k < aloi.size(); k++) {
                         s += "<li>";
-                        s += idb.SearchByIdGiftString(aloi.get(k).getItemId()) + "  " + aloi.get(k).getQuantity() + "  " + aloi.get(k).getPoint() + "  " + aloi.get(k).getPrice();
+                        s += "Name:"+idb.SearchByIdGiftString(aloi.get(k).getItemId()) + " | Quantity:" + aloi.get(k).getQuantity() + " | Point:" + aloi.get(k).getPoint() + " | Price:$" + aloi.get(k).getPrice();
                         s += "</li>";
 
                     }
                     if (alo.get(i).getStatus().equals("process")) {
-                        s += "</br><a href=\"CancelOrderController?action=cancel&oid=" + alo.get(i).getOrderId() + "\"><input type=\"button\" value=\"Cancel Order\"></a>";
+                        
+                        s += "</br><a href=\"CancelOrderController?action=cancel&oid=" + alo.get(i).getOrderId() + "\"><input type=\"button\" value=\"Cancel Order\" class=\"pure-button pure-button-primary\" /></a>";
                     }
                     s += "</ul></p>";
                     s += "</div>";

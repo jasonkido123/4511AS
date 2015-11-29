@@ -42,7 +42,7 @@
                             s += "<td>" + sc.getPoint() + "</td>";
                             s += "<td>" + sc.getPrice() + "</td>";
                             s += "<td><input type=\"Textbox\" name=\"quantity" + i + "\" value=\"" + sc.getQuantity() + "\" onkeypress=\"return isNumberKey(event)\" ></td>";
-                            s += "<td><a href=\"ShoppingCart?action=del&pid=" + sc.getItemId() + "\"><input type=\"button\" value=\"Del\"/ ></a></td>";
+                            s += "<td><a href=\"ShoppingCart?action=del&pid=" + sc.getItemId() + "\"><input type=\"button\" value=\"Del\" class=\"pure-button pure-button-primary\"/ ></a></td>";
                             s += "</tr>";
                             totalPrice += sc.getPrice() * sc.getQuantity();
                             totalPoint += sc.getPoint() * sc.getQuantity();
@@ -52,9 +52,9 @@
                         s += "<tr><td align=\"right\" colspan=\"3\">Total Point:</td>"
                                 + "<td align=\"right\" colspan=\"2\">" + totalPoint + "</td></tr>";
          
-                        s += "<tr><td align=\"left\" colspan=\"3\"><a href=\"shopping.jsp\"><input type=\"button\" value=\"Continue Shopping\"/ ></a></td>"
-                                + "<td align=\"right\" colspan=\"1\"><input type=\"submit\" name=\"action\" value=\"update\"/></td>"
-                                + "<td align=\"right\" colspan=\"1\"><a href=\"OrderController\"><input type=\"button\" name=\"action\" value=\"CheckOut\" /></a></td></tr>";
+                        s += "<tr><td align=\"left\" colspan=\"3\"><a href=\"shopping.jsp\"><input type=\"button\" value=\"Continue Shopping\" class=\"pure-button pure-button-primary\" / ></a></td>"
+                                + "<td align=\"right\" colspan=\"1\"><input type=\"submit\" name=\"action\" value=\"update\" class=\"pure-button pure-button-primary\"/></td>"
+                                + "<td align=\"right\" colspan=\"1\"><a href=\"OrderController\"><input type=\"button\" name=\"action\" value=\"CheckOut\" class=\"pure-button pure-button-primary\" /></a></td></tr>";
                         s += "</table>";
                         out.print(s);
                     } catch (NullPointerException e) {
