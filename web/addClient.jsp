@@ -5,10 +5,6 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Add Client</title>
         <link href="max/css/div.css" rel="stylesheet" type="text/css"/>
-        <style>
-            input {width:4cm;}
-        </style>
-
     </head>
     <body>
         <div class="distance" >
