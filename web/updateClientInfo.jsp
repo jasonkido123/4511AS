@@ -14,6 +14,14 @@
                 return false;
             return true;
         }
+        function validate(form) {
+            if (!valid) {
+                alert('Please correct the errors in the form!');
+                return false;
+            } else {
+                return confirm('Do you really want to submit the form?');
+            }
+        }
     </script>
     <%! private ClientInfo bean;
         String dbUser = "root";
@@ -31,7 +39,7 @@
                 rd.forward(request, response);
             }
         %>
-        <form action="update">
+        <form action="updateClientInfo" onSubmit="if(!confirm('Are you really to update these information?')){return false;}">
             <table border="1" class="pure-table pure-table-bordered">
                 <tr>
                     <td>Name:</td>
