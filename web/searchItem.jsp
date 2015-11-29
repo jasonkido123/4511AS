@@ -10,13 +10,19 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Search Result</title>
+        <title>Search Item</title>
         <link href="max/css/pure/pure-min.css" rel="stylesheet" type="text/css"/>
+        <style>
+            div {
+                padding-left: 1cm;
+                padding-top: 0.5cm;
+            }
+        </style>
     </head>
     <body>
 
         <div>
-            <form method="get" action="searchItem">
+            <form class="pure-form" method="get" action="searchItem">
                 <input type="hidden"  name="action"  value="condition" />
                 <input name="keyword"/>
                 <select name="col" >
@@ -29,7 +35,7 @@
                     <option  value="quantity">Quantity</option>
                     <option  value="point">Point</option>
                 </select>
-                <input type="submit" value="search"/>
+                <button type="submit" class="pure-button pure-button-primary">Search</button>
             </form>
         </div>
         <br/>
