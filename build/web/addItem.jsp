@@ -1,3 +1,4 @@
+<%@page import="ict.bean.ClientInfo"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -6,6 +7,14 @@
         <title>Add Item</title>
     </head>
     <body>
+        <%
+            ClientInfo bean = (ClientInfo) request.getSession().getAttribute("client");
+            if (bean.getAdmin().equals("N")) {
+                RequestDispatcher rd;
+                rd = getServletContext().getRequestDispatcher("/welcomeNormal.jsp");
+                rd.forward(request, response);
+            }
+        %>
         <h1>Please enter the following details:</h1>
         <form method="post" action="additem">
             <input type="hidden" name="action" value="additem"/>
