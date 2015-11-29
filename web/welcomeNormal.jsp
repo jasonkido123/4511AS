@@ -17,6 +17,9 @@
         <table border='1'>
             <tr>
                 <td><a href="addclient?action=getClientUpdate&id=<%=id%>">Update personal infomation</a></td>
+                <td><a href="CheckLastTenOrderController">last 10 Order</a></td>
+                <td><a href="shopping.jsp">Shopping</a></td>
+                <td><a href="ShoppingCart?action=">Shopping Cart</a></td>
             </tr>
         </table>
         <form method="post" action="main">

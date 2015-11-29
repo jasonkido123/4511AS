@@ -5,8 +5,18 @@
  */
 package ict.servlet;
 
+import ict.bean.ClientInfo;
+import ict.bean.Order;
+import ict.bean.OrderInfo;
+import ict.bean.ShoppingCart;
+import ict.db.ClientDb;
+import ict.db.ItemDb;
+import ict.db.OrderDb;
+import ict.db.OrderInfoDb;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,8 +27,21 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author chanyan
  */
-@WebServlet(name = "OrderFirst", urlPatterns = {"/OrderFirst"})
-public class OrderFirst extends HttpServlet {
+@WebServlet(name = "CheckLastTenOrderController", urlPatterns = {"/CheckLastTenOrderController"})
+public class CheckLastTenOrderController extends HttpServlet {
+
+    private ClientInfo bean;
+    private OrderDb odb;
+    
+    private ArrayList<Order> alo;
+    
+
+    public void init() {
+        String dbUser = this.getServletContext().getInitParameter("dbUser");
+        String dbPassword = this.getServletContext().getInitParameter("dbPassword");
+        String dbUrl = this.getServletContext().getInitParameter("dbUrl");
+        odb = new OrderDb(dbUrl, dbUser, dbPassword);
+    }
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,17 +55,21 @@ public class OrderFirst extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        bean = (ClientInfo) request.getSession().getAttribute("client");
+        String s = "";
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet OrderFirst</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet OrderFirst at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+            if (bean != null) {
+                alo = odb.queryOrderById(bean.getId());
+                request.setAttribute("orderList", alo);
+                RequestDispatcher rd;
+                rd = getServletContext().getRequestDispatcher("/checkLastTenOrder.jsp");
+                rd.forward(request, response);
+            } else if (bean == null) {
+                RequestDispatcher rd;
+                rd = getServletContext().getRequestDispatcher("/CheckOrderLoginError.jsp");
+                rd.forward(request, response);
+            }
         }
     }
 
@@ -72,7 +99,7 @@ public class OrderFirst extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        //processRequest(request, response);
     }
 
     /**
@@ -80,9 +107,4 @@ public class OrderFirst extends HttpServlet {
      *
      * @return a String containing servlet description
      */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-
 }
