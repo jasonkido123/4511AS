@@ -5,6 +5,7 @@
  */
 package ict.servlet;
 
+import ict.db.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -19,7 +20,15 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "updateClientInfo", urlPatterns = {"/updateClientInfo"})
 public class updateClientInfo extends HttpServlet {
+    
+    private ClientDb db;
 
+    public void init() {
+        String dbUser = this.getServletContext().getInitParameter("dbUser");
+        String dbPassword = this.getServletContext().getInitParameter("dbPassword");
+        String dbUrl = this.getServletContext().getInitParameter("dbUrl");
+        db = new ClientDb(dbUrl, dbUser, dbPassword);
+    }
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -32,6 +41,7 @@ public class updateClientInfo extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        String action = request.getParameter("action");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
