@@ -8,6 +8,7 @@ and open the template in the editor.
     Author     : YIKFEI
 */
 @import "pure/pure-min.css";
+@import "button.css";
 
 .distance {
     padding-left: 1cm;

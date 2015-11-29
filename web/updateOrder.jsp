@@ -73,13 +73,12 @@
                     out.print("<td>" + b.getPaymentmethod() + "</td>");
 
                     String cs = b.getStatus();
-                    if(cs.equals("cancel")){
-                        out.print("<td><select disabled name=\"status\">");
-                    }
-                    else{
+                    if (cs.equals("cancel")) {
+                        out.print("<td><select readonly name=\"status\">");
+                    } else {
                         out.print("<td><select name=\"status\">");
                     }
-                    
+
                     for (int j = 0; j < status.length; j++) {
                         if (status[j].equals(cs)) {
                             out.print("<option selected value=\"" + b.getStatus() + "\">" + b.getStatus() + "</option>");

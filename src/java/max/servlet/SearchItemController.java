@@ -28,6 +28,7 @@ public class SearchItemController extends HttpServlet {
 
     private ItemDB db;
     private ClientInfo bean;
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         processRequest(req, resp); //To change body of generated methods, choose Tools | Templates.
@@ -67,14 +68,14 @@ public class SearchItemController extends HttpServlet {
                     PrintWriter out = response.getWriter();
                     out.print("No Such Action");
                 }
-            }else {
-            RequestDispatcher rd;
-            rd = getServletContext().getRequestDispatcher("/welcomeNormal.jsp");
-            rd.forward(request, response);
-        }
-            }catch (Exception e) {
+            } else {
+                RequestDispatcher rd;
+                rd = getServletContext().getRequestDispatcher("/welcomeNormal.jsp");
+                rd.forward(request, response);
+            }
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        }
-
     }
+
+}

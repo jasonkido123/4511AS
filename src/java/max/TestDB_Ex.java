@@ -5,7 +5,7 @@
  */
 package max;
 
-import max.db.OrderDB;
+import max.db.*;
 
 /**
  *
@@ -14,8 +14,8 @@ import max.db.OrderDB;
 public class TestDB_Ex {
 
     public static void main(String[] agrs) {
-        OrderDB db = new OrderDB("jdbc:mysql://localhost/jsp_ass", "root", "");
-        System.out.print(db.queryNonCancelOrders().size());
+        ClientDB db = new ClientDB("jdbc:mysql://localhost/jsp_ass", "root", "");
+        System.out.print(db.nextClientID());
     }
 
 }
