@@ -39,28 +39,28 @@
                 rd.forward(request, response);
             }
         %>
-        <form action="updateClientInfo" onSubmit="if(!confirm('Are you really to update these information?')){return false;}">
+        <form action="updateClientInfo" onSubmit="if(!confirm('Are you really to update these information?')){return false;}" method="post">
             <table border="1" class="pure-table pure-table-bordered">
                 <tr>
                     <td>Name:</td>
                     <td>
-                        <input type="text" value="<%out.print(bean.getName());%>" name="name" />
+                        <input type="text" value="<%//out.print(bean.getName());%>" name="name" />
                     </td>
                 </tr>
                 <tr>
                     <td>Tel:</td>
                     <td>
-                        <input type="text" value=<%out.print("\""+bean.getTel() +"\" onkeypress=\"return isNumberKey(event)\"") ;%> name="tel"/>
+                        <input type="text" value=""<%//out.print("\""+bean.getTel() +"\" onkeypress=\"return isNumberKey(event)\"") ;%> name="tel"/>
                     </td>
                 </tr>
                 <tr>
                     <td>Delivery Address:</td>
                     <td>
-                        <input type="text" value=" <%out.print(bean.getAddress());%>" name="daddress"/>
+                        <input type="text" value=" <%//out.print(bean.getAddress());%>" name="daddress"/>
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="2" align="center">Update Pasword:</td>
+                    <td colspan="2" align="center">Update Pasword(Need over 6digit):</td>
                 </tr>
                 <tr>
                     <td> Old Password:</td>    
@@ -72,7 +72,7 @@
                 </tr>
                 <tr>
                     <td colspan="2" align="right">
-                        <input type="submit" value="Update" name="action"/>
+                        <input type="submit" value="update" name="action"/>
                     </td>
                 </tr>
             </table>
