@@ -64,6 +64,61 @@ public class OrderDb {
         }
     }
     
+    public boolean updateStatus(String oid,String Status){
+        Connection conn =null;
+        PreparedStatement pStmnt = null;
+        boolean isSuccess =false;
+        try{
+            conn = getConnection();
+            String preQueryStatement = "UPDATE Orders SET status=? WHERE OrderId=?";
+            pStmnt = conn.prepareStatement(preQueryStatement);
+            pStmnt.setString(1,Status);
+            pStmnt.setString(2, oid);
+            int rowCount = pStmnt.executeUpdate();
+            if(rowCount>=1){
+                isSuccess = true;
+            }
+            pStmnt.close();
+            conn.close();
+        }catch(SQLException ex){
+            ex.printStackTrace();
+            ex = ex.getNextException();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+        return isSuccess;
+    }
+    public Order queryOrderByOId(String oid){
+        Connection cnnct = null;
+        PreparedStatement pStnmt = null;
+        Item cb = null;
+        Order o = new Order();
+        try{
+            cnnct = getConnection();
+            String preQueryStatment = "select * from orders where orderid=?";
+            pStnmt = cnnct.prepareStatement(preQueryStatment);
+            pStnmt.setString(1, oid);
+            ResultSet rs = null;
+            rs = pStnmt.executeQuery();
+            while (rs.next()){
+                o.setClientId(rs.getString("clientid"));
+                o.setGiftPoint(rs.getInt("pricepoint"));
+                o.setOrderId(rs.getString("orderID"));
+                o.setOrderTime(rs.getString("orderTime"));
+                o.setPaymentMothed(rs.getString("paymentMothed"));
+                o.setStatus(rs.getString("status"));
+                o.setTotalPrice(rs.getDouble("totalprice"));
+            }
+            pStnmt.close();
+            cnnct.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            ex = ex.getNextException();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return o;
+    }
     
     public ArrayList queryOrderById(String cid){
         Connection cnnct = null;

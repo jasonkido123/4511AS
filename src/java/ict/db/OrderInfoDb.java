@@ -118,4 +118,37 @@ public class OrderInfoDb {
         }
         return isSuccess;
     }
+    
+    public ArrayList seachOinfo(String oid){
+        Connection cnnct = null;
+        PreparedStatement pStnmt = null;
+        Item cb = null;
+        ArrayList <OrderInfo> al = new ArrayList <OrderInfo> ();
+        try{
+            cnnct = getConnection();
+            String preQueryStatment = "select * from orderInfo where orderid=?";
+            pStnmt = cnnct.prepareStatement(preQueryStatment);
+            pStnmt.setString(1,oid);
+            ResultSet rs = null;
+            rs = pStnmt.executeQuery();
+            while (rs.next()){
+                OrderInfo oi = new OrderInfo();
+                oi.setOrderId(rs.getString("orderid"));
+                oi.setItemId(rs.getString("itemid"));
+                oi.setPoint(rs.getInt("point"));
+                oi.setPrice(rs.getDouble("price"));
+                oi.setQuantity(rs.getInt("quantity"));
+                al.add(oi);
+            }
+            pStnmt.close();
+            cnnct.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            ex = ex.getNextException();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return al;
+    }
+    
 }
